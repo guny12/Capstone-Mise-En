@@ -3,7 +3,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from datetime import datetime
-from app.models import association_table
 
 
 class User(db.Model, UserMixin):

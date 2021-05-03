@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import User, List, Task, Note, db
+from app.models import User
 
 user_routes = Blueprint('users', __name__)
 
