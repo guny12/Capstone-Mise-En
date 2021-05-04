@@ -1,5 +1,4 @@
 from .db import db
-from werkzeug.security import generate_password_hash
 from sqlalchemy.orm import relationship
 from datetime import datetime, date, time
 
@@ -10,6 +9,7 @@ class Events(db.Model, UserMixin):
     hostName= db.Column(db.String(50), nullable=False)
     hostContact= db.Column(db.String(250))
     hostEmail= db.Column(db.String(200), nullable=False)
+    hostURL=db.Column(db.Text, nullable=False)
     name= db.Column(db.String(100), nullable=False)
     locationName= db.Column(db.String(200), nullable=False)
     location= db.Column(db.String(400), nullable=False)
@@ -30,6 +30,7 @@ class Events(db.Model, UserMixin):
             "hostName": self.hostName,
             "hostContact": self.hostContact,
             "hostEmail": self.hostEmail,
+            "hostURL": self.hostURL,
             "name": self.name,
             "locationName": self.locationName,
             "location": self.location,
