@@ -1,31 +1,32 @@
 from faker import Faker
 from app.models import db, Events
+from datetime import datetime
 faker = Faker()
 
 types=["public", "private", "catered"]
 
-def seed_users():
+def seed_events():
     for i in range(20):
         event = Events(
-        hostName= faker.first_name()
-        hostContact= faker.phone_number()
-        hostEmail= faker.email()
-        hostURL=faker.sha256()
-        name= f"{faker.name()} place"
-        locationName= faker.name()
-        location= faker.address()
-        description= faker.paragraph(nb_sentences=3)
-        date= faker.date_between(start_date='+2y', end_date='+10y')
-        startTime= faker.time()
-        type= faker.words(1, types, True)
-        totalCost= faker.random_int(10,1000)
-        availableSpots=faker.random_int(1,20)
-        thingsNeeded= "None"
+        hostName= faker.first_name(),
+        hostContact= faker.phone_number(),
+        hostEmail= faker.email(),
+        hostURL=faker.sha256(),
+        name= f"{faker.name()} place",
+        locationName= faker.name(),
+        location= faker.address(),
+        description= faker.paragraph(nb_sentences=3),
+        date= datetime.strptime(f"{faker.future_date()}","%Y-%m-%d"),
+        startTime= faker.time(),
+        type= faker.words(1, types, False),
+        totalCost= faker.random_int(10,1000),
+        availableSpots=faker.random_int(1,20),
+        thingsNeeded= "None",
         hostId=1
         )
 
         db.session.add(event)
-
+    print(faker.date(), "FAKER DATE \n\n\n\n\n\n")
     db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the users table.

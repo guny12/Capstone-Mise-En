@@ -1,8 +1,9 @@
 from .db import db
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, validates
 from datetime import datetime, date, time
 
-class Events(db.Model, UserMixin):
+
+class Events(db.Model):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -14,15 +15,22 @@ class Events(db.Model, UserMixin):
     locationName= db.Column(db.String(200), nullable=False)
     location= db.Column(db.String(400), nullable=False)
     description= db.Column(db.Text, nullable=False)
-    date= db.Column(db.Date, nullable=False, min=date.today())
+    date= db.Column(db.Date, nullable=False)
     startTime= db.Column(db.Time, nullable=False)
     type= db.Column(db.String(100), nullable=False)
     totalCost= db.Column(db.DECIMAL(asdecimal=False))
     availableSpots= db.Column(db.Integer)
     thingsNeeded= db.Column(db.Text)
-    hostId=db.Column(db.integer, db.ForeignKey("users.id"))
+    hostId=db.Column(db.Integer, db.ForeignKey("users.id"))
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
+
+    @validates('date')
+    def validate_date(self,key,date):
+        print(date, "DATE \n\n\n\n\n\n\n")
+        print(datetime.today(), "today \n\n\n\n\n\n\n\n\n")
+        assert date >= datetime.today()
+        return date
 
     def to_dict(self):
       return {
