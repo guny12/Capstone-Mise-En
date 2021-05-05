@@ -10,17 +10,31 @@ const Landing = () => {
 	const userName = useSelector((state) => state.session.user?.username);
 	const userId = useSelector((state) => state.session.user?.id);
 
+	const [errors, setErrors] = useState([]);
 	const [name, setName] = useState("");
 	const [locationName, setLocationName] = useState("");
+	const [location, setLocation] = useState("");
 	const [description, setDescription] = useState("");
-	const [date, setDate] = useState();
-	const [startTime, setStartTime] = useState();
+	const [date, setDate] = useState("");
+	const [startTime, setStartTime] = useState("");
 	const [type, setType] = useState("");
-	const [totalCost, setTotalCost] = useState();
-	const [availableSpots, setAvailableSpots] = useState();
+	const [totalCost, setTotalCost] = useState("");
+	const [availableSpots, setAvailableSpots] = useState("");
+	const [thingsNeeded, setThingsNeeded] = useState("");
 	const [hostId, setHostId] = useState(userId);
 
-	const close = document.querySelector("#modal-background");
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setErrors([]);
+		const eventData = {};
+		// const data = await dispatch(createEvent(eventData));
+		// if (data.errors) setErrors(data.errors);
+		// else await dispatch(getEvent(data.eventId));
+	};
+	const handleCancel = (e) => {
+		e.preventDefault();
+		history.go(0);
+	};
 
 	return (
 		<div>
@@ -36,65 +50,104 @@ const Landing = () => {
 						<li key={idx}>{error}</li>
 					))}
 				</ul>
-				<Form.Group controlId="formBasicEmail">
-					<Form.Label>Email </Form.Label>
+				<Form.Group controlId="formBasicEventName">
+					<Form.Label>Event Name </Form.Label>
 					<Form.Control
 						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						value={name}
+						onChange={(e) => setName(e.target.value)}
 						required
-						placeholder="Enter Email"
+						maxLength="100"
+						placeholder="Enter Event Name"
 					/>
 				</Form.Group>
-				<Form.Group controlId="formBasicUsername">
-					<Form.Label>Username </Form.Label>
+				<Form.Group controlId="formBasicLocationName">
+					<Form.Label>Location Name </Form.Label>
 					<Form.Control
 						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
+						value={locationName}
+						onChange={(e) => setLocationName(e.target.value)}
 						required
-						placeholder="Enter Username"
+						maxLength="200"
+						placeholder="Enter Location Name"
 					/>
 				</Form.Group>
-				<Form.Group controlId="formBasicFirstName">
-					<Form.Label>First Name</Form.Label>
+				<Form.Group controlId="formBasicDescription">
+					<Form.Label>Event Description </Form.Label>
 					<Form.Control
 						type="text"
-						value={firstName}
-						onChange={(e) => setFirstName(e.target.value)}
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
 						required
-						placeholder="Enter First Name"
+						placeholder="Enter Description"
 					/>
 				</Form.Group>
-				<Form.Group controlId="formBasicLastName">
-					<Form.Label>Last Name</Form.Label>
+				<Form.Group controlId="formBasicDate">
+					<Form.Label>Event Date </Form.Label>
+					<Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+				</Form.Group>
+				<Form.Group controlId="formBasicStartTime">
+					<Form.Label>Event Start Time </Form.Label>
+					<Form.Control
+						type="time"
+						value={startTime}
+						onChange={(e) => setStartTime(e.target.value)}
+						required
+						placeholder="Enter Start Time"
+					/>
+				</Form.Group>
+				<Form.Group controlId="formBasicStartTime">
+					<Form.Label>Event Start Time </Form.Label>
+					<Form.Control
+						type="time"
+						value={startTime}
+						onChange={(e) => setStartTime(e.target.value)}
+						required
+						placeholder="Enter Start Time"
+					/>
+				</Form.Group>
+				<Form.Group controlId="formBasicType">
+					<Form.Label>Event Type </Form.Label>
 					<Form.Control
 						type="text"
-						value={lastName}
-						onChange={(e) => setLastName(e.target.value)}
+						value={type}
+						onChange={(e) => setType(e.target.value)}
 						required
-						placeholder="Enter Last Name"
+						placeholder="Enter Event Type"
 					/>
 				</Form.Group>
-				<Form.Group controlId="formBasicPassword">
-					<Form.Label>Password</Form.Label>
+				<Form.Group controlId="formTotalCost">
+					<Form.Label>Event Total Cost </Form.Label>
 					<Form.Control
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						required
-						placeholder="Enter your password"
-					/>
-					<Form.Label>Confirm Password </Form.Label>
-					<Form.Control
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						placeholder="Confirm Your Password"
-						required
+						type="number"
+						value={totalCost}
+						onChange={(e) => setTotalCost(e.target.value)}
+						placeholder="optional Total Cost"
+						min="0"
 					/>
 				</Form.Group>
-				<Button type="submit">Sign Up</Button>
+				<Form.Group controlId="formAvailableSpots">
+					<Form.Label>Available Spots </Form.Label>
+					<Form.Control
+						type="number"
+						value={availableSpots}
+						onChange={(e) => setAvailableSpots(e.target.value)}
+						placeholder="optional Available Spots"
+						min="0"
+					/>
+				</Form.Group>
+				<Form.Group controlId="formThingsNeeded">
+					<Form.Label>Things Needed </Form.Label>
+					<Form.Control
+						as="textarea"
+						rows={3}
+						value={thingsNeeded}
+						onChange={(e) => setThingsNeeded(e.target.value)}
+						placeholder="optional Things Needed"
+					/>
+				</Form.Group>
+
+				<Button type="submit">Create Event</Button>
 			</Form>
 		</div>
 	);
