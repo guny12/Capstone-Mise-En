@@ -14,8 +14,6 @@ class Item(db.Model):
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
-    itemMealplan = relationship()
-
     def to_dict(self):
         return {
             "id": self.id,
