@@ -33,9 +33,5 @@ def undo_seed(tableName):
 # Creates the `flask seed undo` command
 @seed_commands.command("undo")
 def undo():
-    undo_seed("users")
-    undo_seed("events")
-    undo_seed("attendees")
-    undo_seed("mealplans")
-    undo_seed("items")
-    # Add other undo functions here
+    for table in ["users", "events", "attendees", "mealplans", "items"]:
+        undo_seed(table)
