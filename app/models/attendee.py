@@ -17,6 +17,8 @@ class Attendee(db.Model):
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
+    attendeeComments = relationship("Comment", backref="commentAttendee", cascade="all,delete")
+
     def to_dict(self):
         return {
             "id": self.id,
