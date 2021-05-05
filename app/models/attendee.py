@@ -22,5 +22,4 @@ class Attendee(db.Model):
             "attendeeEmail": self.attendeeEmail,
             "going": self.going,
             "eventId": self.eventId,
-            "updatedAt": self.updatedAt,
         }

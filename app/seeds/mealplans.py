@@ -12,7 +12,7 @@ meals = [
     "vegan",
     "keto",
     "low-cal",
-    "carb-city",
+    "Bart's Smart Eats",
     "Jeb's fine dining",
     "Danny's dandan noodles",
     "Drew's stew",
