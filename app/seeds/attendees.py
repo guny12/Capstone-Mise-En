@@ -11,7 +11,7 @@ def seed_attendees():
             attendeeEmail=faker.email(),
             attendeeURL=faker.sha256(),
             going=faker.boolean(),
-            eventId=i if i <= 20 else faker.random_int(1, 20),
+            eventId=i + 1 if i <= 19 else faker.random_int(1, 20),
         )
 
         db.session.add(attendee)
