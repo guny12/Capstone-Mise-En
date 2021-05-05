@@ -13,14 +13,8 @@ const Navigation = () => {
 	const sessionUser = useSelector((state) => state.session.user);
 
 	let sessionLinks;
-
-	if (sessionUser) {
-		sessionLinks = (
-			<>
-				<ProfileButton user={sessionUser} />
-			</>
-		);
-	} else {
+	if (sessionUser) sessionLinks = <ProfileButton user={sessionUser} />;
+	else {
 		sessionLinks = (
 			<>
 				<LoginFormModal />
@@ -31,6 +25,7 @@ const Navigation = () => {
 			</>
 		);
 	}
+
 	const handleSubmit = async () => {
 		await dispatch(sessionActions.login({ credential: "demo@user.iocom", password: "password" }));
 	};

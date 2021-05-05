@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 // import Home from "./components/Home";
@@ -18,11 +18,10 @@ function App() {
 		})();
 	}, [dispatch]);
 
-	if (!loaded) {
-		return null;
-	}
+	if (!loaded) return null;
+
 	return (
-		<BrowserRouter>
+		<>
 			<Navigation />
 			<Switch>
 				{/* <ProtectedRoute path="/home" exact={true}>
@@ -32,7 +31,7 @@ function App() {
 					<Redirect to="/home" />
 				</Route> */}
 			</Switch>
-		</BrowserRouter>
+		</>
 	);
 }
 

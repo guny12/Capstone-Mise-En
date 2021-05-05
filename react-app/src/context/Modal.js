@@ -8,9 +8,7 @@ export function ModalProvider({ children }) {
 	const modalRef = useRef();
 	const [value, setValue] = useState();
 
-	useEffect(() => {
-		setValue(modalRef.current);
-	}, []);
+	useEffect(() => setValue(modalRef.current), []);
 
 	return (
 		<>
