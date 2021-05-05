@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-// import Home from "./components/Home";
+import Home from "./components/Home";
+import Landing from "./components/Landing";
 
 import * as sessionActions from "./store/session";
 
@@ -24,12 +25,15 @@ function App() {
 		<>
 			<Navigation />
 			<Switch>
-				{/* <ProtectedRoute path="/home" exact={true}>
+				<ProtectedRoute path="/home" exact={true}>
 					<Home />
-				</ProtectedRoute> */}
-				{/* <Route path="/">
-					<Redirect to="/home" />
-				</Route> */}
+				</ProtectedRoute>
+				<Route path="" exact={true}>
+					<Landing />
+				</Route>
+				<Route path="/">
+					<Redirect to="/" />
+				</Route>
 			</Switch>
 		</>
 	);
