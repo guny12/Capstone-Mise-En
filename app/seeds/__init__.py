@@ -5,6 +5,7 @@ from .events import seed_events
 from .attendees import seed_attendees
 from .mealplans import seed_mealplans
 from .items import seed_items
+from .comments import seed_comments
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -19,6 +20,7 @@ def seed():
     seed_attendees()
     seed_mealplans()
     seed_items()
+    seed_comments()
     # Add other seed functions here
 
 
@@ -33,5 +35,5 @@ def undo_seed(tableName):
 # Creates the `flask seed undo` command
 @seed_commands.command("undo")
 def undo():
-    for table in ["users", "events", "attendees", "mealplans", "items"]:
+    for table in ["users", "events", "attendees", "mealplans", "items", "comments"]:
         undo_seed(table)
