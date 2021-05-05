@@ -4,6 +4,7 @@ from .users import seed_users
 from .events import seed_events
 from .attendees import seed_attendees
 from .mealplans import seed_mealplans
+from .items import seed_items
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -17,6 +18,7 @@ def seed():
     seed_events()
     seed_attendees()
     seed_mealplans()
+    seed_items()
     # Add other seed functions here
 
 
@@ -35,4 +37,5 @@ def undo():
     undo_seed("events")
     undo_seed("attendees")
     undo_seed("mealplans")
+    undo_seed("items")
     # Add other undo functions here
