@@ -14,7 +14,6 @@ const setSingleEvent = (event) => ({
 
 // thunk action creators
 export const createEvent = (eventData) => async (dispatch) => {
-	console.log(eventData, "EVENT DATA");
 	const response = await fetch("/api/createEvent", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },

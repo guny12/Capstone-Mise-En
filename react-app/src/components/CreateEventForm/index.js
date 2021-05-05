@@ -42,7 +42,7 @@ const CreateEventForm = () => {
 			thingsNeeded,
 			creatorUserId,
 		};
-		console.log(eventData);
+
 		const data = await dispatch(eventActions.createEvent(eventData));
 		console.log(data);
 		// if (data.errors) setErrors(data.errors);
