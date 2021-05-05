@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship, validates
 from datetime import datetime, date, time
 
 
-class Events(db.Model):
+class Event(db.Model):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer, primary_key=True)

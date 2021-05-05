@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship, validates
 from datetime import datetime
 
 
-class Attendees(db.Model):
+class Attendee(db.Model):
     __tablename__ = 'attendees'
 
     id = db.Column(db.Integer, primary_key=True)
