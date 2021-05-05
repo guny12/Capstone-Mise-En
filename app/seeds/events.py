@@ -22,7 +22,7 @@ def seed_events():
             totalCost=float(f"{faker.random_int(10,1000)}.{faker.random_int(1,9)}{faker.random_int(1,9)}"),
             availableSpots=faker.random_int(1, 20),
             thingsNeeded="None",
-            hostId=1 if i <= 10 else 2,
+            creatorUserId=1 if i <= 10 else 2,
         )
 
         db.session.add(event)

@@ -26,7 +26,21 @@ const Landing = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setErrors([]);
-		const eventData = {};
+
+		const eventData = {
+			name,
+			locationName,
+			location,
+			description,
+			date,
+			startTime,
+			type,
+			totalCost,
+			availableSpots,
+			thingsNeeded,
+			userId,
+		};
+		console.log(eventData);
 		// const data = await dispatch(createEvent(eventData));
 		// if (data.errors) setErrors(data.errors);
 		// else await dispatch(getEvent(data.eventId));

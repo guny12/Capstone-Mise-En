@@ -17,7 +17,7 @@ class Event(db.Model):
     totalCost = db.Column(db.DECIMAL(asdecimal=False))
     availableSpots = db.Column(db.Integer)
     thingsNeeded = db.Column(db.Text)
-    hostId = db.Column(db.Integer, db.ForeignKey("users.id"))
+    creatorUserId = db.Column(db.Integer, db.ForeignKey("users.id"))
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
@@ -37,7 +37,7 @@ class Event(db.Model):
             "totalCost": self.totalCost,
             "availableSpots": self.availableSpots,
             "thingsNeeded": self.thingsNeeded,
-            "hostId": self.hostId,
+            "creatorUserId": self.creatorUserId,
             "createdAt": self.createdAt,
             "updatedAt": self.updatedAt,
         }
