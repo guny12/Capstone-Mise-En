@@ -8,12 +8,14 @@ class Mealplan(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     eventId = db.Column(db.Integer, db.ForeignKey("events.id"), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    createdAt = db.Column(db.DateTime, default=datetime.now())
+    updatedAt = db.Column(db.DateTime, default=datetime.now())
 
     def to_dict(self):
         return {
             "id": self.id,
-            "contactInfo": self.contactInfo,
-            "attendeeEmail": self.attendeeEmail,
-            "going": self.going,
+            "name": self.name,
             "eventId": self.eventId,
+            "updatedAt": self.updatedAt,
         }
