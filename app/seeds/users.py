@@ -8,11 +8,7 @@ faker = Faker()
 
 def seed_users():
     demoUser = User(
-        firstName='Demo',
-        lastName='User',
-        email='demo@user.iocom',
-        username='demoUser',
-        password='password'
+        firstName="Demo", lastName="User", email="demo@user.iocom", username="demoUser", password="password"
     )
     db.session.add(demoUser)
     for i in range(50):
@@ -20,22 +16,10 @@ def seed_users():
             firstName=faker.first_name(),
             lastName=faker.last_name(),
             email=faker.email(),
-            username=faker.simple_profile()['username'],
-            password=faker.password(length=10)
+            username=faker.simple_profile()["username"],
+            password=faker.password(length=10),
         )
 
         db.session.add(demo)
 
-    db.session.commit()
-
-# Uses a raw SQL query to TRUNCATE the users table.
-# SQLAlchemy doesn't have a built in function to do this
-# TRUNCATE Removes all the data from the table, and ALTER SEQUENCE resets
-# the auto incrementing primary key
-
-
-def undo_users():
-    db.session.execute('''TRUNCATE TABLE users
-    CASCADE;''')
-    db.session.execute('''ALTER SEQUENCE users_id_seq RESTART WITH 1;''')
     db.session.commit()
