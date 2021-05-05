@@ -1,6 +1,6 @@
 from .db import db
-from sqlalchemy.orm import relationship, validates
-from datetime import datetime, date, time
+from sqlalchemy.orm import relationship
+from datetime import datetime
 
 
 class Event(db.Model):
@@ -21,10 +21,7 @@ class Event(db.Model):
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
-    @validates("date")
-    def validate_date(self, key, date):
-        assert date >= datetime.today()
-        return date
+    eventAttendees = relationship("Attendee", backref="attendeeEvents", cascade="all, delete")
 
     def to_dict(self):
         return {

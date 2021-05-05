@@ -1,6 +1,6 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, validates
 from flask_login import UserMixin
 from datetime import datetime
 
@@ -16,6 +16,11 @@ class User(db.Model, UserMixin):
     hashedPassword = db.Column(db.String(100), nullable=False)
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
+
+    # @validates("email")
+    # def validate_totalCost(self, key, users):
+    #     assert "@" in users
+    #     return users
 
     @property
     def password(self):

@@ -1,5 +1,5 @@
 from .db import db
-from sqlalchemy.orm import relationship, validates
+from sqlalchemy.orm import relationship
 from datetime import datetime
 
 
@@ -13,6 +13,8 @@ class Item(db.Model):
     unit = db.Column(db.String(100), nullable=False)
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
+
+    itemMealplan = relationship()
 
     def to_dict(self):
         return {
