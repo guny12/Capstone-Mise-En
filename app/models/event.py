@@ -21,7 +21,8 @@ class Event(db.Model):
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
-    eventAttendees = relationship("Attendee", backref="attendeeEvents", cascade="all, delete")
+    eventAttendees = relationship("Attendee", backref="attendeeEvent", cascade="all, delete")
+    eventMealplans = relationship("Mealplan", backref="mealplanEvent", cascade="all, delete")
 
     def to_dict(self):
         return {
