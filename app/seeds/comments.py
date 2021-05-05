@@ -4,11 +4,11 @@ from app.models import db, Comment
 faker = Faker()
 
 
-def seed_comments(attendeeURLs):
-    for i in range(50):
+def seed_comments():
+    for i in range(49):
         comment = Comment(
-            commenterURL=attendeeURLs[i],
-            eventId=i + 1 if i <= 19 else faker.random_int(1, 20),
+            attendeeId=i + 1,
+            comment=faker.sentence(),
         )
 
         db.session.add(comment)

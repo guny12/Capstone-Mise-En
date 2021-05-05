@@ -47,7 +47,7 @@ def seed_items():
             mealPlanId=i + 1 if i <= 49 else faker.random_int(1, 50),
             thing=things[faker.random_int(1, len(things) - 1)],
             quantity=faker.random_int(1, 100),
-            unit=units[faker.random_int(1, len(units - 1))],
+            unit=units[faker.random_int(1, len(units) - 1)],
         )
 
         db.session.add(item)
