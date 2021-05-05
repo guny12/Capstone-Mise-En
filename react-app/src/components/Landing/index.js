@@ -21,12 +21,13 @@ const Landing = () => {
 	const [totalCost, setTotalCost] = useState("");
 	const [availableSpots, setAvailableSpots] = useState("");
 	const [thingsNeeded, setThingsNeeded] = useState("");
-	const [hostId, setHostId] = useState(userId);
+	const [creatorUserId, setCreatorUserId] = useState("");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setErrors([]);
 
+		if (userId) setCreatorUserId(userId);
 		const eventData = {
 			name,
 			locationName,
@@ -38,7 +39,7 @@ const Landing = () => {
 			totalCost,
 			availableSpots,
 			thingsNeeded,
-			userId,
+			creatorUserId,
 		};
 		console.log(eventData);
 		// const data = await dispatch(createEvent(eventData));
