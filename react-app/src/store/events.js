@@ -14,14 +14,15 @@ const setSingleEvent = (event) => ({
 
 // thunk action creators
 export const createEvent = (eventData) => async (dispatch) => {
-	const response = await csrfFetch("/api/createEvent", {
+	console.log(eventData, "EVENT DATA");
+	const response = await fetch("/api/createEvent", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(eventData),
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(getEvents());
+		dispatch(setSingleEvent(data));
 		return data;
 	}
 };
