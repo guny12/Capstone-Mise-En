@@ -17,10 +17,10 @@ seed_commands = AppGroup("seed")
 def seed():
     seed_users()
     seed_events()
-    seed_attendees()
+    attendeeURLs = seed_attendees()
     seed_mealplans()
     seed_items()
-    seed_comments()
+    seed_comments(attendeeURLs)
     # Add other seed functions here
 
 

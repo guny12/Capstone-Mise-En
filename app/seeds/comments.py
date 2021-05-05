@@ -1,18 +1,15 @@
 from faker import Faker
-from app.models import db, Attendee
+from app.models import db, Comment
 
 faker = Faker()
 
 
-def seed_attendees():
+def seed_comments(attendeeURLs):
     for i in range(50):
-        attendee = Attendee(
-            contactInfo=f"Phone Number: {faker.phone_number()}",
-            attendeeEmail=faker.email(),
-            attendeeURL=faker.sha256(),
-            going=faker.boolean(),
+        comment = Comment(
+            commenterURL=attendeeURLs[i],
             eventId=i + 1 if i <= 19 else faker.random_int(1, 20),
         )
 
-        db.session.add(attendee)
+        db.session.add(comment)
     db.session.commit()
