@@ -32,8 +32,8 @@ def check_startTime(form, field):
 
 
 class CreateEventForm(FlaskForm):
-    name = StringField(
-        "name",
+    eventName = StringField(
+        "eventName",
         validators=[
             DataRequired(),
             Length(max=100, message="Name can be max 100 characters"),

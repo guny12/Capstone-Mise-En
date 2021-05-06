@@ -15,7 +15,7 @@ def create_event():
 
     if form.validate_on_submit():
         body = request.json
-        name = body["name"]
+        eventName = body["eventName"]
         locationName = body["locationName"]
         location = body["location"]
         description = body["description"]
@@ -28,7 +28,7 @@ def create_event():
         creatorUserId = body["creatorUserId"] if "creatorUserId" in body else None
 
         newEvent = Event(
-            name=name,
+            eventName=eventName,
             locationName=locationName,
             location=location,
             description=description,

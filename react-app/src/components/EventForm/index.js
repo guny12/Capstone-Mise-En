@@ -32,7 +32,7 @@ const EventForm = () => {
 		setErrors([]);
 
 		const eventData = {
-			name,
+			eventName,
 			locationName,
 			location,
 			description,
@@ -45,9 +45,7 @@ const EventForm = () => {
 		const attendeeData = { name, contactInfo, attendeeEmail };
 
 		const data = await dispatch(eventActions.createEvent(eventData));
-		// console.log(data);
-		// if (data.errors) setErrors(data.errors);
-		// else await dispatch(getEvent(data.eventId));
+		if (data.errors) setErrors(data.errors);
 	};
 
 	const handleCancel = (e) => {
