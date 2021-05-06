@@ -1,6 +1,5 @@
 //action type variables
 const SET_SESSION = "session/SET_SESSION";
-export const SET_ATTENDEE = "session/SET_ATTENDEE";
 const REMOVE_SESSION = "session/REMOVE_SESSION";
 
 // action creators
@@ -76,8 +75,6 @@ const sessionReducer = (sessionState = initialState, action) => {
 			return { ...sessionState, user: action.user };
 		case REMOVE_SESSION:
 			return { user: null };
-		case SET_ATTENDEE:
-			return { ...sessionState, attendee: action.attendee };
 		default:
 			return sessionState;
 	}

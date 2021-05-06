@@ -9,8 +9,8 @@ function AttendeeFormModal({ eventData }) {
 
 	return (
 		<>
-			<Button id="loginButton" variant="dark" onClick={() => setShowModal(true)}>
-				Create Event
+			<Button id="AttendeeButton" variant="dark" onClick={() => setShowModal(true)}>
+				Create Attendee
 			</Button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>

@@ -39,17 +39,12 @@ const EventForm = () => {
 			date,
 			startTime,
 			type,
-			// totalCost,
-			// availableSpots,
-			// thingsNeeded,
 			creatorUserId,
 		};
 
-		const Modal = () => {
-			return <AttendeeFormModal eventData={eventData} />;
-		};
-		Modal();
-		// const data = await dispatch(eventActions.createEvent(eventData));
+		const attendeeData = { name, contactInfo, attendeeEmail };
+
+		const data = await dispatch(eventActions.createEvent(eventData));
 		// console.log(data);
 		// if (data.errors) setErrors(data.errors);
 		// else await dispatch(getEvent(data.eventId));
@@ -84,7 +79,6 @@ const EventForm = () => {
 					placeholder="Enter Event Name"
 				/>
 			</Form.Group>
-
 			<Form.Group controlId="formBasicDescription">
 				<Form.Label>Event Description </Form.Label>
 				<Form.Control
@@ -122,7 +116,6 @@ const EventForm = () => {
 					/>
 				</Form.Group>{" "}
 			</Form.Row>
-
 			<Form.Group controlId="formBasicLocationName">
 				<Form.Label>Location Name </Form.Label>
 				<Form.Control
@@ -154,7 +147,6 @@ const EventForm = () => {
 						min="0"
 					/>
 				</Form.Group> */}
-
 			<Form.Group controlId="formBasicLocation">
 				<Form.Label>Location/Address </Form.Label>
 				<Form.Control
@@ -167,7 +159,6 @@ const EventForm = () => {
 					placeholder="Enter Location/Address"
 				/>
 			</Form.Group>
-
 			{/* <Form.Group controlId="formThingsNeeded">
 				<Form.Label>Things Needed </Form.Label>
 				<Form.Control
@@ -179,8 +170,8 @@ const EventForm = () => {
 				/>
 			</Form.Group> */}
 			<Form.Row>
-				<Form.Group controlId="formBasicName">
-					<Form.Label>Attendee Name </Form.Label>
+				<Form.Group as={Col} controlId="formBasicName">
+					<Form.Label>Your Name </Form.Label>
 					<Form.Control
 						type="text"
 						autoComplete="name"
@@ -188,22 +179,12 @@ const EventForm = () => {
 						onChange={(e) => setName(e.target.value)}
 						required
 						maxLength="250"
-						placeholder="Enter Attendee Name"
+						placeholder="Enter YourName"
 					/>
 				</Form.Group>
-				<Form.Group controlId="formBasicContactInfo">
-					<Form.Label>Optional Contact Info </Form.Label>
-					<Form.Control
-						type="text"
-						autoComplete="tel"
-						value={contactInfo}
-						onChange={(e) => setContactInfo(e.target.value)}
-						maxLength="250"
-						placeholder="Enter Optional Phone Number or other contact info"
-					/>
-				</Form.Group>
-				<Form.Group controlId="formBasicEmail">
-					<Form.Label>Attendee Email </Form.Label>
+
+				<Form.Group as={Col} controlId="formBasicEmail">
+					<Form.Label>Your Email </Form.Label>
 					<Form.Control
 						type="email"
 						autoComplete="email"
@@ -211,9 +192,22 @@ const EventForm = () => {
 						onChange={(e) => setAttendeeEmail(e.target.value)}
 						required
 						maxLength="200"
-						placeholder="Enter Email"
+						placeholder="Enter Your Email"
 					/>
 				</Form.Group>
+			</Form.Row>
+			<Form.Group controlId="formBasicContactInfo">
+				<Form.Label>Optional Contact Info </Form.Label>
+				<Form.Control
+					type="text"
+					autoComplete="tel"
+					value={contactInfo}
+					onChange={(e) => setContactInfo(e.target.value)}
+					maxLength="250"
+					placeholder="Enter Optional Phone Number or other contact info"
+				/>
+			</Form.Group>
+			<Form.Row>
 				<Button type="submit">Create Event</Button>
 				<Button onClick={(e) => handleCancel(e)}>Clear All</Button>
 			</Form.Row>

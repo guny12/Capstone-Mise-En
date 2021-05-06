@@ -1,4 +1,4 @@
-import { SET_ATTENDEE } from "./session";
+export const SET_ATTENDEE = "session/SET_ATTENDEE";
 
 const setAttendee = (attendee) => ({
 	type: SET_ATTENDEE,
