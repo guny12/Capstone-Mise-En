@@ -58,12 +58,9 @@ const EventForm = () => {
 			const CurrentAttendee = await dispatch(attendeeActions.createAttendee(attendeeAndCurrentEventData));
 			if (CurrentAttendee.errors) setErrors(CurrentAttendee.errors);
 			else {
-				console.log(CurrentAttendee, "ATTENDEE");
 				history.push(`/event/${CurrentAttendee.newAttendee.attendeeURL}`);
 			}
 		}
-
-		console.log(CurrentEvent, "CURRENT EVENT");
 	};
 
 	const handleCancel = (e) => {

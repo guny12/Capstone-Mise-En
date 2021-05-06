@@ -29,6 +29,7 @@ export const checkAttendeeData = (attendeeData) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const attendeeDataOk = await response.json();
+
 		return attendeeDataOk;
 	} else return response.json();
 };
