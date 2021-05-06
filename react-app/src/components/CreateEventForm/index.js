@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./CreateEventForm.css";
 import { Button, Form, Col } from "react-bootstrap";
 import * as eventActions from "../../store/events";
@@ -8,7 +8,6 @@ import * as eventActions from "../../store/events";
 const CreateEventForm = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const userName = useSelector((state) => state.session.user?.username);
 	const creatorUserId = useSelector((state) => state.session.user?.id);
 
 	const [errors, setErrors] = useState([]);
@@ -48,7 +47,13 @@ const CreateEventForm = () => {
 	};
 	const handleCancel = (e) => {
 		e.preventDefault();
-		history.go(0);
+		setName("");
+		setLocation("");
+		setLocationName("");
+		setDescription("");
+		setDate("");
+		setStartTime("");
+		setType("");
 	};
 
 	return (
@@ -163,8 +168,14 @@ const CreateEventForm = () => {
 					placeholder="Optional Things Needed"
 				/>
 			</Form.Group> */}
-
-			<Button type="submit">Create Event</Button>
+			<Form.Row>
+				<Button as={Col} type="submit">
+					Create Event
+				</Button>
+				<Button as={Col} onClick={(e) => handleCancel(e)}>
+					Clear All
+				</Button>
+			</Form.Row>
 		</Form>
 	);
 };
