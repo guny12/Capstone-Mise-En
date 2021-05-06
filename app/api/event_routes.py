@@ -67,7 +67,7 @@ def create_attendee(eventId):
         userId = body["userId"] if "userId" in body else None
         newURL = faker.sha256()
         uniqueURL = True if Attendee.query.filter(Attendee.attendeeURL == newURL).first() is None else False
-        print(uniqueURL, "\n\n\n\n UNIQUE URL \n\n\n\n")
+
         attendeeURL = newURL if uniqueURL else faker.sha256()
 
         newAttendee = Attendee(
@@ -84,8 +84,19 @@ def create_attendee(eventId):
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
+# checkAttendee
+@event_routes.route("/check/attendee/", methods=["POST"])
+def check_attendee():
+    form = CreateAttendeeForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        return {"attendeeDataOk": True}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
 # checkEvent
-@event_routes.route("/check", methods=["POST"])
+@event_routes.route("/check/", methods=["POST"])
 def check_event():
     form = CreateEventForm()
     form["csrf_token"].data = request.cookies["csrf_token"]

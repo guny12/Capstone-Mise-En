@@ -42,6 +42,12 @@ const EventForm = () => {
 			type,
 			creatorUserId,
 		};
+		// const userId = creatorUserId;
+		// const CheckEventData = await dispatch(eventActions.checkEventData(eventData));
+		// if (CheckEventData.errors) return setErrors(CheckEventData.errors);
+		// const attendeeData = { name, contactInfo, attendeeEmail, userId };
+		// const CheckAttendeeData = await dispatch(attendeeActions.checkAttendeeData(attendeeData));
+		// if (CheckAttendeeData.errors) return setErrors(CheckAttendeeData.errors);
 
 		const CurrentEvent = await dispatch(eventActions.createEvent(eventData));
 		if (CurrentEvent.errors) setErrors(CurrentEvent.errors);
@@ -50,7 +56,7 @@ const EventForm = () => {
 			const currentEvent = CurrentEvent.CurrentEvent;
 			const attendeeAndCurrentEventData = { name, contactInfo, attendeeEmail, userId, currentEvent };
 			const CurrentAttendee = await dispatch(attendeeActions.createAttendee(attendeeAndCurrentEventData));
-			console.log(CurrentAttendee);
+			if (CurrentAttendee.errors) setErrors(CurrentAttendee.errors);
 		}
 
 		console.log(CurrentEvent, "CURRENT EVENT");
@@ -68,6 +74,7 @@ const EventForm = () => {
 		setName("");
 		setContactInfo("");
 		setAttendeeEmail("");
+		setErrors([]);
 	};
 
 	return (

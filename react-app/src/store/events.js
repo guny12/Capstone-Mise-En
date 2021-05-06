@@ -11,7 +11,7 @@ const setSingleEvent = (event) => ({
 	payload: event,
 });
 
-const storeEventDataOk = (eventDataOk) => ({
+const setEventDataOk = (eventDataOk) => ({
 	type: SET_EventDataOk,
 	payload: eventDataOk,
 });
@@ -37,14 +37,15 @@ export const createEvent = (eventData) => async (dispatch) => {
 };
 
 export const checkEventData = (eventData) => async (dispatch) => {
-	const response = await fetch("/api/event/check", {
+	const response = await fetch("/api/event/check/", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(eventData),
 	});
 	if (response.ok) {
 		const eventDataOk = await response.json();
-		await dispatch(storeEventDataOk(eventDataOk));
+		await dispatch(setEventDataOk(eventDataOk));
+		return eventDataOk;
 	} else return response.json();
 };
 

@@ -1,4 +1,5 @@
 export const SET_ATTENDEE = "session/SET_ATTENDEE";
+const SET_AttendeeDataOk = "events/SET_AttendeeDataOk";
 
 const setAttendee = (attendee) => ({
 	type: SET_ATTENDEE,
@@ -20,6 +21,17 @@ export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
 	} else return response.json();
 };
 
+export const checkAttendeeData = (attendeeData) => async (dispatch) => {
+	const response = await fetch(`/api/event/check/attendee/`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(attendeeData),
+	});
+	if (response.ok) {
+		const attendeeDataOk = await response.json();
+		return attendeeDataOk;
+	} else return response.json();
+};
 //reducer
 const initialState = {
 	currentAttendee: null,

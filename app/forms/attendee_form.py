@@ -19,6 +19,12 @@ def check_eventId(form, field):
         raise ValidationError("Event does not exist")
 
 
+def check_email(form, field):
+    email = field.data
+    if "@" not in email:
+        raise ValidationError("Enter a valid Email")
+
+
 class CreateAttendeeForm(FlaskForm):
     name = StringField(
         "name",
@@ -42,7 +48,6 @@ class CreateAttendeeForm(FlaskForm):
             DataRequired(),
             Length(max=200, message="Email can be max 200 characters"),
             Length(min=1, message="Location Name must be at least 1 character"),
-            Email(),
         ],
     )
     going = BooleanField("going")
