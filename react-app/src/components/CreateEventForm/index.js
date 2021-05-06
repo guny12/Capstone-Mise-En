@@ -9,7 +9,7 @@ const CreateEventForm = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const userName = useSelector((state) => state.session.user?.username);
-	const userId = useSelector((state) => state.session.user?.id);
+	const creatorUserId = useSelector((state) => state.session.user?.id);
 
 	const [errors, setErrors] = useState([]);
 	const [name, setName] = useState("");
@@ -22,12 +22,12 @@ const CreateEventForm = () => {
 	// const [totalCost, setTotalCost] = useState("");
 	// const [availableSpots, setAvailableSpots] = useState("");
 	// const [thingsNeeded, setThingsNeeded] = useState("");
-	const [creatorUserId, setCreatorUserId] = useState("");
 
+	console.log(creatorUserId, "USER ID");
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setErrors([]);
-		if (userId) setCreatorUserId(userId);
+
 		const eventData = {
 			name,
 			locationName,

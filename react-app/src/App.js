@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -11,13 +11,16 @@ import * as sessionActions from "./store/session";
 function App() {
 	const dispatch = useDispatch();
 	const [loaded, setLoaded] = useState(false);
+	const loggedIn = useSelector((state) => state?.session?.user);
 
 	useEffect(() => {
 		(async () => {
-			await dispatch(sessionActions.restoreUser());
-			setLoaded(true);
+			if (!loggedIn) {
+				await dispatch(sessionActions.restoreUser());
+				setLoaded(true);
+			}
 		})();
-	}, [dispatch]);
+	}, [dispatch, loggedIn]);
 
 	if (!loaded) return null;
 
