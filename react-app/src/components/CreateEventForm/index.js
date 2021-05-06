@@ -19,15 +19,14 @@ const CreateEventForm = () => {
 	const [date, setDate] = useState("");
 	const [startTime, setStartTime] = useState("");
 	const [type, setType] = useState("");
-	const [totalCost, setTotalCost] = useState("");
-	const [availableSpots, setAvailableSpots] = useState("");
-	const [thingsNeeded, setThingsNeeded] = useState("");
+	// const [totalCost, setTotalCost] = useState("");
+	// const [availableSpots, setAvailableSpots] = useState("");
+	// const [thingsNeeded, setThingsNeeded] = useState("");
 	const [creatorUserId, setCreatorUserId] = useState("");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setErrors([]);
-
 		if (userId) setCreatorUserId(userId);
 		const eventData = {
 			name,
@@ -37,9 +36,9 @@ const CreateEventForm = () => {
 			date,
 			startTime,
 			type,
-			totalCost,
-			availableSpots,
-			thingsNeeded,
+			// totalCost,
+			// availableSpots,
+			// thingsNeeded,
 			creatorUserId,
 		};
 
@@ -109,19 +108,19 @@ const CreateEventForm = () => {
 					/>
 				</Form.Group>{" "}
 			</Form.Row>
-			<Form.Row>
-				<Form.Group as={Col} controlId="formBasicLocationName">
-					<Form.Label>Location Name </Form.Label>
-					<Form.Control
-						type="text"
-						value={locationName}
-						onChange={(e) => setLocationName(e.target.value)}
-						required
-						maxLength="200"
-						placeholder="Enter Location Name"
-					/>
-				</Form.Group>{" "}
-				<Form.Group as={Col} controlId="formTotalCost">
+
+			<Form.Group controlId="formBasicLocationName">
+				<Form.Label>Location Name </Form.Label>
+				<Form.Control
+					type="text"
+					value={locationName}
+					onChange={(e) => setLocationName(e.target.value)}
+					required
+					maxLength="200"
+					placeholder="Enter Location Name"
+				/>
+			</Form.Group>
+			{/* <Form.Group as={Col} controlId="formTotalCost">
 					<Form.Label>Event Total Cost </Form.Label>
 					<Form.Control
 						type="number"
@@ -140,8 +139,8 @@ const CreateEventForm = () => {
 						placeholder="Optional Available Spots"
 						min="0"
 					/>
-				</Form.Group>
-			</Form.Row>
+				</Form.Group> */}
+
 			<Form.Group controlId="formBasicLocation">
 				<Form.Label>Location/Address </Form.Label>
 				<Form.Control
@@ -155,7 +154,7 @@ const CreateEventForm = () => {
 				/>
 			</Form.Group>
 
-			<Form.Group controlId="formThingsNeeded">
+			{/* <Form.Group controlId="formThingsNeeded">
 				<Form.Label>Things Needed </Form.Label>
 				<Form.Control
 					as="textarea"
@@ -164,7 +163,7 @@ const CreateEventForm = () => {
 					onChange={(e) => setThingsNeeded(e.target.value)}
 					placeholder="Optional Things Needed"
 				/>
-			</Form.Group>
+			</Form.Group> */}
 
 			<Button type="submit">Create Event</Button>
 		</Form>
