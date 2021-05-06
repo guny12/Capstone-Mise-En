@@ -7,6 +7,7 @@ class Attendee(db.Model):
     __tablename__ = "attendees"
 
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250), nullable=False)
     contactInfo = db.Column(db.String(250))
     attendeeEmail = db.Column(db.String(200), nullable=False)
     attendeeURL = db.Column(db.String(64), nullable=False)
@@ -22,6 +23,7 @@ class Attendee(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "name": self.name,
             "contactInfo": self.contactInfo,
             "attendeeURL": self.attendeeURL,
             "attendeeEmail": self.attendeeEmail,

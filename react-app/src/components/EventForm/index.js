@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import "./CreateEventForm.css";
+import "./EventForm.css";
 import { Button, Form, Col } from "react-bootstrap";
 import * as eventActions from "../../store/events";
 
-const CreateEventForm = () => {
+const EventForm = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const creatorUserId = useSelector((state) => state.session.user?.id);
@@ -177,4 +177,4 @@ const CreateEventForm = () => {
 	);
 };
 
-export default CreateEventForm;
+export default EventForm;

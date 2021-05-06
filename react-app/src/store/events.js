@@ -1,17 +1,19 @@
-import { SET_ATTENDEE } from "./session";
+import { createAttendee } from "./attendee";
+
 // const SET_ALLEVENTS = "events/SET_ALLEVENTS";
 const SET_SINGLEEVENT = "events/SET_SINGLEEVENT";
 
 // action creators
-// const setAllEvents = (events) => ({
-// 	type: SET_ALLEVENTS,
-// 	payload: events,
-// });
 
 const setSingleEvent = (event) => ({
 	type: SET_SINGLEEVENT,
 	payload: event,
 });
+
+// const setAllEvents = (events) => ({
+// 	type: SET_ALLEVENTS,
+// 	payload: events,
+// });
 
 // thunk action creators
 export const createEvent = (eventData) => async (dispatch) => {
@@ -25,8 +27,6 @@ export const createEvent = (eventData) => async (dispatch) => {
 		dispatch(setSingleEvent(data));
 		// activate this path when you start setting up logged in user interaction
 		// if (data.CurrentEvent?.creatorUserId !== null) dispatch(getJoinedEvents(data.CurrentEvent.creatorUserId));
-
-		dispatch({ type: SET_ATTENDEE, attendee: 1 });
 		return data;
 	} else return response.json();
 };

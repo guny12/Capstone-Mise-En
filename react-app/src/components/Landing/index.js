@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import "./Landing.css";
 import { Button, Form, Col } from "react-bootstrap";
-import CreateEventForm from "../CreateEventForm";
+import EventForm from "../EventForm";
 
 const Landing = () => {
 	const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Landing = () => {
 				</>
 			)}
 			<h1>Create your Event and start inviting people</h1>
-			<CreateEventForm />
+			<EventForm />
 		</div>
 	);
 };
