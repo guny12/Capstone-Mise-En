@@ -43,12 +43,17 @@ const EventForm = () => {
 			creatorUserId,
 		};
 
-		const attendeeData = { name, contactInfo, attendeeEmail };
-
 		const CurrentEvent = await dispatch(eventActions.createEvent(eventData));
-		const CurrentAttendee = await dispatch(attendeeActions.createAttendee(CurrentEvent));
-		console.log(CurrentAttendee);
 		if (CurrentEvent.errors) setErrors(CurrentEvent.errors);
+		else {
+			const currentEvent = CurrentEvent.CurrentEvent;
+			console.log(currentEvent);
+			const attendeeAndCurrentEventData = { name, contactInfo, attendeeEmail, currentEvent };
+			const CurrentAttendee = await dispatch(attendeeActions.createAttendee(attendeeAndCurrentEventData));
+			console.log(CurrentAttendee);
+		}
+
+		console.log(CurrentEvent, "CURRENT EVENT");
 	};
 
 	const eventData = {

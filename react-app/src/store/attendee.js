@@ -6,12 +6,12 @@ const setAttendee = (attendee) => ({
 });
 
 // thunk action creators
-export const createAttendee = (CurrentEvent) => async (dispatch) => {
-	const eventId = CurrentEvent.id;
+export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
+	const eventId = attendeeAndCurrentEvent.currentEvent.id;
 	const response = await fetch(`/api/event/${eventId}/`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(CurrentEvent),
+		body: JSON.stringify(attendeeAndCurrentEvent),
 	});
 	if (response.ok) {
 		const attendee = await response.json();

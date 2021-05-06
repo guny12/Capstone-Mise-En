@@ -6,10 +6,9 @@ import { Button } from "react-bootstrap";
 
 function AttendeeFormModal({ eventData }) {
 	const [showModal, setShowModal] = useState(false);
-	const close = document.querySelector("#modal-background");
 
-	const eventDataOk = document.querySelector("#LandingCreateEventButton");
-	if (eventDataOk) eventDataOk.click();
+	// const eventDataOk = document.querySelector("#LandingCreateEventButton");
+	// if (eventDataOk) eventDataOk.click();
 
 	return (
 		<>
