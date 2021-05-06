@@ -23,7 +23,6 @@ const CreateEventForm = () => {
 	// const [availableSpots, setAvailableSpots] = useState("");
 	// const [thingsNeeded, setThingsNeeded] = useState("");
 
-	console.log(creatorUserId, "USER ID");
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setErrors([]);
@@ -44,7 +43,7 @@ const CreateEventForm = () => {
 
 		const data = await dispatch(eventActions.createEvent(eventData));
 		console.log(data);
-		// if (data.errors) setErrors(data.errors);
+		if (data.errors) setErrors(data.errors);
 		// else await dispatch(getEvent(data.eventId));
 	};
 	const handleCancel = (e) => {

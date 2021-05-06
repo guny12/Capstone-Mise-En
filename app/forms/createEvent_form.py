@@ -20,12 +20,14 @@ def check_date(form, field):
 
 
 def check_startTime(form, field):
+    targetDate = form.date.data
     startTime = str(field.data)
     today = str(datetime.date.today())
     targetTime = today + " " + startTime
     targetTime = datetime.datetime.strptime(targetTime, "%Y-%m-%d %H:%M:%S")
+    today = datetime.date.today()
     now = datetime.datetime.now()
-    if targetTime < now:
+    if targetTime < now and targetDate <= today:
         raise ValidationError("Please pick a time that hasn't passed")
 
 
