@@ -45,6 +45,7 @@ const CreateEventForm = () => {
 		if (data.errors) setErrors(data.errors);
 		// else await dispatch(getEvent(data.eventId));
 	};
+
 	const handleCancel = (e) => {
 		e.preventDefault();
 		setName("");
@@ -169,12 +170,8 @@ const CreateEventForm = () => {
 				/>
 			</Form.Group> */}
 			<Form.Row>
-				<Button as={Col} type="submit">
-					Create Event
-				</Button>
-				<Button as={Col} onClick={(e) => handleCancel(e)}>
-					Clear All
-				</Button>
+				<Button type="submit">Create Event</Button>
+				<Button onClick={(e) => handleCancel(e)}>Clear All</Button>
 			</Form.Row>
 		</Form>
 	);
