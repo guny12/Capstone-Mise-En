@@ -46,4 +46,15 @@ def create_event():
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
+# checkEvent
+@event_routes.route("/check", methods=["POST"])
+def check_event():
+    form = CreateEventForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        return {"message": True}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
 # DELETE Event

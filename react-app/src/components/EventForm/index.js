@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import "./EventForm.css";
 import { Button, Form, Col } from "react-bootstrap";
 import * as eventActions from "../../store/events";
+import * as attendeeActions from "../../store/attendee";
 import AttendeeFormModal from "../AttendeeFormModal";
 
 const EventForm = () => {
@@ -44,8 +45,21 @@ const EventForm = () => {
 
 		const attendeeData = { name, contactInfo, attendeeEmail };
 
-		const data = await dispatch(eventActions.createEvent(eventData));
-		if (data.errors) setErrors(data.errors);
+		const CurrentEvent = await dispatch(eventActions.createEvent(eventData));
+		const CurrentAttendee = await dispatch(attendeeActions.createAttendee(CurrentEvent));
+		console.log(CurrentAttendee);
+		if (CurrentEvent.errors) setErrors(CurrentEvent.errors);
+	};
+
+	const eventData = {
+		eventName,
+		locationName,
+		location,
+		description,
+		date,
+		startTime,
+		type,
+		creatorUserId,
 	};
 
 	const handleCancel = (e) => {
@@ -206,6 +220,7 @@ const EventForm = () => {
 				/>
 			</Form.Group>
 			<Form.Row>
+				{/* <AttendeeFormModal eventData={eventData} /> */}
 				<Button type="submit">Create Event</Button>
 				<Button onClick={(e) => handleCancel(e)}>Clear All</Button>
 			</Form.Row>
