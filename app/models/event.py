@@ -32,7 +32,7 @@ class Event(db.Model):
             "location": self.location,
             "description": self.description,
             "date": self.date,
-            "startTime": self.startTime,
+            "startTime": str(self.startTime),
             "type": self.type,
             "totalCost": self.totalCost,
             "availableSpots": self.availableSpots,

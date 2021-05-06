@@ -22,6 +22,8 @@ export const createEvent = (eventData) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setSingleEvent(data));
+		// activate this path when you start setting up logged in user interaction
+		// if (data.CurrentEvent?.creatorUserId !== null) dispatch(getJoinedEvents(data.CurrentEvent.creatorUserId));
 		return data;
 	} else return response.json();
 };
@@ -35,12 +37,8 @@ const initialState = {
 const eventReducer = (eventState = initialState, action) => {
 	switch (action.type) {
 		case SET_SINGLEEVENT:
-			let { JoinedEvents, CurrentEvent } = action.payload;
-			return {
-				...eventState,
-				currentEvent: CurrentEvent,
-				joinedEvents: JoinedEvents,
-			};
+			let { CurrentEvent } = action.payload;
+			return { ...eventState, currentEvent: CurrentEvent };
 		default:
 			return eventState;
 	}

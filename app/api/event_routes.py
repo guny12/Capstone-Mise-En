@@ -42,7 +42,7 @@ def create_event():
         )
         db.session.add(newEvent)
         db.session.commit()
-        return {"message": "success"}
+        return {"CurrentEvent": newEvent.to_dict()}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
