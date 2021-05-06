@@ -31,8 +31,11 @@ function App() {
 				<ProtectedRoute path="/home" exact={true}>
 					<Home />
 				</ProtectedRoute>
-				<Route path="" exact={true}>
+				<Route path="/" exact={true}>
 					<Landing />
+				</Route>
+				<Route path="/event/">
+					<h1>EVENT PAGE</h1>
 				</Route>
 				<Route path="/">
 					<Redirect to="/" />

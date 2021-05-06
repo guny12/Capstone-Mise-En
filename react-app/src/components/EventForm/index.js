@@ -57,6 +57,10 @@ const EventForm = () => {
 			const attendeeAndCurrentEventData = { name, contactInfo, attendeeEmail, userId, currentEvent };
 			const CurrentAttendee = await dispatch(attendeeActions.createAttendee(attendeeAndCurrentEventData));
 			if (CurrentAttendee.errors) setErrors(CurrentAttendee.errors);
+			else {
+				console.log(CurrentAttendee, "ATTENDEE");
+				history.push(`/event/${CurrentAttendee.newAttendee.attendeeURL}`);
+			}
 		}
 
 		console.log(CurrentEvent, "CURRENT EVENT");

@@ -61,13 +61,14 @@ def create_attendee(eventId):
         name = body["name"]
         contactInfo = body["contactInfo"]
         attendeeEmail = body["attendeeEmail"]
-        going = True
+
+        userId = body["userId"] if "userId" in body else None
+
         firstAttendee = True if Attendee.query.filter(Attendee.eventId == eventId).first() is None else False
         host = True if firstAttendee or body["host"] is True else False
-        userId = body["userId"] if "userId" in body else None
+        going = True if firstAttendee or body["going"] is True else False
         newURL = faker.sha256()
         uniqueURL = True if Attendee.query.filter(Attendee.attendeeURL == newURL).first() is None else False
-
         attendeeURL = newURL if uniqueURL else faker.sha256()
 
         newAttendee = Attendee(
@@ -80,6 +81,8 @@ def create_attendee(eventId):
             eventId=eventId,
             userId=userId,
         )
+        db.session.add(newAttendee)
+        db.session.commit()
         return {"newAttendee": newAttendee.to_dict()}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 

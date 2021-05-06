@@ -34,14 +34,7 @@ class CreateAttendeeForm(FlaskForm):
             Length(min=1, message="Name must be at least 1 character"),
         ],
     )
-    contactInfo = StringField(
-        "contactInfo",
-        validators=[
-            DataRequired(),
-            Length(max=250, message="Location Name can be max 250 characters"),
-            Length(min=1, message="Location Name must be at least 1 character"),
-        ],
-    )
+    contactInfo = StringField("contactInfo", validators=[Optional()])
     attendeeEmail = StringField(
         "attendeeEmail",
         validators=[
