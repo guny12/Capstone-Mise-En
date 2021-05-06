@@ -43,7 +43,7 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data["credential"]).first()
         if not user:
-            user = User.query.filter(User.username == form.data['credential']).first()
+            user = User.query.filter(User.username == form.data["credential"]).first()
 
         login_user(user)
         return user.to_dict()

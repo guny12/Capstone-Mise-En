@@ -1,6 +1,6 @@
 from datetime import datetime
-from flask import Blueprint, request,
-from app.models import User, Event, Attendee,
+from flask import Blueprint, request
+from app.models import User, Event, Attendee
 from app.forms.createEvent_form import CreateEventForm
 from . import validation_errors_to_error_messages
 
@@ -16,7 +16,8 @@ def create_event():
     if form.validate_on_submit():
         print("THIS HAPPENED\n\n\n\n\n\n\n")
         body = request.json
-
+        return {"message": "success"}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
 # DELETE Event

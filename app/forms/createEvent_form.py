@@ -14,17 +14,18 @@ def check_creatorUserId(form, field):
 
 def check_date(form, field):
     date = field.data
-    today = datetime.datetime.now().strftime("%Y-%m-%d")
+    today = datetime.date.today()
     if date < today:
         raise ValidationError("Please pick a date that hasn't passed")
 
 
 def check_startTime(form, field):
-    startTime = field.data
-    today = datetime.datetime.now().strftime("%Y-%m-%d")
-    targetTime = today + startTime
-    today = datetime.datetime.now()
-    if startTime < targetTime:
+    startTime = str(field.data)
+    today = str(datetime.date.today())
+    targetTime = today + " " + startTime
+    targetTime = datetime.datetime.strptime(targetTime, "%Y-%m-%d %H:%M:%S")
+    now = datetime.datetime.now()
+    if targetTime < now:
         raise ValidationError("Please pick a time that hasn't passed")
 
 
@@ -56,7 +57,7 @@ class CreateEventForm(FlaskForm):
     date = DateField("date", validators=[DataRequired(), check_date])
     startTime = TimeField("startTime", validators=[DataRequired(), check_startTime])
     type = StringField("type", validators=[DataRequired()])
-    totalCost = DecimalField("totalCost", validators=[NumberRange(min=0), Optional])
-    availableSpots = IntegerField("availableSpots", validators=[NumberRange(min=0), Optional])
-    thingsNeeded = StringField("thingsNeed", validators=[Optional])
-    creatorUserId = IntegerField("creatorUserId", validators=[check_creatorUserId, Optional])
+    totalCost = DecimalField("totalCost", validators=[NumberRange(min=0), Optional()])
+    availableSpots = IntegerField("availableSpots", validators=[NumberRange(min=0), Optional()])
+    thingsNeeded = StringField("thingsNeed", validators=[Optional()])
+    creatorUserId = IntegerField("creatorUserId", validators=[check_creatorUserId, Optional()])
