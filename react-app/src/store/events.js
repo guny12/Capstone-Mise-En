@@ -1,11 +1,12 @@
-const SET_ALLEVENTS = "events/SET_ALLEVENTS";
+import { SET_ATTENDEE } from "./session";
+// const SET_ALLEVENTS = "events/SET_ALLEVENTS";
 const SET_SINGLEEVENT = "events/SET_SINGLEEVENT";
 
 // action creators
-const setAllEvents = (events) => ({
-	type: SET_ALLEVENTS,
-	payload: events,
-});
+// const setAllEvents = (events) => ({
+// 	type: SET_ALLEVENTS,
+// 	payload: events,
+// });
 
 const setSingleEvent = (event) => ({
 	type: SET_SINGLEEVENT,
@@ -24,6 +25,8 @@ export const createEvent = (eventData) => async (dispatch) => {
 		dispatch(setSingleEvent(data));
 		// activate this path when you start setting up logged in user interaction
 		// if (data.CurrentEvent?.creatorUserId !== null) dispatch(getJoinedEvents(data.CurrentEvent.creatorUserId));
+
+		dispatch({ type: SET_ATTENDEE, attendee: 1 });
 		return data;
 	} else return response.json();
 };

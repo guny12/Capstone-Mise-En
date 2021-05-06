@@ -1,5 +1,6 @@
 //action type variables
 const SET_SESSION = "session/SET_SESSION";
+export const SET_ATTENDEE = "session/SET_ATTENDEE";
 const REMOVE_SESSION = "session/REMOVE_SESSION";
 
 // action creators
@@ -10,6 +11,11 @@ const removeSessionUser = () => ({
 const setSessionUser = (user) => ({
 	type: SET_SESSION,
 	user,
+});
+
+const setAttendee = (attendee) => ({
+	type: SET_ATTENDEE,
+	attendee,
 });
 
 // thunk action creators
@@ -67,16 +73,18 @@ export const logout = () => async (dispatch) => {
 };
 
 // reducer
-const initialState = { user: null };
+const initialState = { user: null, attendee: null };
 
-const sessionReducer = (state = initialState, action) => {
+const sessionReducer = (sessionState = initialState, action) => {
 	switch (action.type) {
 		case SET_SESSION:
-			return { user: action.user };
+			return { ...sessionState, user: action.user };
 		case REMOVE_SESSION:
 			return { user: null };
+		case SET_ATTENDEE:
+			return { ...sessionState, attendee: action.attendee };
 		default:
-			return state;
+			return sessionState;
 	}
 };
 
