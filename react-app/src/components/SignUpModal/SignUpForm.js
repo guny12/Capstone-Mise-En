@@ -43,7 +43,7 @@ const SignUpForm = () => {
 					<li key={idx}>{error}</li>
 				))}
 			</ul>
-			<Form.Group controlId="formBasicEmail">
+			<Form.Group controlId="formBasicSignUpEmail">
 				<Form.Label>Email </Form.Label>
 				<Form.Control
 					type="text"
@@ -87,14 +87,18 @@ const SignUpForm = () => {
 				<Form.Label>Password</Form.Label>
 				<Form.Control
 					type="password"
+					autoComplete="password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 					required
 					placeholder="Enter your password"
 				/>
+			</Form.Group>
+			<Form.Group controlId="formBasicConfirmPassword">
 				<Form.Label>Confirm Password </Form.Label>
 				<Form.Control
 					type="password"
+					autoComplete="password"
 					value={confirmPassword}
 					onChange={(e) => setConfirmPassword(e.target.value)}
 					placeholder="Confirm Your Password"

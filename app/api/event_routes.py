@@ -1,9 +1,12 @@
 from datetime import datetime
+from faker import Faker
 from flask import Blueprint, request
 from app.models import User, Event, Attendee, db
 from app.forms.event_form import CreateEventForm
+from app.forms.attendee_form import CreateAttendeeForm
 from . import validation_errors_to_error_messages
 
+faker = Faker()
 event_routes = Blueprint("event", __name__)
 
 
@@ -48,14 +51,36 @@ def create_event():
 
 # Create Attendee for eventId
 @event_routes.route("/<int:eventId>/", methods=["POST"])
-def create_attendee():
-    form = CreateEventForm()
+def create_attendee(eventId):
+    form = CreateAttendeeForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
+    form["eventId"].data = eventId
 
     if form.validate_on_submit():
         body = request.json
+        name = body["name"]
+        contactInfo = body["contactInfo"]
+        attendeeEmail = body["attendeeEmail"]
+        going = True
+        firstAttendee = True if Attendee.query.filter(Attendee.eventId == eventId).first() is None else False
+        host = True if firstAttendee or body["host"] is True else False
+        userId = body["userId"] if "userId" in body else None
+        newURL = faker.sha256()
+        uniqueURL = True if Attendee.query.filter(Attendee.attendeeURL == newURL).first() is None else False
+        print(uniqueURL, "\n\n\n\n UNIQUE URL \n\n\n\n")
+        attendeeURL = newURL if uniqueURL else faker.sha256()
 
-        return {"CurrentEvent": newEvent.to_dict()}
+        newAttendee = Attendee(
+            name=name,
+            contactInfo=contactInfo,
+            attendeeURL=attendeeURL,
+            attendeeEmail=attendeeEmail,
+            going=going,
+            host=host,
+            eventId=eventId,
+            userId=userId,
+        )
+        return {"newAttendee": newAttendee.to_dict()}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 

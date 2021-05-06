@@ -46,9 +46,9 @@ const EventForm = () => {
 		const CurrentEvent = await dispatch(eventActions.createEvent(eventData));
 		if (CurrentEvent.errors) setErrors(CurrentEvent.errors);
 		else {
+			const userId = creatorUserId;
 			const currentEvent = CurrentEvent.CurrentEvent;
-			console.log(currentEvent);
-			const attendeeAndCurrentEventData = { name, contactInfo, attendeeEmail, currentEvent };
+			const attendeeAndCurrentEventData = { name, contactInfo, attendeeEmail, userId, currentEvent };
 			const CurrentAttendee = await dispatch(attendeeActions.createAttendee(attendeeAndCurrentEventData));
 			console.log(CurrentAttendee);
 		}
@@ -56,26 +56,18 @@ const EventForm = () => {
 		console.log(CurrentEvent, "CURRENT EVENT");
 	};
 
-	const eventData = {
-		eventName,
-		locationName,
-		location,
-		description,
-		date,
-		startTime,
-		type,
-		creatorUserId,
-	};
-
 	const handleCancel = (e) => {
 		e.preventDefault();
-		setName("");
+		setEventName("");
 		setLocation("");
 		setLocationName("");
 		setDescription("");
 		setDate("");
 		setStartTime("");
 		setType("");
+		setName("");
+		setContactInfo("");
+		setAttendeeEmail("");
 	};
 
 	return (

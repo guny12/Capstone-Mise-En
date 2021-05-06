@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, TimeField, IntegerField, DecimalField
+from wtforms.fields.core import BooleanField
 from wtforms.validators import DataRequired, Email, ValidationError, Length, NumberRange, Optional
 from app.models import User, Event, Attendee
-import datetime
 
 
 def check_creatorUserId(form, field):
@@ -13,10 +13,10 @@ def check_creatorUserId(form, field):
 
 
 def check_eventId(form, field):
-    userId = field.data
-    user = User.query.filter(User.id == userId)
-    if not user:
-        raise ValidationError("Invalid Credentials")
+    eventId = field.data
+    event = Event.query.filter(Event.id == eventId).first()
+    if not event:
+        raise ValidationError("Event does not exist")
 
 
 class CreateAttendeeForm(FlaskForm):
@@ -36,10 +36,19 @@ class CreateAttendeeForm(FlaskForm):
             Length(min=1, message="Location Name must be at least 1 character"),
         ],
     )
-    eventId = IntegerField(
-        "eventId",
+    attendeeEmail = StringField(
+        "attendeeEmail",
         validators=[
             DataRequired(),
+            Length(max=200, message="Email can be max 200 characters"),
+            Length(min=1, message="Location Name must be at least 1 character"),
+            Email(),
         ],
+    )
+    going = BooleanField("going")
+    host = BooleanField("host")
+    eventId = IntegerField(
+        "eventId",
+        validators=[DataRequired(), check_eventId],
     )
     userId = IntegerField("userId", validators=[check_creatorUserId, Optional()])
