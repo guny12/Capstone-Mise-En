@@ -4,7 +4,7 @@ import { Modal } from "../../context/Modal";
 import AttendeeForm from "./AttendeeForm";
 import { Button } from "react-bootstrap";
 
-function AttendeeFormModal() {
+function AttendeeFormModal({ eventData }) {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
@@ -14,7 +14,7 @@ function AttendeeFormModal() {
 			</Button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
-					<AttendeeForm />
+					<AttendeeForm eventData={eventData} />
 				</Modal>
 			)}
 		</>

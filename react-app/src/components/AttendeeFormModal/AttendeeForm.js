@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import * as attendeeActions from "../../store/attendee";
 import { useDispatch } from "react-redux";
+import * as attendeeActions from "../../store/attendee";
+import * as eventActions from "../../store/events";
+
 import "./AttendeeForm.css";
 import { Button, Form } from "react-bootstrap";
 
-const AttendeeForm = () => {
+const AttendeeForm = ({ eventData }) => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const [errors, setErrors] = useState([]);
@@ -17,6 +19,8 @@ const AttendeeForm = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const event = await dispatch(eventActions.createEvent(eventData));
+		if (event.errors) setErrors(event.errors);
 		const data = await dispatch(attendeeActions.createAttendee({ name, contactInfo, attendeeEmail }));
 		if (data?.errors) {
 			setErrors(data.errors);

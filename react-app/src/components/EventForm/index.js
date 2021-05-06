@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import "./EventForm.css";
 import { Button, Form, Col } from "react-bootstrap";
 import * as eventActions from "../../store/events";
+import AttendeeFormModal from "../AttendeeFormModal";
 
 const EventForm = () => {
 	const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const EventForm = () => {
 	const creatorUserId = useSelector((state) => state.session.user?.id);
 
 	const [errors, setErrors] = useState([]);
-	const [name, setName] = useState("");
+	const [eventName, setEventName] = useState("");
 	const [locationName, setLocationName] = useState("");
 	const [location, setLocation] = useState("");
 	const [description, setDescription] = useState("");
@@ -21,6 +22,10 @@ const EventForm = () => {
 	// const [totalCost, setTotalCost] = useState("");
 	// const [availableSpots, setAvailableSpots] = useState("");
 	// const [thingsNeeded, setThingsNeeded] = useState("");
+
+	const [name, setName] = useState("");
+	const [contactInfo, setContactInfo] = useState("");
+	const [attendeeEmail, setAttendeeEmail] = useState("");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -40,9 +45,13 @@ const EventForm = () => {
 			creatorUserId,
 		};
 
-		const data = await dispatch(eventActions.createEvent(eventData));
-		console.log(data);
-		if (data.errors) setErrors(data.errors);
+		const Modal = () => {
+			return <AttendeeFormModal eventData={eventData} />;
+		};
+		Modal();
+		// const data = await dispatch(eventActions.createEvent(eventData));
+		// console.log(data);
+		// if (data.errors) setErrors(data.errors);
 		// else await dispatch(getEvent(data.eventId));
 	};
 
@@ -68,8 +77,8 @@ const EventForm = () => {
 				<Form.Label>Event Name </Form.Label>
 				<Form.Control
 					type="text"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
+					value={eventName}
+					onChange={(e) => setEventName(e.target.value)}
 					required
 					maxLength="100"
 					placeholder="Enter Event Name"
@@ -170,6 +179,41 @@ const EventForm = () => {
 				/>
 			</Form.Group> */}
 			<Form.Row>
+				<Form.Group controlId="formBasicName">
+					<Form.Label>Attendee Name </Form.Label>
+					<Form.Control
+						type="text"
+						autoComplete="name"
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+						required
+						maxLength="250"
+						placeholder="Enter Attendee Name"
+					/>
+				</Form.Group>
+				<Form.Group controlId="formBasicContactInfo">
+					<Form.Label>Optional Contact Info </Form.Label>
+					<Form.Control
+						type="text"
+						autoComplete="tel"
+						value={contactInfo}
+						onChange={(e) => setContactInfo(e.target.value)}
+						maxLength="250"
+						placeholder="Enter Optional Phone Number or other contact info"
+					/>
+				</Form.Group>
+				<Form.Group controlId="formBasicEmail">
+					<Form.Label>Attendee Email </Form.Label>
+					<Form.Control
+						type="email"
+						autoComplete="email"
+						value={attendeeEmail}
+						onChange={(e) => setAttendeeEmail(e.target.value)}
+						required
+						maxLength="200"
+						placeholder="Enter Email"
+					/>
+				</Form.Group>
 				<Button type="submit">Create Event</Button>
 				<Button onClick={(e) => handleCancel(e)}>Clear All</Button>
 			</Form.Row>

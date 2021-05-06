@@ -12,7 +12,7 @@ place = ["house", "apartment", "loft", "yard"]
 def seed_events():
     for i in range(20):
         event = Event(
-            name=f"{faker.name()}'s {faker.words(1, eventName, True)[0]}",
+            eventName=f"{faker.name()}'s {faker.words(1, eventName, True)[0]}",
             locationName=f"{faker.name()}'s {faker.words(1, place, True)[0]}",
             location=faker.address(),
             description=faker.paragraph(nb_sentences=3),

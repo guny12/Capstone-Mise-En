@@ -13,11 +13,6 @@ const setSessionUser = (user) => ({
 	user,
 });
 
-const setAttendee = (attendee) => ({
-	type: SET_ATTENDEE,
-	attendee,
-});
-
 // thunk action creators
 export const login = (user) => async (dispatch) => {
 	const { credential, password } = user;
