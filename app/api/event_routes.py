@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import Blueprint, request
 from app.models import User, Event, Attendee, db
-from app.forms.createEvent_form import CreateEventForm
+from app.forms.event_form import CreateEventForm
 from . import validation_errors_to_error_messages
 
 event_routes = Blueprint("event", __name__)
@@ -46,6 +46,19 @@ def create_event():
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
+# Create Attendee for eventId
+@event_routes.route("/<int:eventId>/", methods=["POST"])
+def create_attendee():
+    form = CreateEventForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        body = request.json
+
+        return {"CurrentEvent": newEvent.to_dict()}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
 # checkEvent
 @event_routes.route("/check", methods=["POST"])
 def check_event():
@@ -53,7 +66,7 @@ def check_event():
     form["csrf_token"].data = request.cookies["csrf_token"]
 
     if form.validate_on_submit():
-        return {"message": True}
+        return {"eventDataOk": True}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
