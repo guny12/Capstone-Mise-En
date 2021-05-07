@@ -10,7 +10,7 @@ const setAttendee = (attendee) => ({
 // create attendee
 export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
 	const eventId = attendeeAndCurrentEvent.currentEvent.id;
-	const response = await fetch(`/api/event/${eventId}/`, {
+	const response = await fetch(`/api/event/${eventId}`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(attendeeAndCurrentEvent),
@@ -23,7 +23,7 @@ export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
 
 // get attendee to put in store
 export const getAttendee = (attendeeURL) => async (dispatch) => {
-	const response = await fetch(`/api/event/${attendeeURL}/`);
+	const response = await fetch(`/api/event/${attendeeURL}`);
 	if (response.ok) {
 		const attendee = await response.json();
 		dispatch(setAttendee(attendee));
@@ -32,7 +32,7 @@ export const getAttendee = (attendeeURL) => async (dispatch) => {
 };
 
 export const checkAttendeeData = (attendeeData) => async (dispatch) => {
-	const response = await fetch(`/api/event/check/attendee/`, {
+	const response = await fetch(`/api/event/check/attendee`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(attendeeData),

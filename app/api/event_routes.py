@@ -51,7 +51,7 @@ def create_event():
 
 
 # checkEvent
-@event_routes.route("/check/", methods=["POST"])
+@event_routes.route("/check", methods=["POST"])
 def check_event():
     form = CreateEventForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
@@ -61,9 +61,9 @@ def check_event():
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
-# getEvent Route
-# @event_routes.route("/", methods=["GET"])
-# def get_event():
+getEvent Route
+@event_routes.route("/<int:eventId>", methods=["GET"])
+def get_event(eventId):
 
 
 #
@@ -74,7 +74,7 @@ def check_event():
 #
 #
 #  Create Attendee for eventId
-@event_routes.route("/<int:eventId>/", methods=["POST"])
+@event_routes.route("/<int:eventId>", methods=["POST"])
 def create_attendee(eventId):
     form = CreateAttendeeForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
@@ -111,30 +111,29 @@ def create_attendee(eventId):
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
-# get Attendee
-@event_routes.route("/<string:attendeeURL>/", methods=["GET"])
+# get Current Attendee
+@event_routes.route("/<string:attendeeURL>", methods=["GET"])
 def get_attendee(attendeeURL):
     print(current_user.is_active, "\n\n\n\n  CURRENT USER \n\n\n\n\n")
     userId = current_user.id if current_user.is_active else None
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
+    if attendee is None:
+        return {"errors": "Attendee does not exist"}, 400
 
     # if there's an active user, then this attendee url is now assigned to them.
-    if attendee.userId is None and userId:
+    elif attendee.userId is None and userId:
         attendee.userId = userId
         attendee.updatedAt = datetime.now()
         db.session.commit()
 
     # if there was a useraccount this attendee belongs to, force them to log in to access.
-    if attendee.userId is not None and attendee.userId != userId:
-        return {"errors": "You are not the user. Please log in to access"}
-
-    if attendee is not None:
-        return {"CurrentAttendee": attendee.to_dict()}
-    return {"errors": "Attendee does not exist"}
+    elif attendee.userId is not None and attendee.userId != userId:
+        return {"errors": "You are not the user. Please log in to access"}, 401
+    return {"CurrentAttendee": attendee.to_dict()}
 
 
 # checkAttendee
-@event_routes.route("/check/attendee/", methods=["POST"])
+@event_routes.route("/check/attendee", methods=["POST"])
 def check_attendee():
     form = CreateAttendeeForm()
     form["csrf_token"].data = request.cookies["csrf_token"]

@@ -1,13 +1,11 @@
-import { createAttendee } from "./attendee";
-
 // const SET_ALLEVENTS = "events/SET_ALLEVENTS";
-const SET_SingleEvent = "events/SET_SingleEvent";
+const SET_CurrentEvent = "events/SET_CurrentEvent";
 const SET_EventDataOk = "events/SET_EventDataOk";
 
 // action creators
 
-const setSingleEvent = (event) => ({
-	type: SET_SingleEvent,
+const setCurrentEvent = (event) => ({
+	type: SET_CurrentEvent,
 	payload: event,
 });
 
@@ -35,11 +33,11 @@ export const createEvent = (eventData) => async (dispatch) => {
 };
 
 // get event to put in store
-export const getEvent = (attendeeURL) => async (dispatch) => {
-	const response = await fetch("/api/event/");
+export const getEvent = (eventId) => async (dispatch) => {
+	const response = await fetch("/api/:eventId");
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(setSingleEvent(data));
+		dispatch(setCurrentEvent(data));
 		// activate this path when you start setting up logged in user interaction
 		// if (data.CurrentEvent?.creatorUserId !== null) dispatch(getJoinedEvents(data.CurrentEvent.creatorUserId));
 		return data;
@@ -47,7 +45,7 @@ export const getEvent = (attendeeURL) => async (dispatch) => {
 };
 
 export const checkEventData = (eventData) => async (dispatch) => {
-	const response = await fetch("/api/event/check/", {
+	const response = await fetch("/api/event/check", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(eventData),
@@ -65,7 +63,7 @@ const initialState = {
 
 const eventReducer = (eventState = initialState, action) => {
 	switch (action.type) {
-		case SET_SingleEvent:
+		case SET_CurrentEvent:
 			let { CurrentEvent } = action.payload;
 			return { ...eventState, currentEvent: CurrentEvent };
 		case SET_EventDataOk:
