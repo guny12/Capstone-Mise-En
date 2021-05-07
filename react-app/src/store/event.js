@@ -28,13 +28,14 @@ export const createEvent = (eventData) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
+		console.log(data);
 		return data;
 	} else return response.json();
 };
 
 // get event to put in store
 export const getEvent = (eventId) => async (dispatch) => {
-	const response = await fetch("/api/:eventId");
+	const response = await fetch(`/api/event/${eventId}`);
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setCurrentEvent(data));

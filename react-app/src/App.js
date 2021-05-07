@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Home from "./components/Home";
 import Landing from "./components/Landing";
+import EventPage from "./components/EventPage";
 
 import * as sessionActions from "./store/session";
 
@@ -35,7 +36,7 @@ function App() {
 					<Landing />
 				</Route>
 				<Route path="/event/">
-					<h1>EVENT PAGE</h1>
+					<EventPage />
 				</Route>
 				<Route path="/">
 					<Redirect to="/" />

@@ -10,7 +10,7 @@ const setAttendee = (attendee) => ({
 // create attendee
 export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
 	const eventId = attendeeAndCurrentEvent.currentEvent.id;
-	const response = await fetch(`/api/event/${eventId}`, {
+	const response = await fetch(`/api/attendee/${eventId}`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(attendeeAndCurrentEvent),
@@ -27,7 +27,7 @@ export const getAttendee = (attendeeURL) => async (dispatch) => {
 	if (response.ok) {
 		const attendee = await response.json();
 		dispatch(setAttendee(attendee));
-		return attendee;
+		return attendee.CurrentAttendee.eventId;
 	} else return response.json();
 };
 
@@ -52,6 +52,7 @@ const attendeeReducer = (attendeeState = initialState, action) => {
 	switch (action.type) {
 		case SET_ATTENDEE:
 			let { CurrentAttendee } = action.payload;
+			console.log(CurrentAttendee, "REDUCER");
 			return { ...attendeeState, currentAttendee: CurrentAttendee };
 		default:
 			return attendeeState;

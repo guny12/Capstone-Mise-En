@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as attendeeActions from "../../store/attendee";
-import * as eventActions from "../../store/events";
+import * as eventActions from "../../store/event";
 
 import "./AttendeeForm.css";
 import { Button, Form } from "react-bootstrap";

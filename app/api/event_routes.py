@@ -4,7 +4,6 @@ from flask import Blueprint, request
 from flask_login import current_user
 from app.models import User, Event, Attendee, db
 from app.forms.event_form import CreateEventForm
-from app.forms.attendee_form import CreateAttendeeForm
 from . import validation_errors_to_error_messages
 
 faker = Faker()
@@ -64,7 +63,7 @@ def check_event():
 # getEvent Route
 @event_routes.route("/<int:eventId>", methods=["GET"])
 def get_event(eventId):
-    event = Event.get(eventId)
+    event = Event.query.get(eventId)
     if event is None:
         return {"errors": "Event does not exist"}, 400
     return {"CurrentEvent": event.to_dict()}
