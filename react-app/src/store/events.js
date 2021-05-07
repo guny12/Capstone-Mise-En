@@ -38,8 +38,6 @@ export const getEvent = (eventId) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setCurrentEvent(data));
-		// activate this path when you start setting up logged in user interaction
-		// if (data.CurrentEvent?.creatorUserId !== null) dispatch(getJoinedEvents(data.CurrentEvent.creatorUserId));
 		return data;
 	} else return response.json();
 };

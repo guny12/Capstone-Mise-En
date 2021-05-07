@@ -61,9 +61,28 @@ def check_event():
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
-getEvent Route
+# getEvent Route
 @event_routes.route("/<int:eventId>", methods=["GET"])
 def get_event(eventId):
+    event = Event.get(eventId)
+    if event is None:
+        return {"errors": "Event does not exist"}, 400
+    return {"CurrentEvent": event.to_dict()}
+
+
+# deleteEvent Route
+@event_routes.route("/<int:event>/<string:attendeeURL>", methods=["DELETE"])
+def delete_event(eventId, attendeeURL):
+    host = Attendee.query.filter(
+        Attendee.host is True, Attendee.attendeeURL == attendeeURL, Attendee.eventId == eventId
+    ).first()
+    if host is None:
+        return {"errors": "You do not have permission to delete this event"}, 401
+    event = Event.get(eventId)
+    if event is None:
+        return {"errors": "Event does not exist"}, 400
+    db.session.delete(event)
+    db.session.commit()
 
 
 #
@@ -73,6 +92,7 @@ def get_event(eventId):
 #
 #
 #
+
 #  Create Attendee for eventId
 @event_routes.route("/<int:eventId>", methods=["POST"])
 def create_attendee(eventId):
@@ -114,8 +134,8 @@ def create_attendee(eventId):
 # get Current Attendee
 @event_routes.route("/<string:attendeeURL>", methods=["GET"])
 def get_attendee(attendeeURL):
-    print(current_user.is_active, "\n\n\n\n  CURRENT USER \n\n\n\n\n")
-    userId = current_user.id if current_user.is_active else None
+    @event_routes.route("/<string:attendeeURL>", methods=["GET"])
+def get_attendee(attendeeURL):
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
     if attendee is None:
         return {"errors": "Attendee does not exist"}, 400
@@ -130,6 +150,10 @@ def get_attendee(attendeeURL):
     elif attendee.userId is not None and attendee.userId != userId:
         return {"errors": "You are not the user. Please log in to access"}, 401
     return {"CurrentAttendee": attendee.to_dict()}
+
+#Delete Attendee
+# @event_routes.route("/<string:attendeeURL>", methods=["DELETE"])
+# def get_attendee(attendeeURL):
 
 
 # checkAttendee
