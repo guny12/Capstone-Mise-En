@@ -16,6 +16,14 @@ export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const attendee = await response.json();
+		return attendee;
+	} else return response.json();
+};
+
+export const getAttendee = (attendeeURL) => async (dispatch) => {
+	const response = await fetch(`/api/event/`);
+	if (response.ok) {
+		const attendee = await response.json();
 		dispatch(setAttendee(attendee));
 		return attendee;
 	} else return response.json();
@@ -29,10 +37,10 @@ export const checkAttendeeData = (attendeeData) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const attendeeDataOk = await response.json();
-
 		return attendeeDataOk;
 	} else return response.json();
 };
+
 //reducer
 const initialState = {
 	currentAttendee: null,

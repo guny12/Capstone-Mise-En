@@ -21,12 +21,22 @@ const setEventDataOk = (eventDataOk) => ({
 // });
 
 // thunk action creators
+// create event
 export const createEvent = (eventData) => async (dispatch) => {
 	const response = await fetch("/api/event/", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(eventData),
 	});
+	if (response.ok) {
+		const data = await response.json();
+		return data;
+	} else return response.json();
+};
+
+// get event to put in store
+export const getEvent = (attendeeURL) => async (dispatch) => {
+	const response = await fetch("/api/event/");
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setSingleEvent(data));
@@ -44,7 +54,6 @@ export const checkEventData = (eventData) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const eventDataOk = await response.json();
-		await dispatch(setEventDataOk(eventDataOk));
 		return eventDataOk;
 	} else return response.json();
 };
