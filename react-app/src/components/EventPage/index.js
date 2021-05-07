@@ -14,6 +14,7 @@ const EventPage = () => {
 	const [eventAndAttendeeLoaded, setEventAndAttendeeLoaded] = useState(false);
 	const [exists, setExists] = useState(false);
 	const attendeeURL = window.location.pathname.split("/")[2];
+	const [errors, setErrors] = useState([]);
 
 	useEffect(() => {
 		(async () => {
@@ -28,16 +29,16 @@ const EventPage = () => {
 		})();
 	}, [dispatch]);
 
-	const [errors, setErrors] = useState([]);
-
 	let noAttendee = (
 		<>
 			<Image fluid src={"https://cdn.pixabay.com/photo/2014/04/02/16/29/scream-307414__340.png"}></Image>
 			<h1>
-				<a href="/" activestyle={{ color: "red", border: "1px solid red" }}>
-					Whoops! Can't find the attendee or event.
-					<p /> It may have been deleted by the admin. <p />
-					CLICK HERE to go home.
+				<a href="/" style={{ color: "darkblue" }}>
+					<div>
+						Whoops! Can't find the attendee or event.
+						<p /> It may have been deleted by the admin. <p />
+						CLICK HERE to go home.
+					</div>
 				</a>
 			</h1>
 		</>
@@ -45,6 +46,7 @@ const EventPage = () => {
 
 	if (!eventAndAttendeeLoaded) return null;
 	if (!exists && eventAndAttendeeLoaded) return noAttendee;
+
 	return <h1>{attendeeURL}</h1>;
 };
 
