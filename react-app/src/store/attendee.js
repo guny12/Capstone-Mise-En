@@ -7,6 +7,7 @@ const setAttendee = (attendee) => ({
 });
 
 // thunk action creators
+// create attendee
 export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
 	const eventId = attendeeAndCurrentEvent.currentEvent.id;
 	const response = await fetch(`/api/event/${eventId}/`, {
@@ -20,8 +21,9 @@ export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
 	} else return response.json();
 };
 
+// get attendee to put in store
 export const getAttendee = (attendeeURL) => async (dispatch) => {
-	const response = await fetch(`/api/event/`);
+	const response = await fetch(`/api/event/${attendeeURL}`);
 	if (response.ok) {
 		const attendee = await response.json();
 		dispatch(setAttendee(attendee));

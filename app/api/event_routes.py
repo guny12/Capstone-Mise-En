@@ -1,6 +1,6 @@
 from datetime import datetime
 from faker import Faker
-from flask import Blueprint, request
+from flask import Blueprint, request, current_user
 from app.models import User, Event, Attendee, db
 from app.forms.event_form import CreateEventForm
 from app.forms.attendee_form import CreateAttendeeForm
@@ -49,7 +49,30 @@ def create_event():
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
-# Create Attendee for eventId
+# checkEvent
+@event_routes.route("/check/", methods=["POST"])
+def check_event():
+    form = CreateEventForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        return {"eventDataOk": True}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+# getEvent Route
+# @event_routes.route("/", methods=["GET"])
+# def get_event():
+
+
+#
+#
+#
+# Attendees
+#
+#
+#
+#  Create Attendee for eventId
 @event_routes.route("/<int:eventId>/", methods=["POST"])
 def create_attendee(eventId):
     form = CreateAttendeeForm()
@@ -87,6 +110,21 @@ def create_attendee(eventId):
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
+# get Attendee
+@event_routes.route("/<string:attendeeURL>")
+def get_attendee(attendeeURL):
+    print(current_user, "\n\n\n\n  CURRENT USER \n\n\n\n\n")
+    userId = current_user.id if current_user is not None else None
+    attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
+    if attendee.userId is None and userId:
+        attendee.userId = userId
+        attendee.updatedAt = datetime.now()
+        db.session.commit()
+    if attendee is not None:
+        return {"CurrentAttendee": attendee.to_dict()}
+    return {"errors": "Attendee does not exist"}
+
+
 # checkAttendee
 @event_routes.route("/check/attendee/", methods=["POST"])
 def check_attendee():
@@ -95,17 +133,6 @@ def check_attendee():
 
     if form.validate_on_submit():
         return {"attendeeDataOk": True}
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
-
-
-# checkEvent
-@event_routes.route("/check/", methods=["POST"])
-def check_event():
-    form = CreateEventForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
-
-    if form.validate_on_submit():
-        return {"eventDataOk": True}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
