@@ -1,6 +1,6 @@
 // const SET_ALLEVENTS = "events/SET_ALLEVENTS";
 const SET_CurrentEvent = "events/SET_CurrentEvent";
-const SET_EventDataOk = "events/SET_EventDataOk";
+// const SET_EventDataOk = "events/SET_EventDataOk";
 
 // action creators
 
@@ -9,10 +9,10 @@ const setCurrentEvent = (event) => ({
 	payload: event,
 });
 
-const setEventDataOk = (eventDataOk) => ({
-	type: SET_EventDataOk,
-	payload: eventDataOk,
-});
+// const setEventDataOk = (eventDataOk) => ({
+// 	type: SET_EventDataOk,
+// 	payload: eventDataOk,
+// });
 // const setAllEvents = (events) => ({
 // 	type: SET_ALLEVENTS,
 // 	payload: events,
@@ -65,9 +65,9 @@ const eventReducer = (eventState = initialState, action) => {
 		case SET_CurrentEvent:
 			let { CurrentEvent } = action.payload;
 			return { ...eventState, currentEvent: CurrentEvent };
-		case SET_EventDataOk:
-			let { eventDataOK } = action.payload;
-			return { ...eventState, isEventDataOK: eventDataOK };
+		// case SET_EventDataOk:
+		// 	let { eventDataOK } = action.payload;
+		// 	return { ...eventState, isEventDataOK: eventDataOK };
 		default:
 			return eventState;
 	}

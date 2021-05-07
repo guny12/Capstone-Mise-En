@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as attendeeActions from "../../store/attendee";
 import * as eventActions from "../../store/event";
@@ -8,7 +8,7 @@ import "./AttendeeForm.css";
 import { Button, Form } from "react-bootstrap";
 
 const AttendeeForm = ({ eventData }) => {
-	const history = useHistory();
+	// const history = useHistory();
 	const dispatch = useDispatch();
 	const [errors, setErrors] = useState([]);
 	const [name, setName] = useState("");

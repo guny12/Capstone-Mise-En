@@ -1,5 +1,5 @@
 export const SET_ATTENDEE = "session/SET_ATTENDEE";
-const SET_AttendeeDataOk = "events/SET_AttendeeDataOk";
+// const SET_AttendeeDataOk = "events/SET_AttendeeDataOk";
 
 const setAttendee = (attendee) => ({
 	type: SET_ATTENDEE,
