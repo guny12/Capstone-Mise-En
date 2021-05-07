@@ -11,7 +11,7 @@ import PageNotFound from "../PageNotFound";
 const EventPage = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const creatorUserId = useSelector((state) => state.session.user?.id);
+	const UserId = useSelector((state) => state.session.user?.id);
 	const [eventAndAttendeeLoaded, setEventAndAttendeeLoaded] = useState(false);
 	const [exists, setExists] = useState(false);
 	const attendeeURL = window.location.pathname.split("/")[2];
@@ -33,7 +33,11 @@ const EventPage = () => {
 	if (!eventAndAttendeeLoaded) return null;
 	if (!exists && eventAndAttendeeLoaded) return <PageNotFound />;
 
-	return <h1>{attendeeURL}</h1>;
+	return (
+		<div>
+			<AttendeeFormModal />
+		</div>
+	);
 };
 
 export default EventPage;

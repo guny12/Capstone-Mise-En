@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as attendeeActions from "../../store/attendee";
 import * as eventActions from "../../store/event";
 
@@ -14,14 +14,17 @@ const AttendeeForm = ({ eventData }) => {
 	const [name, setName] = useState("");
 	const [contactInfo, setContactInfo] = useState("");
 	const [attendeeEmail, setAttendeeEmail] = useState("");
+	const [host, setHost] = useState(false);
 
 	const close = document.querySelector("#modal-background");
+	const currentEvent = useSelector((state) => state.event?.currentEvent);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const event = await dispatch(eventActions.createEvent(eventData));
-		if (event.errors) setErrors(event.errors);
-		const data = await dispatch(attendeeActions.createAttendee({ name, contactInfo, attendeeEmail }));
+
+		const data = await dispatch(
+			attendeeActions.createAttendee({ name, contactInfo, attendeeEmail, host, currentEvent })
+		);
 		if (data?.errors) {
 			setErrors(data.errors);
 		} else {
@@ -58,19 +61,22 @@ const AttendeeForm = ({ eventData }) => {
 				/>
 			</Form.Group>
 			<Form.Group controlId="formBasicEmail">
-				<Form.Label>Attendee Email </Form.Label>
+				<Form.Label>Optional Attendee Email </Form.Label>
 				<Form.Control
 					type="email"
 					autoComplete="email"
 					value={attendeeEmail}
 					onChange={(e) => setAttendeeEmail(e.target.value)}
-					required
 					maxLength="200"
-					placeholder="Enter Email"
+					placeholder="Enter Optional Email"
 				/>
 			</Form.Group>
+			<Form.Group controlId="formCheckHost">
+				<Form.Label>Give Host Permission </Form.Label>
+				<Form.Control type="checkbox" value={host} onChange={(e) => setHost(!host)} />
+			</Form.Group>
 			<Button variant="primary" type="submit">
-				Create Event
+				Create Attendee
 			</Button>
 		</Form>
 	);

@@ -28,7 +28,7 @@ def create_attendee(eventId):
 
         firstAttendee = True if Attendee.query.filter(Attendee.eventId == eventId).first() is None else False
         host = True if firstAttendee or body["host"] == True else False
-        going = True if firstAttendee or body["going"] == True else False
+        going = True if firstAttendee or "going" in body and body["going"] == True else False
         newURL = faker.sha256()
         uniqueURL = True if Attendee.query.filter(Attendee.attendeeURL == newURL).first() is None else False
         attendeeURL = newURL if uniqueURL else faker.sha256()
