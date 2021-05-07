@@ -11,13 +11,14 @@ const EventPage = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const creatorUserId = useSelector((state) => state.session.user?.id);
+	const [eventAndAttendeeLoaded, setEventAndAttendeeLoaded] = useState(false);
 	const attendeeURL = window.location.pathname.split("/")[2];
 
-	console.log(attendeeURL, "URL");
 	useEffect(() => {
 		(async () => {
 			const eventId = await dispatch(attendeeActions.getAttendee(attendeeURL));
 			const event = await dispatch(eventActions.getEvent(eventId));
+			setEventAndAttendeeLoaded(true);
 		})();
 	}, [dispatch]);
 
@@ -37,6 +38,7 @@ const EventPage = () => {
 	// const [contactInfo, setContactInfo] = useState("");
 	// const [attendeeEmail, setAttendeeEmail] = useState("");
 
+	if (!eventAndAttendeeLoaded) return null;
 	return <h1>{attendeeURL}</h1>;
 };
 

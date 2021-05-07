@@ -52,7 +52,6 @@ const attendeeReducer = (attendeeState = initialState, action) => {
 	switch (action.type) {
 		case SET_ATTENDEE:
 			let { CurrentAttendee } = action.payload;
-			console.log(CurrentAttendee, "REDUCER");
 			return { ...attendeeState, currentAttendee: CurrentAttendee };
 		default:
 			return attendeeState;
