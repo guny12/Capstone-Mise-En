@@ -83,8 +83,8 @@ def create_attendee(eventId):
     if form.validate_on_submit():
         body = request.json
         name = body["name"]
-        contactInfo = body["contactInfo"]
-        attendeeEmail = body["attendeeEmail"]
+        contactInfo = body["contactInfo"] if "contactInfo" in body else None
+        attendeeEmail = body["attendeeEmail"] if "attendeeEmail" in body else None
 
         userId = body["userId"] if "userId" in body else None
 

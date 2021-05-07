@@ -9,7 +9,7 @@ class Attendee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), nullable=False)
     contactInfo = db.Column(db.String(250))
-    attendeeEmail = db.Column(db.String(200), nullable=False)
+    attendeeEmail = db.Column(db.String(200))
     attendeeURL = db.Column(db.String(64), nullable=False)
     going = db.Column(db.Boolean, default=False)
     host = db.Column(db.Boolean, default=False)
@@ -24,9 +24,9 @@ class Attendee(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "contactInfo": self.contactInfo,
+            # "contactInfo": self.contactInfo,
             "attendeeURL": self.attendeeURL,
-            "attendeeEmail": self.attendeeEmail,
+            # "attendeeEmail": self.attendeeEmail,
             "going": self.going,
             "host": self.host,
             "eventId": self.eventId,

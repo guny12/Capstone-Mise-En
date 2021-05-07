@@ -54,7 +54,7 @@ const EventForm = () => {
 		else {
 			const userId = creatorUserId;
 			const currentEvent = CurrentEvent.CurrentEvent;
-			const attendeeAndCurrentEventData = { name, contactInfo, attendeeEmail, userId, currentEvent };
+			const attendeeAndCurrentEventData = { name, attendeeEmail, userId, currentEvent };
 			const CurrentAttendee = await dispatch(attendeeActions.createAttendee(attendeeAndCurrentEventData));
 			if (CurrentAttendee.errors) setErrors(CurrentAttendee.errors);
 			else {
@@ -201,19 +201,18 @@ const EventForm = () => {
 				</Form.Group>
 
 				<Form.Group as={Col} controlId="formBasicEmail">
-					<Form.Label>Your Email </Form.Label>
+					<Form.Label>Optional Email </Form.Label>
 					<Form.Control
 						type="email"
 						autoComplete="email"
 						value={attendeeEmail}
 						onChange={(e) => setAttendeeEmail(e.target.value)}
-						required
 						maxLength="200"
 						placeholder="Enter Your Email"
 					/>
 				</Form.Group>
 			</Form.Row>
-			<Form.Group controlId="formBasicContactInfo">
+			{/* <Form.Group controlId="formBasicContactInfo">
 				<Form.Label>Optional Contact Info </Form.Label>
 				<Form.Control
 					type="text"
@@ -223,7 +222,7 @@ const EventForm = () => {
 					maxLength="250"
 					placeholder="Enter Optional Phone Number or other contact info"
 				/>
-			</Form.Group>
+			</Form.Group> */}
 			<Form.Row>
 				{/* <AttendeeFormModal eventData={eventData} /> */}
 				<Button type="submit">Create Event</Button>

@@ -61,8 +61,6 @@ export const checkEventData = (eventData) => async (dispatch) => {
 //reducer
 const initialState = {
 	currentEvent: {},
-	joinedEvents: [],
-	isEventDataOk: false,
 };
 
 const eventReducer = (eventState = initialState, action) => {
