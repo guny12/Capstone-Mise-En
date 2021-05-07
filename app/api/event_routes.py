@@ -71,16 +71,15 @@ def get_event(eventId):
 
 
 # deleteEvent Route
-@event_routes.route("/<int:event>/<string:attendeeURL>", methods=["DELETE"])
+@event_routes.route("/<int:eventId>/<string:attendeeURL>", methods=["DELETE"])
 def delete_event(eventId, attendeeURL):
+    print(attendeeURL, eventId, "\n\n\n\n\n THIS \n\n\n\n")
     host = Attendee.query.filter(
-        Attendee.host is True, Attendee.attendeeURL == attendeeURL, Attendee.eventId == eventId
+        Attendee.host == True, Attendee.attendeeURL == attendeeURL, Attendee.eventId == eventId
     ).first()
     if host is None:
         return {"errors": "You do not have permission to delete this event"}, 401
-    event = Event.get(eventId)
-    if event is None:
-        return {"errors": "Event does not exist"}, 400
+    event = Event.query.get(eventId)
     db.session.delete(event)
     db.session.commit()
     return {"message": "success"}
@@ -154,7 +153,7 @@ def get_attendee(attendeeURL):
 
 # Delete Attendee
 @event_routes.route("/<string:attendeeURL>", methods=["DELETE"])
-def get_attendee(attendeeURL):
+def delete_attendee(attendeeURL):
     userId = current_user.id if current_user.is_active else None
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
     if attendee is None:
@@ -162,12 +161,12 @@ def get_attendee(attendeeURL):
 
     # check if there's another host in the event they're making. otherwise event will be deleted.
     elif attendee.host is True:
-        allHosts = Attendee.query.filter(Attendee.host is True, Attendee.eventId == attendee.eventId).all()
-        event = Event.get(attendee.eventId)
+        allHosts = Attendee.query.filter(Attendee.host == True, Attendee.eventId == attendee.eventId).all()
+        event = Event.query.get(attendee.eventId)
         if len(allHosts) == 1 and event:
             db.session.delete(event)
-        db.session.delete(attendee)
-        db.session.commit()
+    db.session.delete(attendee)
+    db.session.commit()
     return {"message": "success"}
 
 
