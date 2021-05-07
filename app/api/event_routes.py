@@ -1,6 +1,7 @@
 from datetime import datetime
 from faker import Faker
-from flask import Blueprint, request, current_user
+from flask import Blueprint, request
+from flask_login import current_user
 from app.models import User, Event, Attendee, db
 from app.forms.event_form import CreateEventForm
 from app.forms.attendee_form import CreateAttendeeForm
@@ -111,15 +112,22 @@ def create_attendee(eventId):
 
 
 # get Attendee
-@event_routes.route("/<string:attendeeURL>")
+@event_routes.route("/<string:attendeeURL>/", methods=["GET"])
 def get_attendee(attendeeURL):
-    print(current_user, "\n\n\n\n  CURRENT USER \n\n\n\n\n")
-    userId = current_user.id if current_user is not None else None
+    print(current_user.is_active, "\n\n\n\n  CURRENT USER \n\n\n\n\n")
+    userId = current_user.id if current_user.is_active else None
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
+
+    # if there's an active user, then this attendee url is now assigned to them.
     if attendee.userId is None and userId:
         attendee.userId = userId
         attendee.updatedAt = datetime.now()
         db.session.commit()
+
+    # if there was a useraccount this attendee belongs to, force them to log in to access.
+    if attendee.userId is not None and attendee.userId != userId:
+        return {"errors": "You are not the user. Please log in to access"}
+
     if attendee is not None:
         return {"CurrentAttendee": attendee.to_dict()}
     return {"errors": "Attendee does not exist"}

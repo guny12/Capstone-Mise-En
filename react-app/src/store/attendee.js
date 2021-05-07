@@ -23,7 +23,7 @@ export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
 
 // get attendee to put in store
 export const getAttendee = (attendeeURL) => async (dispatch) => {
-	const response = await fetch(`/api/event/${attendeeURL}`);
+	const response = await fetch(`/api/event/${attendeeURL}/`);
 	if (response.ok) {
 		const attendee = await response.json();
 		dispatch(setAttendee(attendee));
