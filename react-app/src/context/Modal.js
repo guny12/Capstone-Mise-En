@@ -30,3 +30,16 @@ export function Modal({ onClose, children }) {
 		modalNode
 	);
 }
+
+export function LogoModalWrapper({ onClose, children }) {
+	const modalNode = useContext(ModalContext);
+	if (!modalNode) return null;
+
+	return ReactDOM.createPortal(
+		<div id="LogoModal">
+			<div id="Logo-modal-background" onClick={onClose} />
+			<div id="Logo-modal-content">{children}</div>
+		</div>,
+		modalNode
+	);
+}

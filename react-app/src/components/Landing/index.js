@@ -13,7 +13,6 @@ const Landing = () => {
 	useEffect(() => {
 		const modal = document.querySelector("#LogoButton");
 		if (modal) modal.click();
-		console.log(modal);
 	}, []);
 
 	return (

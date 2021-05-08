@@ -7,7 +7,13 @@ import { Button, Form } from "react-bootstrap";
 
 const Logo = () => {
 	const dispatch = useDispatch();
-	const close = document.querySelector("#modal-background");
+
+	useEffect(() => {
+		setTimeout(() => {
+			const close = document.querySelector("#Logo-modal-background");
+			close.click();
+		}, 2700);
+	}, []);
 
 	return <img src="mise-en-logo.png" alt="logo"></img>;
 };
