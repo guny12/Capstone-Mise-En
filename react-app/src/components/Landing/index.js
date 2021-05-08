@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./Landing.css";
@@ -9,6 +9,12 @@ const Landing = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const userName = useSelector((state) => state.session.user?.username);
+
+	useEffect(() => {
+		const modal = document.querySelector("#LogoButton");
+		if (modal) modal.click();
+		console.log(modal);
+	}, []);
 
 	return (
 		<div>

@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Home from "./components/Home";
 import Landing from "./components/Landing";
 import EventPage from "./components/EventPage";
+import LogoModal from "./components/LogoModal";
 
 import * as sessionActions from "./store/session";
 
@@ -33,6 +34,7 @@ function App() {
 					<Home />
 				</ProtectedRoute>
 				<Route path="/" exact={true}>
+					<LogoModal />
 					<Landing />
 				</Route>
 				<Route path="/event/">
