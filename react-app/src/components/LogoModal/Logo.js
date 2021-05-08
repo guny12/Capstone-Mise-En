@@ -13,7 +13,7 @@ const Logo = () => {
 	useEffect(() => {
 		setTimeout(() => {
 			const close = document.querySelector("#Logo-modal-background");
-			close.click();
+			if (close) close.click();
 		}, 2700);
 	}, []);
 

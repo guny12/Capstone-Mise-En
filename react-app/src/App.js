@@ -29,16 +29,17 @@ function App() {
 	return (
 		<>
 			<LogoModal />
-			<Navigation />
 			<Switch>
 				<ProtectedRoute path="/home" exact={true}>
+					<Navigation />
 					<Home />
 				</ProtectedRoute>
 				<Route path="/" exact={true}>
-					{/* <LogoModal /> */}
+					{loggedIn && <Navigation />}
 					<Landing />
 				</Route>
 				<Route path="/event/">
+					<Navigation />
 					<EventPage />
 				</Route>
 				<Route path="/">
