@@ -30,6 +30,11 @@ const EventPage = () => {
 		})();
 	}, [dispatch]);
 
+	useEffect(() => {
+		const modal = document.querySelector("#LogoButton");
+		if (modal) modal.click();
+	}, []);
+
 	if (!eventAndAttendeeLoaded) return null;
 	if (!exists && eventAndAttendeeLoaded) return <PageNotFound />;
 

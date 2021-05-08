@@ -36,7 +36,7 @@ export function LogoModalWrapper({ onClose, children }) {
 	if (!modalNode) return null;
 
 	return ReactDOM.createPortal(
-		<div id="LogoModal">
+		<div id="Logo-modal">
 			<div id="Logo-modal-background" onClick={onClose} />
 			<div id="Logo-modal-content">{children}</div>
 		</div>,

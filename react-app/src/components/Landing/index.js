@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./Landing.css";
-// import { Button, Form, Col } from "react-bootstrap";
 import EventForm from "../EventForm";
 
 const Landing = () => {
