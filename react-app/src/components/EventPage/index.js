@@ -33,6 +33,8 @@ const EventPage = () => {
 	if (!eventAndAttendeeLoaded) return null;
 	if (!exists && eventAndAttendeeLoaded) return <PageNotFound />;
 
+	// if you are host:
+	// list all Attendees for this event, display which ones are hosts or not.
 	return (
 		<div>
 			<AttendeeFormModal />
