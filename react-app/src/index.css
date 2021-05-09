@@ -1,9 +1,33 @@
 /* TODO Add site wide styles */
 body {
-	background-color: grey;
+	background-color: whitesmoke;
+}
+
+.btn-dark {
+	color: white;
+	/* background-color: rgba(0, 64, 150, 255); */
+	border: 1px white solid;
+	background-image: url("./images/swoosh1-cropped.png");
+	height: 70px;
+	width: 250px;
+	background-position: -10rem;
+	word-wrap: normal;
+	font-size: x-large;
+	background-color: transparent;
+	animation: button-fade-in 4s linear;
 }
 
 * {
 	font-family: "Abril Fatface", cursive;
 	font-size: large;
+	/* animation: fade-in 2s linear; */
+}
+
+@keyframes button-fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
