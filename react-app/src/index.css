@@ -1,12 +1,12 @@
 /* TODO Add site wide styles */
 body {
-	background-color: whitesmoke;
+	background-color: rgba(236, 241, 249, 255);
 }
 
 .btn-dark {
 	color: white;
 	/* background-color: rgba(0, 64, 150, 255); */
-	border: 1px white solid;
+	border: 5px rgba(236, 241, 249, 255) solid;
 	background-image: url("./images/swoosh1-cropped.png");
 	height: 70px;
 	width: 250px;
@@ -26,8 +26,10 @@ body {
 @keyframes button-fade-in {
 	0% {
 		opacity: 0;
+		translate-y: 0%;
 	}
 	100% {
 		opacity: 1;
+		translate-y: 100%;
 	}
 }

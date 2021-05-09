@@ -28,7 +28,7 @@ const EventPage = () => {
 				setEventAndAttendeeLoaded(true);
 			}
 		})();
-	}, [dispatch]);
+	}, [dispatch, attendeeURL]);
 
 	useEffect(() => {
 		const modal = document.querySelector("#LogoButton");
@@ -40,6 +40,17 @@ const EventPage = () => {
 
 	// if you are host:
 	// list all Attendees for this event, display which ones are hosts or not.
+	// let you edit attendees in a modal
+	// lets you edit event in a modal
+	//  let you edit menu  and items
+	// lets you comment
+
+	// if not host:
+	// lets you view attendees
+	// lets you edit your attendee info
+	// lets you comment
+	//
+
 	return (
 		<div>
 			<AttendeeFormModal />

@@ -28,6 +28,7 @@ export const createEvent = (eventData) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
+		dispatch(setCurrentEvent(data));
 		return data;
 	} else return response.json();
 };

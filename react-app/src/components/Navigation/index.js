@@ -7,13 +7,21 @@ import SignUpModal from "../SignUpModal";
 import { Nav, Navbar, Button } from "react-bootstrap";
 import * as sessionActions from "../../store/session";
 import ProfileButton from "./ProfileButton";
+import EventFormModal from "../EventFormModal";
+import "./Navigation.css";
 
 const Navigation = () => {
 	const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
+	const attendeeURL = window.location.pathname.split("/")[2];
 
 	let sessionLinks;
-	if (sessionUser) sessionLinks = <ProfileButton user={sessionUser} />;
+	if (sessionUser)
+		sessionLinks = (
+			<>
+				<ProfileButton user={sessionUser} />
+			</>
+		);
 	else {
 		sessionLinks = (
 			<>
@@ -31,7 +39,7 @@ const Navigation = () => {
 	};
 
 	return (
-		<Navbar bg="primary" variant="dark">
+		<Navbar className="navBar" variant="dark">
 			<Nav className="mr-auto">
 				<NavLink to={"/"} className="nav-link">
 					Home
