@@ -9,7 +9,7 @@ function EventFormModal() {
 
 	return (
 		<>
-			<Button id="loginButton" variant="dark" onClick={() => setShowModal(true)}>
+			<Button id="Event-form-button" variant="dark" onClick={() => setShowModal(true)}>
 				Create an Event
 			</Button>
 			{showModal && (
