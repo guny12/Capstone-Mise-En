@@ -32,3 +32,12 @@ class Attendee(db.Model):
             "eventId": self.eventId,
             "userId": self.userId,
         }
+
+    def attendee_dict(self):
+        return {
+            "name": self.name,
+            "contactInfo": self.contactInfo,
+            # "attendeeEmail": self.attendeeEmail,
+            "going": self.going,
+            "host": self.host,
+        }
