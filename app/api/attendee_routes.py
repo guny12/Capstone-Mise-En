@@ -78,12 +78,14 @@ def get_attendees(attendeeURL):
     # if there was a useraccount this attendee belongs to, force them to log in to access.
     eventId = currentAttendee.eventId
     attendeesList = Attendee.query.filter(Attendee.eventId == eventId).all()
-    # going to put the processsing of data on the frontend to ease up API processing needed.
     attendees = {}
+    numGoing = 0
     for attendee in attendeesList:
         attendees[attendee.id] = attendee.attendee_dict()
+        if attendee.going is True:
+            numGoing += 1
 
-    return {"listAttendees": attendees}
+    return {"listAttendees": attendees, "totalAttendees": len(attendeesList), "numGoing": numGoing}
 
 
 # Delete Attendee and event if Attendee was the last host
@@ -96,9 +98,9 @@ def delete_attendee(attendeeURL):
 
     # check if there's another host in the event they're making. otherwise event will be deleted.
     elif attendee.host is True:
-        allHosts = Attendee.query.filter(Attendee.host == True, Attendee.eventId == attendee.eventId).all()
+        allHosts = Attendee.query.filter(Attendee.host == True, Attendee.eventId == attendee.eventId).count()
         event = Event.query.get(attendee.eventId)
-        if len(allHosts) == 1 and event:
+        if allHosts <= 1 and event:
             db.session.delete(event)
     db.session.delete(attendee)
     db.session.commit()
