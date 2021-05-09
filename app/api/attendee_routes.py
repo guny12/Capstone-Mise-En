@@ -50,7 +50,7 @@ def create_attendee(eventId):
 
 
 # get Current Attendee
-@attendee_routes.route("/<string:attendeeURL>", methods=["GET"])
+@attendee_routes.route("/current/<string:attendeeURL>", methods=["GET"])
 def get_attendee(attendeeURL):
     userId = current_user.id if current_user.is_active else None
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
@@ -67,6 +67,23 @@ def get_attendee(attendeeURL):
     elif attendee.userId is not None and attendee.userId != userId:
         return {"errors": "You are not the user. Please log in to access"}, 401
     return {"CurrentAttendee": attendee.to_dict()}
+
+
+# get List Attendees
+@attendee_routes.route("/list/<string:attendeeURL>", methods=["GET"])
+def get_attendees(attendeeURL):
+    currentAttendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
+    if currentAttendee is None:
+        return {"errors": "Attendee does not exist"}, 400
+    # if there was a useraccount this attendee belongs to, force them to log in to access.
+    eventId = currentAttendee.eventId
+    attendeesList = Attendee.query.filter(Attendee.eventId == eventId).all()
+    # going to put the processsing of data on the frontend to ease up API processing needed.
+    attendees = {}
+    for attendee in attendeesList:
+        attendees[attendee.id] = attendee.attendee_dict()
+
+    return {"listAttendees": attendees}
 
 
 # Delete Attendee and event if Attendee was the last host
