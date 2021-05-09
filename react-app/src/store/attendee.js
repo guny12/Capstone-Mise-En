@@ -42,6 +42,7 @@ export const getAttendees = (attendeeURL) => async (dispatch) => {
 	if (response.ok) {
 		const attendees = await response.json();
 		dispatch(setListAttendees(attendees));
+		return true;
 	} else return response.json();
 };
 

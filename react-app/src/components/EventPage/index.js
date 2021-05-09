@@ -22,7 +22,8 @@ const EventPage = () => {
 			try {
 				const eventId = await dispatch(attendeeActions.getAttendee(attendeeURL));
 				const event = await dispatch(eventActions.getEvent(eventId));
-				if (eventId && event) setExists(true);
+				const success = await dispatch(attendeeActions.getAttendees(attendeeURL));
+				if (eventId && event && success) setExists(true);
 				setEventAndAttendeeLoaded(true);
 			} catch {
 				setEventAndAttendeeLoaded(true);
