@@ -15,6 +15,7 @@ const EventPage = () => {
 	const [eventAndAttendeeLoaded, setEventAndAttendeeLoaded] = useState(false);
 	const [exists, setExists] = useState(false);
 	const [errors, setErrors] = useState([]);
+	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
 	const attendeeURL = window.location.pathname.split("/")[2];
 
 	useEffect(() => {
@@ -61,7 +62,7 @@ const EventPage = () => {
 
 	return (
 		<div>
-			<AttendeeFormModal />
+			{isHost && <AttendeeFormModal />}
 			{attendeeURL.length === 64 && <AttendeesList />}
 		</div>
 	);

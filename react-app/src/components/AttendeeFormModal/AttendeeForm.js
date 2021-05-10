@@ -76,10 +76,13 @@ const AttendeeForm = ({ eventData }) => {
 					placeholder="Enter Optional Email"
 				/>
 			</Form.Group>
-			<Form.Group controlId="formCheckHost">
-				<Form.Label>Give Host Permission </Form.Label>
-				<Form.Control type="checkbox" value={host} onChange={(e) => setHost(!host)} />
-			</Form.Group>
+			{/* if it's a host URL, they can give host permission */}
+			{attendeeURL.length === 64 && (
+				<Form.Group controlId="formCheckHost">
+					<Form.Label>Give Host Permission </Form.Label>
+					<Form.Control type="checkbox" value={host} onChange={(e) => setHost(!host)} />
+				</Form.Group>
+			)}
 			<Button variant="primary" type="submit">
 				Create Attendee
 			</Button>
