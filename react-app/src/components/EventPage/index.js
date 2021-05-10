@@ -1,35 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import "./EventPage.css";
-import { Button, Form, Col, Image } from "react-bootstrap";
+// import { Button, Form, Col, Image } from "react-bootstrap";
 import * as eventActions from "../../store/event";
 import * as attendeeActions from "../../store/attendee";
 import AttendeeFormModal from "../AttendeeFormModal";
 import PageNotFound from "../PageNotFound";
+import AttendeesList from "../AttendeesList";
 
 const EventPage = () => {
 	const dispatch = useDispatch();
-	const history = useHistory();
-	const UserId = useSelector((state) => state.session.user?.id);
+	const attendeesLoaded = useSelector((state) => state.attendee?.loaded);
 	const [eventAndAttendeeLoaded, setEventAndAttendeeLoaded] = useState(false);
 	const [exists, setExists] = useState(false);
-	const attendeeURL = window.location.pathname.split("/")[2];
 	const [errors, setErrors] = useState([]);
-
+	const attendeeURL = window.location.pathname.split("/")[2];
 	useEffect(() => {
 		(async () => {
 			try {
 				const eventId = await dispatch(attendeeActions.getAttendee(attendeeURL));
 				const event = await dispatch(eventActions.getEvent(eventId));
-				const success = await dispatch(attendeeActions.getAttendees(attendeeURL));
-				if (eventId && event && success) setExists(true);
+				// const success = await dispatch(attendeeActions.getAttendees(attendeeURL));
+				if (eventId && event) setExists(true);
 				setEventAndAttendeeLoaded(true);
 			} catch {
 				setEventAndAttendeeLoaded(true);
 			}
 		})();
 	}, [dispatch, attendeeURL]);
+
+	useEffect(() => {
+		(async () => {
+			if (!attendeesLoaded) await dispatch(attendeeActions.getAttendees(attendeeURL));
+		})();
+	}, [dispatch, attendeesLoaded]);
 
 	useEffect(() => {
 		const modal = document.querySelector("#LogoButton");
@@ -40,7 +45,7 @@ const EventPage = () => {
 	if (!exists && eventAndAttendeeLoaded) return <PageNotFound />;
 
 	// if you are host:
-	// list all Attendees for this event, display which ones are hosts or not.
+	// list all Attendees for this event, display which ones are going or not.
 	// let you edit attendees in a modal
 	// lets you edit event in a modal
 	//  let you edit menu  and items
@@ -55,6 +60,7 @@ const EventPage = () => {
 	return (
 		<div>
 			<AttendeeFormModal />
+			<AttendeesList />
 		</div>
 	);
 };

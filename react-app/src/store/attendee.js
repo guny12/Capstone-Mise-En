@@ -1,5 +1,6 @@
-export const SET_ATTENDEE = "session/SET_ATTENDEE";
-export const SET_LISTATTENDEES = "session/SET_LISTATTENDEES";
+export const SET_ATTENDEE = "attendee/SET_ATTENDEE";
+export const SET_LISTATTENDEES = "attendee/SET_LISTATTENDEES";
+export const SET_ATTENDEESLOADEDFALSE = "attendee/SET_ATTENDEESLOADEDFALSE";
 // const SET_AttendeeDataOk = "events/SET_AttendeeDataOk";
 
 const setAttendee = (attendee) => ({
@@ -12,6 +13,9 @@ const setListAttendees = (attendees) => ({
 	payload: attendees,
 });
 
+const attendeesUnloaded = () => ({
+	type: SET_ATTENDEESLOADEDFALSE,
+});
 // thunk action creators
 // create attendee
 export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
@@ -23,6 +27,7 @@ export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const attendee = await response.json();
+		dispatch(attendeesUnloaded());
 		return attendee;
 	} else return response.json();
 };
@@ -62,6 +67,7 @@ export const checkAttendeeData = (attendeeData) => async (dispatch) => {
 const initialState = {
 	currentAttendee: null,
 	listAttendees: null,
+	loaded: false,
 };
 
 const attendeeReducer = (attendeeState = initialState, action) => {
@@ -71,7 +77,9 @@ const attendeeReducer = (attendeeState = initialState, action) => {
 			return { ...attendeeState, currentAttendee: CurrentAttendee };
 		case SET_LISTATTENDEES:
 			const { listAttendees, totalAttendees, numGoing } = action.payload;
-			return { ...attendeeState, listAttendees, totalAttendees, numGoing };
+			return { ...attendeeState, listAttendees, totalAttendees, numGoing, loaded: true };
+		case SET_ATTENDEESLOADEDFALSE:
+			return { ...attendeeState, loaded: false };
 		default:
 			return attendeeState;
 	}
