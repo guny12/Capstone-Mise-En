@@ -14,7 +14,6 @@ const EventPage = () => {
 	const attendeesLoaded = useSelector((state) => state.attendee?.loaded);
 	const [eventAndAttendeeLoaded, setEventAndAttendeeLoaded] = useState(false);
 	const [exists, setExists] = useState(false);
-	const [errors, setErrors] = useState([]);
 	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
 	const attendeeURL = window.location.pathname.split("/")[2];
 
@@ -22,7 +21,6 @@ const EventPage = () => {
 		(async () => {
 			try {
 				const eventId = await dispatch(attendeeActions.getAttendee(attendeeURL));
-				console.log(eventId);
 				const event = await dispatch(eventActions.getEvent(eventId));
 				if (eventId && event) setExists(true);
 				setEventAndAttendeeLoaded(true);
@@ -37,7 +35,7 @@ const EventPage = () => {
 		(async () => {
 			if (!attendeesLoaded && attendeeURL.length === 64) await dispatch(attendeeActions.getAttendees(attendeeURL));
 		})();
-	}, [dispatch, attendeesLoaded]);
+	}, [dispatch, attendeesLoaded, attendeeURL]);
 
 	useEffect(() => {
 		const modal = document.querySelector("#LogoButton");

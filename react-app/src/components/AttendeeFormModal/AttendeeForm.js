@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as attendeeActions from "../../store/attendee";
-import * as eventActions from "../../store/event";
 
 import "./AttendeeForm.css";
 import { Button, Form } from "react-bootstrap";
@@ -76,7 +75,7 @@ const AttendeeForm = ({ eventData }) => {
 					placeholder="Enter Optional Email"
 				/>
 			</Form.Group>
-			{/* if it's a host URL, they can give host permission */}
+
 			{attendeeURL.length === 64 && (
 				<Form.Group controlId="formCheckHost">
 					<Form.Label>Give Host Permission </Form.Label>

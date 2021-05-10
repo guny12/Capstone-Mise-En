@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React /*{ useEffect, useState }*/ from "react";
+import { useSelector } from "react-redux";
+// import { useHistory } from "react-router-dom";
 import "./AttendeesList.css";
 import { ListGroup, Badge } from "react-bootstrap";
-import * as eventActions from "../../store/event";
-import * as attendeeActions from "../../store/attendee";
+// import * as eventActions from "../../store/event";
+// import * as attendeeActions from "../../store/attendee";
 
 const AttendeesList = () => {
 	const listAttendees = useSelector((state) => state.attendee?.listAttendees);
@@ -15,9 +15,9 @@ const AttendeesList = () => {
 	if (listAttendees) {
 		attendees = Object.values(listAttendees);
 
-		attendeesList = attendees.map((attendee) => {
+		attendeesList = attendees.map((attendee, i) => {
 			return (
-				<ListGroup.Item variant="dark" key={attendee.id} action variant="dark">
+				<ListGroup.Item key={i} action variant="dark">
 					<span className="list-group-item-name"> {attendee.name}</span>
 					{attendee.host === true && <Badge variant="light">Host</Badge>}
 					{attendee.going === true && <Badge variant="success">Going</Badge>}

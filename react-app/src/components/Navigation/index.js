@@ -1,19 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import LoginFormModal from "../LoginFormModal";
 import SignUpModal from "../SignUpModal";
 import { Nav, Navbar, Button } from "react-bootstrap";
 import * as sessionActions from "../../store/session";
 import ProfileButton from "./ProfileButton";
-import EventFormModal from "../EventFormModal";
 import "./Navigation.css";
 
 const Navigation = () => {
 	const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
-	const attendeeURL = window.location.pathname.split("/")[2];
 
 	let sessionLinks;
 	if (sessionUser)

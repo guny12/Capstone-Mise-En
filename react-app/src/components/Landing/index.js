@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import "./Landing.css";
 import * as sessionActions from "../../store/session";
 import EventFormModal from "../EventFormModal";
@@ -11,7 +11,7 @@ import { Button } from "react-bootstrap";
 
 const Landing = () => {
 	const dispatch = useDispatch();
-	const history = useHistory();
+	// const history = useHistory();
 	const userName = useSelector((state) => state.session.user?.username);
 
 	useEffect(() => {

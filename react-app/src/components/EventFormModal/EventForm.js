@@ -5,7 +5,6 @@ import "./EventForm.css";
 import { Button, Form, Col } from "react-bootstrap";
 import * as eventActions from "../../store/event";
 import * as attendeeActions from "../../store/attendee";
-import AttendeeFormModal from "../AttendeeFormModal";
 
 const EventForm = () => {
 	const dispatch = useDispatch();
@@ -54,7 +53,7 @@ const EventForm = () => {
 		else {
 			const userId = creatorUserId;
 			const currentEvent = CurrentEvent.CurrentEvent;
-			const attendeeAndCurrentEventData = { name, attendeeEmail, userId, currentEvent };
+			const attendeeAndCurrentEventData = { name, attendeeEmail, userId, contactInfo, currentEvent };
 			const CurrentAttendee = await dispatch(attendeeActions.createAttendee(attendeeAndCurrentEventData));
 			if (CurrentAttendee.errors) setErrors(CurrentAttendee.errors);
 			else {
