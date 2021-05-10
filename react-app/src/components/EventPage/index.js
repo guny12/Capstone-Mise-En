@@ -58,11 +58,13 @@ const EventPage = () => {
 	// lets you view attendees
 	// lets you edit your attendee info
 	// lets you comment
-	//
+
+	// if it is 15keyEventPage or user is a host, create attendee shows
+	const attendeeFormModal = isHost || attendeeURL.length === 15 ? <AttendeeFormModal /> : null;
 
 	return (
 		<div>
-			{isHost && <AttendeeFormModal />}
+			{attendeeFormModal}
 			{attendeeURL.length === 64 && <AttendeesList />}
 		</div>
 	);
