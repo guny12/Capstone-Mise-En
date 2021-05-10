@@ -17,8 +17,8 @@ const AttendeesList = () => {
 
 		attendeesList = attendees.map((attendee) => {
 			return (
-				<ListGroup.Item variant="info" key={attendee.id} action variant="info">
-					{attendee.name}
+				<ListGroup.Item variant="dark" key={attendee.id} action variant="dark">
+					<span className="list-group-item-name"> {attendee.name}</span>
 					{attendee.host === true && <Badge variant="light">Host</Badge>}
 					{attendee.going === true && <Badge variant="success">Going</Badge>}
 					{attendee.going === false && <Badge variant="danger">Not Going</Badge>}
