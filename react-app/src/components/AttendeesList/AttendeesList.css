@@ -28,3 +28,19 @@
 	margin-left: 0.2rem;
 	margin-right: 0.2rem;
 }
+
+.attendees-list-container {
+	justify-content: center;
+	/* align-items: center; */
+	display: grid;
+}
+
+.attendees-list-header {
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+	overflow-x: auto;
+	overflow-y: auto;
+	width: 350px;
+	height: 50px;
+}

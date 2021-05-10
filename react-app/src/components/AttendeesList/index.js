@@ -29,7 +29,15 @@ const AttendeesList = () => {
 
 	if (!attendees) return null;
 
-	return <ListGroup>{attendeesList}</ListGroup>;
+	return (
+		<div className="attendees-list-container">
+			<h5 className="attendees-list-header">
+				{totalAttendees} attendees, {numGoing} going
+			</h5>
+
+			<ListGroup>{attendeesList}</ListGroup>
+		</div>
+	);
 };
 
 export default AttendeesList;
