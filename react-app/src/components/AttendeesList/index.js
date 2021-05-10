@@ -11,21 +11,25 @@ const AttendeesList = () => {
 	const totalAttendees = useSelector((state) => state.attendee?.totalAttendees);
 	const numGoing = useSelector((state) => state.attendee?.numGoing);
 
-	let attendees = Object.values(listAttendees);
+	let attendees, attendeesList;
+	if (listAttendees) {
+		attendees = Object.values(listAttendees);
 
-	const attendeesList = attendees.map((attendee) => {
-		return (
-			<ListGroup.Item variant="info" key={attendee.id}>
-				{attendee.name}
-				{attendee.host === true && <Badge variant="light">Host</Badge>}
-				{attendee.going === true && <Badge variant="success">Going</Badge>}
-				{attendee.going === false && <Badge variant="danger">Not Going</Badge>}
-			</ListGroup.Item>
-		);
-	});
+		attendeesList = attendees.map((attendee) => {
+			return (
+				<ListGroup.Item variant="info" key={attendee.id} action variant="info">
+					{attendee.name}
+					{attendee.host === true && <Badge variant="light">Host</Badge>}
+					{attendee.going === true && <Badge variant="success">Going</Badge>}
+					{attendee.going === false && <Badge variant="danger">Not Going</Badge>}
+				</ListGroup.Item>
+			);
+		});
+	}
 
 	if (!attendees) return null;
-	return <ListGroup variant="flush">{attendeesList}</ListGroup>;
+
+	return <ListGroup>{attendeesList}</ListGroup>;
 };
 
 export default AttendeesList;

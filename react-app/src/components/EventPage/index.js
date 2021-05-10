@@ -30,6 +30,7 @@ const EventPage = () => {
 		})();
 	}, [dispatch, attendeeURL]);
 
+	// updates the list of attendees if there is a change in creation or deletion.
 	useEffect(() => {
 		(async () => {
 			if (!attendeesLoaded) await dispatch(attendeeActions.getAttendees(attendeeURL));
