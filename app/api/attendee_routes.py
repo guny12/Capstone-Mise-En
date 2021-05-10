@@ -53,6 +53,12 @@ def create_attendee(eventId):
 @attendee_routes.route("/current/<string:attendeeURL>", methods=["GET"])
 def get_attendee(attendeeURL):
     userId = current_user.id if current_user.is_active else None
+
+    if len(attendeeURL) == 15:
+        host = Attendee.query.filter(Attendee.attendeeURL.startswith(attendeeURL)).first()
+        event = Event.query.filter(Event.id == host.eventId).first()
+        return {"CurrentAttendee": "None", "eventId": event.id}
+
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
     if attendee is None:
         return {"errors": "Attendee does not exist"}, 400
