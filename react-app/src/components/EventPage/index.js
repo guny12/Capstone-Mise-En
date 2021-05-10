@@ -16,12 +16,13 @@ const EventPage = () => {
 	const [exists, setExists] = useState(false);
 	const [errors, setErrors] = useState([]);
 	const attendeeURL = window.location.pathname.split("/")[2];
+
 	useEffect(() => {
 		(async () => {
 			try {
 				const eventId = await dispatch(attendeeActions.getAttendee(attendeeURL));
+				console.log(eventId);
 				const event = await dispatch(eventActions.getEvent(eventId));
-				// const success = await dispatch(attendeeActions.getAttendees(attendeeURL));
 				if (eventId && event) setExists(true);
 				setEventAndAttendeeLoaded(true);
 			} catch {
@@ -33,7 +34,7 @@ const EventPage = () => {
 	// updates the list of attendees if there is a change in creation or deletion.
 	useEffect(() => {
 		(async () => {
-			if (!attendeesLoaded) await dispatch(attendeeActions.getAttendees(attendeeURL));
+			if (!attendeesLoaded && attendeeURL.length === 64) await dispatch(attendeeActions.getAttendees(attendeeURL));
 		})();
 	}, [dispatch, attendeesLoaded]);
 
@@ -61,7 +62,7 @@ const EventPage = () => {
 	return (
 		<div>
 			<AttendeeFormModal />
-			<AttendeesList />
+			{attendeeURL.length === 64 && <AttendeesList />}
 		</div>
 	);
 };

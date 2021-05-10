@@ -38,6 +38,7 @@ export const getAttendee = (attendeeURL) => async (dispatch) => {
 	if (response.ok) {
 		const attendee = await response.json();
 		dispatch(setAttendee(attendee));
+		if (attendee.eventId) return attendee.eventId;
 		return attendee.CurrentAttendee.eventId;
 	} else return response.json();
 };

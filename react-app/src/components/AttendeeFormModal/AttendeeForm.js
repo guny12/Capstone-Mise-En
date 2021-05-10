@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as attendeeActions from "../../store/attendee";
 import * as eventActions from "../../store/event";
@@ -8,13 +8,14 @@ import "./AttendeeForm.css";
 import { Button, Form } from "react-bootstrap";
 
 const AttendeeForm = ({ eventData }) => {
-	// const history = useHistory();
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const [errors, setErrors] = useState([]);
 	const [name, setName] = useState("");
 	const [contactInfo, setContactInfo] = useState("");
 	const [attendeeEmail, setAttendeeEmail] = useState("");
 	const [host, setHost] = useState(false);
+	const attendeeURL = window.location.pathname.split("/")[2];
 
 	const close = document.querySelector("#modal-background");
 	const currentEvent = useSelector((state) => state.event?.currentEvent);
@@ -27,9 +28,13 @@ const AttendeeForm = ({ eventData }) => {
 		);
 		if (data?.errors) {
 			setErrors(data.errors);
+		} else if (attendeeURL.length === 15) {
+			history.push(data.newAttendee.attendeeURL);
+			history.go(0);
+			close.click();
+			return;
 		} else {
 			close.click();
-			console.log(data);
 			return;
 		}
 	};
