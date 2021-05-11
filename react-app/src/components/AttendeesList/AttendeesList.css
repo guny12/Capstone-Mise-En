@@ -56,14 +56,22 @@
 
 .accordion-item-name {
 	overflow-x: auto;
-	overflow-y: auto;
-	word-wrap: none;
+	white-space: nowrap;
 	margin-left: 0.2rem;
 	margin-right: 0.2rem;
 	width: 200px;
-	height: 30px;
+	height: auto;
 	justify-self: start;
 	overscroll-behavior-y: none;
+}
+
+.accordion-item-contact {
+	overflow-x: auto;
+	overflow-y: auto;
+	word-wrap: break-word;
+	max-width: 200px;
+	height: auto;
+	justify-self: start;
 }
 
 .badge {
@@ -73,10 +81,15 @@
 
 .attendees-accordion-container {
 	justify-content: center;
-	/* align-items: center; */
 	display: grid;
-	height: 75vh;
+	max-height: 75vh;
 	width: 275px;
+	overflow-y: auto;
+}
+
+.accordion {
+	height: 50vh;
+	overflow-y: auto;
 }
 
 .attendees-accordion-header {
@@ -86,7 +99,6 @@
 	overflow-x: auto;
 	overflow-y: hidden;
 	width: 275px;
-	/* height: 40px; */
-	margin-top: 0px;
-	margin-bottom: -40px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }

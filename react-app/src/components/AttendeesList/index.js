@@ -20,14 +20,16 @@ const AttendeesList = () => {
 			return (
 				<Card>
 					<Accordion.Toggle as={Card.Header} eventKey={attendee.id} className="attendees-accordion-header">
-						<div className="accordion-item-name">{attendee.name}</div>{" "}
+						<span className="accordion-item-name">{attendee.name}</span>{" "}
 						{attendee.host === true && <Badge variant="info">Host</Badge>}{" "}
 						{attendee.going === true && <Badge variant="success">Going</Badge>}{" "}
 						{attendee.going === false && <Badge variant="danger">Not Going</Badge>}
 					</Accordion.Toggle>
 					<Accordion.Collapse eventKey={attendee.id}>
 						<Card.Body>
-							contact info: {attendee.contactInfo}
+							<p className="accordion-item-contact">
+								contact info: {attendee.contactInfo?.length >= 1 ? attendee.contactInfo : "None provided"}
+							</p>
 							{isHost && <EditAttendeeFormModal attendee={attendee} />}
 						</Card.Body>
 					</Accordion.Collapse>

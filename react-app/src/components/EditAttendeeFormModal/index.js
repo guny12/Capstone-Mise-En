@@ -13,7 +13,7 @@ function EditAttendeeFormModal({ attendee }) {
 	return (
 		<>
 			<Button id={`edit-attendee-modal-${attendee.id}`} variant="info" onClick={() => setShowModal(true)}>
-				Edit Attendee
+				Edit
 			</Button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
