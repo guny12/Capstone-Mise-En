@@ -17,6 +17,9 @@ def create_attendee(eventId):
     form = CreateAttendeeForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     form["eventId"].data = eventId
+    event = Event.query.filter(Event.id == eventId).first()
+    if event.availableSpots is not None or event.availableSpots <= 0:
+        return {"errors": "Sorry No more spots left in event"}, 401
 
     if form.validate_on_submit():
         body = request.json
@@ -55,7 +58,7 @@ def get_attendee(attendeeURL):
     userId = current_user.id if current_user.is_active else None
 
     if len(attendeeURL) == 15:
-        host = Attendee.query.filter(Attendee.attendeeURL.startswith(attendeeURL)).first()
+        host = Attendee.query.filter(Attendee.attendeeURL.startswith(attendeeURL), Attendee.host == True).first()
         event = Event.query.filter(Event.id == host.eventId).first()
         return {"CurrentAttendee": "None", "eventId": event.id}
 

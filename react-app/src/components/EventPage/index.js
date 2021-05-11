@@ -46,7 +46,7 @@ const EventPage = () => {
 	}, []);
 
 	if (!eventAndAttendeeLoaded) return null;
-	if ((!exists && eventAndAttendeeLoaded) || (attendeeURL.length === 15 && !isHost)) return <PageNotFound />;
+	if (!exists && eventAndAttendeeLoaded) return <PageNotFound />;
 
 	// if you are host:
 	// list all Attendees for this event, display which ones are going or not X
