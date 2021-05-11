@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import "./EditEventForm.css";
 import { Button, Form, Col } from "react-bootstrap";
 import * as eventActions from "../../store/event";
-import * as attendeeActions from "../../store/attendee";
 
 const EditEventForm = ({ event }) => {
 	const dispatch = useDispatch();
-	const history = useHistory();
 	const creatorUserId = useSelector((state) => state.session.user?.id);
-
-	console.log(event);
 	const [errors, setErrors] = useState([]);
 	const [eventName, setEventName] = useState(event.eventName);
 	const [locationName, setLocationName] = useState(event.locationName);
 	const [location, setLocation] = useState(event.location);
 	const [description, setDescription] = useState(event.description);
-	const [date, setDate] = useState(event.date);
+	const [date, setDate] = useState(new Date(event.date).toISOString().slice(0, 10));
 	const [startTime, setStartTime] = useState(event.startTime);
 	const [type, setType] = useState(event.type);
 	const [totalCost, setTotalCost] = useState(event.totalCost);
@@ -27,7 +22,8 @@ const EditEventForm = ({ event }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setErrors([]);
-
+		const eventId = event.id;
+		console.log(startTime, "START TIME");
 		const eventData = {
 			eventName,
 			locationName,
@@ -37,6 +33,10 @@ const EditEventForm = ({ event }) => {
 			startTime,
 			type,
 			creatorUserId,
+			totalCost,
+			availableSpots,
+			thingsNeeded,
+			eventId,
 		};
 		// const userId = creatorUserId;
 		// const CheckEventData = await dispatch(eventActions.checkEventData(eventData));
@@ -45,7 +45,7 @@ const EditEventForm = ({ event }) => {
 		// const CheckAttendeeData = await dispatch(attendeeActions.checkAttendeeData(attendeeData));
 		// if (CheckAttendeeData.errors) return setErrors(CheckAttendeeData.errors);
 
-		const CurrentEvent = await dispatch(eventActions.createEvent(eventData));
+		const CurrentEvent = await dispatch(eventActions.updateEvent(eventData));
 		if (CurrentEvent.errors) setErrors(CurrentEvent.errors);
 	};
 

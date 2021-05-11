@@ -34,6 +34,20 @@ export const createEvent = (eventData) => async (dispatch) => {
 	} else return response.json();
 };
 
+export const updateEvent = (eventData) => async (dispatch) => {
+	const { eventId } = eventData;
+	const response = await fetch(`/api/event/${eventId}`, {
+		method: "PATCH",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(eventData),
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(setCurrentEvent(data));
+		return data;
+	} else return response.json();
+};
+
 // get event to put in store
 export const getEvent = (eventId) => async (dispatch) => {
 	const response = await fetch(`/api/event/${eventId}`);
