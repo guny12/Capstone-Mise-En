@@ -19,11 +19,26 @@ const EventDetail = () => {
 					))}
 				</ul>
 			}
-			<Card.Header className="event-card-header">Welcome to Event: {event.eventName}</Card.Header>
+			<Card.Header className="event-card-header">
+				Welcome to {event.type && event.type} Event: {event.eventName}
+			</Card.Header>
 
 			<Card.Body>
-				<Card.Title>{event.availableSpots === null ? "Unlimited" : event.availableSpots} Spots Left</Card.Title>
-				<Card.Text className="event-card-text">{event.description}</Card.Text>
+				<Card.Title>
+					{event.availableSpots === null ? "Unlimited" : event.availableSpots} Available Spots Remaining
+				</Card.Title>
+
+				<Card.Text className="event-card-text">Description: {event.description}</Card.Text>
+				<Card.Text className="event-card-text">
+					Starts at :{" "}
+					{`${event.date.slice(0, 16)}, ${event.startTime.slice(0, 5)}, ${
+						Number(event.startTime.slice(0, 2)) >= 12 ? "PM" : "AM"
+					}`}
+				</Card.Text>
+				<Card.Text className="event-card-text">Location Name: {event.locationName}</Card.Text>
+				<Card.Text className="event-card-text">Location: {event.location}</Card.Text>
+				{event.thingsNeeded && <Card.Text className="event-card-text">Things Needed: {event.thingsNeeded}</Card.Text>}
+				{event.totalCost && <Card.Text className="event-card-text">Total Cost: {event.totalCost}</Card.Text>}
 			</Card.Body>
 			<Card.Footer className="text-muted" text="white">
 				Last updated: {event.updatedAt}
