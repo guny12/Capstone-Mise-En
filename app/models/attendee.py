@@ -40,4 +40,5 @@ class Attendee(db.Model):
             # "attendeeEmail": self.attendeeEmail,
             "going": self.going,
             "host": self.host,
+            "id": self.id,
         }

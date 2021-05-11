@@ -4,7 +4,7 @@ import { Modal } from "../../context/Modal";
 import EditAttendeeForm from "./EditAttendeeForm";
 import { Button } from "react-bootstrap";
 
-function EditAttendeeFormModal({ eventData }) {
+function EditAttendeeFormModal({ attendee }) {
 	const [showModal, setShowModal] = useState(false);
 
 	// const eventDataOk = document.querySelector("#LandingCreateEventButton");
@@ -12,12 +12,15 @@ function EditAttendeeFormModal({ eventData }) {
 
 	return (
 		<>
-			<Button id="AttendeeButton" variant="dark" onClick={() => setShowModal(true)}>
-				Create Attendee
-			</Button>
+			<Button
+				hidden
+				id={`edit-attendee-modal-${attendee.id}`}
+				variant="dark"
+				onClick={() => setShowModal(true)}
+			></Button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
-					<AttendeeForm eventData={eventData} />
+					<EditAttendeeForm attendee={attendee} />
 				</Modal>
 			)}
 		</>

@@ -3,16 +3,13 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as attendeeActions from "../../store/attendee";
 
-import "./AttendeeForm.css";
+import "./EditAttendeeForm.css";
 import { Button, Form } from "react-bootstrap";
 
-const AttendeeForm = ({ eventData }) => {
+const EditAttendeeForm = ({ eventData }) => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const [errors, setErrors] = useState([]);
-	const [name, setName] = useState("");
-	const [contactInfo, setContactInfo] = useState("");
-	const [attendeeEmail, setAttendeeEmail] = useState("");
 	const [host, setHost] = useState(false);
 	const attendeeURL = window.location.pathname.split("/")[2];
 
@@ -22,9 +19,7 @@ const AttendeeForm = ({ eventData }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const data = await dispatch(
-			attendeeActions.createAttendee({ name, contactInfo, attendeeEmail, host, currentEvent })
-		);
+		const data = await dispatch(attendeeActions.createAttendee({ host, currentEvent }));
 		if (data?.errors) {
 			setErrors(data.errors);
 		} else if (attendeeURL.length === 15) {
@@ -41,41 +36,6 @@ const AttendeeForm = ({ eventData }) => {
 	return (
 		<Form onSubmit={handleSubmit} className="loginform__Form">
 			{errors.length > 0 && <h2>{errors} </h2>}
-			<Form.Group controlId="formBasicName">
-				<Form.Label>Attendee Name </Form.Label>
-				<Form.Control
-					type="text"
-					autoComplete="name"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-					required
-					maxLength="250"
-					placeholder="Enter Attendee Name"
-				/>
-			</Form.Group>
-			<Form.Group controlId="formBasicContactInfo">
-				<Form.Label>Optional Contact Info </Form.Label>
-				<Form.Control
-					type="text"
-					autoComplete="tel"
-					value={contactInfo}
-					onChange={(e) => setContactInfo(e.target.value)}
-					maxLength="250"
-					placeholder="Enter Optional Phone Number or other contact info"
-				/>
-			</Form.Group>
-			<Form.Group controlId="formBasicEmail">
-				<Form.Label>Optional Attendee Email </Form.Label>
-				<Form.Control
-					type="email"
-					autoComplete="email"
-					value={attendeeEmail}
-					onChange={(e) => setAttendeeEmail(e.target.value)}
-					maxLength="200"
-					placeholder="Enter Optional Email"
-				/>
-			</Form.Group>
-
 			{attendeeURL.length === 64 && (
 				<Form.Group controlId="formCheckHost">
 					<Form.Label>Give Host Permission </Form.Label>
@@ -83,9 +43,9 @@ const AttendeeForm = ({ eventData }) => {
 				</Form.Group>
 			)}
 			<Button variant="primary" type="submit">
-				Create Attendee
+				Edit Attendee
 			</Button>
 		</Form>
 	);
 };
-export default AttendeeForm;
+export default EditAttendeeForm;
