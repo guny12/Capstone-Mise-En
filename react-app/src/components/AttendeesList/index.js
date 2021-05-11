@@ -15,11 +15,14 @@ const AttendeesList = () => {
 	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
 	const [showAlert, setShowAlert] = useState(false);
 	const [errors, setErrors] = useState([]);
+	const currentAttendeeURL = window.location.pathname.split("/")[2];
 
-	const deleteAttendee = async (attendee) => {
+	const deleteAttendee = async (TargetAttendeeId) => {
 		setErrors([]);
-		const deleted = await dispatch(deleteAttendee(attendee));
+		const targetAttendeeId = Number(TargetAttendeeId);
+		const deleted = await dispatch(attendeeActions.deleteTargetAttendee({ targetAttendeeId, currentAttendeeURL }));
 		if (deleted.errors) setErrors(deleted.errors);
+		return;
 	};
 
 	let attendees, attendeesList;
@@ -56,7 +59,13 @@ const AttendeesList = () => {
 								<Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
 									<Alert.Heading>Remove {attendee.name}</Alert.Heading>
 									<p>Are you sure you want to remove this person?</p>
-									<Button variant="danger" onClick={() => deleteAttendee(attendee)}>
+									<Button
+										variant="danger"
+										onClick={() => {
+											setShowAlert(false);
+											deleteAttendee(attendee.id);
+										}}
+									>
 										Confirm Remove
 									</Button>
 								</Alert>
