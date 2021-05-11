@@ -6,7 +6,7 @@ import { Button, Form, Col } from "react-bootstrap";
 import * as eventActions from "../../store/event";
 import * as attendeeActions from "../../store/attendee";
 
-const EditEventForm = () => {
+const EditEventForm = (event) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const creatorUserId = useSelector((state) => state.session.user?.id);

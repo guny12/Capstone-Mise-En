@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button, Card, Badge } from "react-bootstrap";
 import * as eventActions from "../../store/event";
 import "./EventDetail.css";
+import EditEventFormModal from "../EditEventFormModal";
 
 const EventDetail = () => {
 	const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const EventDetail = () => {
 				<Card.Text className="event-card-text">Location: {event.location}</Card.Text>
 				{event.thingsNeeded && <Card.Text className="event-card-text">Things Needed: {event.thingsNeeded}</Card.Text>}
 				{event.totalCost && <Card.Text className="event-card-text">Total Cost: {event.totalCost}</Card.Text>}
-				{attendee.host && <Button variant="light">Edit Event</Button>}
+				{attendee.host && <EditEventFormModal event={event} />}
 			</Card.Body>
 			<Card.Footer className="text-muted" text="white">
 				Last updated: {event.updatedAt}

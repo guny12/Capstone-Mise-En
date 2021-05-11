@@ -1,7 +1,7 @@
 // frontend/src/components/LoginFormModal/index.js
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
-import EditEventForm from "./EventForm";
+import EditEventForm from "./EditEventForm";
 import { Button } from "react-bootstrap";
 
 function EditEventFormModal() {
@@ -14,7 +14,7 @@ function EditEventFormModal() {
 			</Button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
-					<EventForm />
+					<EditEventForm />
 				</Modal>
 			)}
 		</>

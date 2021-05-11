@@ -45,7 +45,7 @@ const EventPage = () => {
 	// updates the event if there is a change
 	useEffect(() => {
 		(async () => {
-			if (!eventLoaded) await dispatch(eventActions.getEvent(currentEventId));
+			if (!eventLoaded && currentEventId) await dispatch(eventActions.getEvent(currentEventId));
 		})();
 	}, [dispatch, eventLoaded]);
 
