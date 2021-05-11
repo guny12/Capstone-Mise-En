@@ -6,26 +6,23 @@ import { Button, Form, Col } from "react-bootstrap";
 import * as eventActions from "../../store/event";
 import * as attendeeActions from "../../store/attendee";
 
-const EditEventForm = (event) => {
+const EditEventForm = ({ event }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const creatorUserId = useSelector((state) => state.session.user?.id);
 
+	console.log(event);
 	const [errors, setErrors] = useState([]);
-	const [eventName, setEventName] = useState("");
-	const [locationName, setLocationName] = useState("");
-	const [location, setLocation] = useState("");
-	const [description, setDescription] = useState("");
-	const [date, setDate] = useState("");
-	const [startTime, setStartTime] = useState("");
-	const [type, setType] = useState("");
-	const [totalCost, setTotalCost] = useState("");
-	const [availableSpots, setAvailableSpots] = useState("");
-	const [thingsNeeded, setThingsNeeded] = useState("");
-
-	const [name, setName] = useState("");
-	const [contactInfo, setContactInfo] = useState("");
-	const [attendeeEmail, setAttendeeEmail] = useState("");
+	const [eventName, setEventName] = useState(event.eventName);
+	const [locationName, setLocationName] = useState(event.locationName);
+	const [location, setLocation] = useState(event.location);
+	const [description, setDescription] = useState(event.description);
+	const [date, setDate] = useState(event.date);
+	const [startTime, setStartTime] = useState(event.startTime);
+	const [type, setType] = useState(event.type);
+	const [totalCost, setTotalCost] = useState(event.totalCost);
+	const [availableSpots, setAvailableSpots] = useState(event.availableSpots);
+	const [thingsNeeded, setThingsNeeded] = useState(event.thingsNeeded);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -50,21 +47,11 @@ const EditEventForm = (event) => {
 
 		const CurrentEvent = await dispatch(eventActions.createEvent(eventData));
 		if (CurrentEvent.errors) setErrors(CurrentEvent.errors);
-		else {
-			const userId = creatorUserId;
-			const currentEvent = CurrentEvent.CurrentEvent;
-			const attendeeAndCurrentEventData = { name, attendeeEmail, userId, contactInfo, currentEvent };
-			const CurrentAttendee = await dispatch(attendeeActions.createAttendee(attendeeAndCurrentEventData));
-			if (CurrentAttendee.errors) setErrors(CurrentAttendee.errors);
-			else {
-				history.push(`/event/${CurrentAttendee.newAttendee.attendeeURL}`);
-			}
-		}
 	};
 
 	const handleCancel = (e) => {
 		e.preventDefault();
-		document.querySelector("#modal-backgroun").click();
+		document.querySelector("#modal-background").click();
 	};
 
 	return (
@@ -133,26 +120,26 @@ const EditEventForm = (event) => {
 					placeholder="Enter Location Name"
 				/>
 			</Form.Group>
-			{/* <Form.Group as={Col} controlId="formTotalCost">
-					<Form.Label>Event Total Cost </Form.Label>
-					<Form.Control
-						type="number"
-						value={totalCost}
-						onChange={(e) => setTotalCost(e.target.value)}
-						placeholder="Optional Total Cost"
-						min="0"
-					/>
-				</Form.Group>
-				<Form.Group as={Col} controlId="formAvailableSpots">
-					<Form.Label>Available Spots </Form.Label>
-					<Form.Control
-						type="number"
-						value={availableSpots}
-						onChange={(e) => setAvailableSpots(e.target.value)}
-						placeholder="Optional Available Spots"
-						min="0"
-					/>
-				</Form.Group> */}
+			<Form.Group as={Col} controlId="formTotalCost">
+				<Form.Label>Event Total Cost </Form.Label>
+				<Form.Control
+					type="number"
+					value={totalCost}
+					onChange={(e) => setTotalCost(e.target.value)}
+					placeholder="Optional Total Cost"
+					min="0"
+				/>
+			</Form.Group>
+			<Form.Group as={Col} controlId="formAvailableSpots">
+				<Form.Label>Available Spots </Form.Label>
+				<Form.Control
+					type="number"
+					value={availableSpots}
+					onChange={(e) => setAvailableSpots(e.target.value)}
+					placeholder="Optional Available Spots"
+					min="0"
+				/>
+			</Form.Group>
 			<Form.Group controlId="formBasicLocation">
 				<Form.Label>Location/Address </Form.Label>
 				<Form.Control
@@ -165,7 +152,7 @@ const EditEventForm = (event) => {
 					placeholder="Enter Location/Address"
 				/>
 			</Form.Group>
-			{/* <Form.Group controlId="formThingsNeeded">
+			<Form.Group controlId="formThingsNeeded">
 				<Form.Label>Things Needed </Form.Label>
 				<Form.Control
 					as="textarea"
@@ -174,48 +161,14 @@ const EditEventForm = (event) => {
 					onChange={(e) => setThingsNeeded(e.target.value)}
 					placeholder="Optional Things Needed"
 				/>
-			</Form.Group> */}
+			</Form.Group>
 			<Form.Row>
-				<Form.Group as={Col} controlId="formBasicName">
-					<Form.Label>Your Name </Form.Label>
-					<Form.Control
-						type="text"
-						autoComplete="name"
-						value={name}
-						onChange={(e) => setName(e.target.value)}
-						required
-						maxLength="250"
-						placeholder="Enter YourName"
-					/>
-				</Form.Group>
-
-				<Form.Group as={Col} controlId="formBasicEmail">
-					<Form.Label>Optional Email </Form.Label>
-					<Form.Control
-						type="email"
-						autoComplete="email"
-						value={attendeeEmail}
-						onChange={(e) => setAttendeeEmail(e.target.value)}
-						maxLength="200"
-						placeholder="Enter Your Email"
-					/>
-				</Form.Group>
-			</Form.Row>
-			{/* <Form.Group controlId="formBasicContactInfo">
-				<Form.Label>Optional Contact Info </Form.Label>
-				<Form.Control
-					type="text"
-					autoComplete="tel"
-					value={contactInfo}
-					onChange={(e) => setContactInfo(e.target.value)}
-					maxLength="250"
-					placeholder="Enter Optional Phone Number or other contact info"
-				/>
-			</Form.Group> */}
-			<Form.Row>
-				{/* <AttendeeFormModal eventData={eventData} /> */}
-				<Button type="submit">Create Event</Button>
-				<Button onClick={(e) => handleCancel(e)}>Clear All</Button>
+				<Button type="submit" variant="secondary">
+					Update Event
+				</Button>
+				<Button onClick={(e) => handleCancel(e)} variant="warning">
+					Cancel
+				</Button>
 			</Form.Row>
 		</Form>
 	);

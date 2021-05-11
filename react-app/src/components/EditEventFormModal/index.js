@@ -4,7 +4,7 @@ import { Modal } from "../../context/Modal";
 import EditEventForm from "./EditEventForm";
 import { Button } from "react-bootstrap";
 
-function EditEventFormModal() {
+function EditEventFormModal({ event }) {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
@@ -14,7 +14,7 @@ function EditEventFormModal() {
 			</Button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
-					<EditEventForm />
+					<EditEventForm event={event} />
 				</Modal>
 			)}
 		</>
