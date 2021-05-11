@@ -98,14 +98,13 @@ def get_attendees(attendeeURL):
 @attendee_routes.route("/<int:targetAttendeeId>", methods=["DELETE"])
 def delete_attendee(targetAttendeeId):
     attendeeURL = request.json
-    print(attendeeURL, " \n\n\n\n\n\n ATTENDEEURL \n\n\n\n\n\n")
     userId = current_user.id if current_user.is_active else None
     attendee = Attendee.query.filter(Attendee.id == targetAttendeeId).first()
     askingAttendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
-    if askingAttendee.host is False:
-        return {"errors": "No permission"}, 400
     if attendee is None or askingAttendee is None:
         return {"errors": "Attendee does not exist"}, 400
+    if askingAttendee.host is False:
+        return {"errors": "No permission"}, 400
 
     # check if there's another host in the event they're making. otherwise event will be deleted.
     elif attendee.host is True:
