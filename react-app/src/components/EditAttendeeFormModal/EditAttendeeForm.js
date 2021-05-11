@@ -34,7 +34,7 @@ const EditAttendeeForm = ({ eventData }) => {
 	};
 
 	return (
-		<Form onSubmit={handleSubmit} className="loginform__Form">
+		<Form onSubmit={handleSubmit} className="editAttendee__Form">
 			{errors.length > 0 && <h2>{errors} </h2>}
 			{attendeeURL.length === 64 && (
 				<Form.Group controlId="formCheckHost">
@@ -43,7 +43,7 @@ const EditAttendeeForm = ({ eventData }) => {
 				</Form.Group>
 			)}
 			<Button variant="primary" type="submit">
-				Edit Attendee
+				Save Changes
 			</Button>
 		</Form>
 	);

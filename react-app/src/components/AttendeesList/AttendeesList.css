@@ -1,4 +1,4 @@
-.list-group-item {
+/* .list-group-item {
 	position: relative;
 	display: inline-flex;
 	padding: 0.75rem 1.25rem;
@@ -9,7 +9,7 @@
 	justify-content: space-between;
 	align-items: center;
 	width: auto;
-	/* border-radius: 20px; */
+
 }
 
 .list-group {
@@ -31,7 +31,6 @@
 
 .attendees-list-container {
 	justify-content: center;
-	/* align-items: center; */
 	display: grid;
 	height: 75vh;
 	width: 350px;
@@ -47,4 +46,47 @@
 	height: 40px;
 	margin-top: 5px;
 	margin-bottom: 0;
+} */
+
+.accordion-card {
+	width: 275px;
+	overflow-y: auto;
+	height: 75vh;
+}
+
+.accordion-item-name {
+	overflow-x: auto;
+	overflow-y: auto;
+	word-wrap: none;
+	margin-left: 0.2rem;
+	margin-right: 0.2rem;
+	width: 200px;
+	height: 30px;
+	justify-self: start;
+	overscroll-behavior-y: none;
+}
+
+.badge {
+	margin-left: 0.15rem;
+	margin-right: 0.15rem;
+}
+
+.attendees-accordion-container {
+	justify-content: center;
+	/* align-items: center; */
+	display: grid;
+	height: 75vh;
+	width: 275px;
+}
+
+.attendees-accordion-header {
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+	overflow-x: auto;
+	overflow-y: hidden;
+	width: 275px;
+	/* height: 40px; */
+	margin-top: 0px;
+	margin-bottom: -100px;
 }

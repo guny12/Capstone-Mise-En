@@ -12,12 +12,9 @@ function EditAttendeeFormModal({ attendee }) {
 
 	return (
 		<>
-			<Button
-				hidden
-				id={`edit-attendee-modal-${attendee.id}`}
-				variant="dark"
-				onClick={() => setShowModal(true)}
-			></Button>
+			<Button id={`edit-attendee-modal-${attendee.id}`} variant="dark" onClick={() => setShowModal(true)}>
+				Edit Attendee
+			</Button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
 					<EditAttendeeForm attendee={attendee} />
