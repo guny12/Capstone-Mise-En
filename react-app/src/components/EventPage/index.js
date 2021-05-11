@@ -14,6 +14,8 @@ import EventDetail from "../EventDetail";
 const EventPage = () => {
 	const dispatch = useDispatch();
 	const attendeesLoaded = useSelector((state) => state.attendee?.loaded);
+	const eventLoaded = useSelector((state) => state.event?.loaded);
+	const currentEventId = useSelector((state) => state.event?.currentEvent?.id);
 	const [eventAndAttendeeLoaded, setEventAndAttendeeLoaded] = useState(false);
 	const [exists, setExists] = useState(false);
 	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
@@ -40,6 +42,14 @@ const EventPage = () => {
 		})();
 	}, [dispatch, attendeesLoaded, attendeeURL]);
 
+	// updates the event if there is a change
+	useEffect(() => {
+		(async () => {
+			if (!eventLoaded) await dispatch(eventActions.getEvent(currentEventId));
+		})();
+	}, [dispatch, eventLoaded]);
+
+	// used to close the logo transition modal if it's there.
 	useEffect(() => {
 		const modal = document.querySelector("#LogoButton");
 		if (modal) modal.click();

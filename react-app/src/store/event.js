@@ -1,5 +1,6 @@
 // const SET_ALLEVENTS = "events/SET_ALLEVENTS";
 const SET_CurrentEvent = "events/SET_CurrentEvent";
+export const SET_EVENTLOADEDFALSE = "events/SET_EVENTLOADEDFALSE";
 // const SET_EventDataOk = "events/SET_EventDataOk";
 
 // action creators
@@ -9,10 +10,10 @@ const setCurrentEvent = (event) => ({
 	payload: event,
 });
 
-// const setEventDataOk = (eventDataOk) => ({
-// 	type: SET_EventDataOk,
-// 	payload: eventDataOk,
-// });
+const eventsUnloaded = () => ({
+	type: SET_EVENTLOADEDFALSE,
+});
+
 // const setAllEvents = (events) => ({
 // 	type: SET_ALLEVENTS,
 // 	payload: events,
@@ -58,16 +59,16 @@ export const checkEventData = (eventData) => async (dispatch) => {
 //reducer
 const initialState = {
 	currentEvent: {},
+	loaded: false,
 };
 
 const eventReducer = (eventState = initialState, action) => {
 	switch (action.type) {
 		case SET_CurrentEvent:
 			let { CurrentEvent } = action.payload;
-			return { ...eventState, currentEvent: CurrentEvent };
-		// case SET_EventDataOk:
-		// 	let { eventDataOK } = action.payload;
-		// 	return { ...eventState, isEventDataOK: eventDataOK };
+			return { ...eventState, currentEvent: CurrentEvent, loaded: true };
+		case SET_EVENTLOADEDFALSE:
+			return { ...eventState, loaded: false };
 		default:
 			return eventState;
 	}

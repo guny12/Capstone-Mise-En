@@ -1,6 +1,8 @@
+import { SET_EVENTLOADEDFALSE } from "./event";
 export const SET_ATTENDEE = "attendee/SET_ATTENDEE";
 export const SET_LISTATTENDEES = "attendee/SET_LISTATTENDEES";
 export const SET_ATTENDEESLOADEDFALSE = "attendee/SET_ATTENDEESLOADEDFALSE";
+
 // const SET_AttendeeDataOk = "events/SET_AttendeeDataOk";
 
 const setAttendee = (attendee) => ({
@@ -28,6 +30,7 @@ export const createAttendee = (attendeeAndCurrentEvent) => async (dispatch) => {
 	if (response.ok) {
 		const attendee = await response.json();
 		dispatch(attendeesUnloaded());
+		dispatch({ type: SET_EVENTLOADEDFALSE });
 		return attendee;
 	} else return response.json();
 };
@@ -62,6 +65,7 @@ export const deleteTargetAttendee = (targetIdAndCurrentAttendeeURL) => async (di
 	if (response.ok) {
 		const success = await response.json();
 		dispatch(attendeesUnloaded());
+		dispatch({ type: SET_EVENTLOADEDFALSE });
 		return success;
 	} else return response.json();
 };
