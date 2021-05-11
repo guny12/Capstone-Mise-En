@@ -8,6 +8,7 @@ import * as attendeeActions from "../../store/attendee";
 import AttendeeFormModal from "../AttendeeFormModal";
 import PageNotFound from "../PageNotFound";
 import AttendeesList from "../AttendeesList";
+import CurrentAttendeeDetail from "../CurrentAttendeeDetail";
 
 const EventPage = () => {
 	const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const EventPage = () => {
 	const [eventAndAttendeeLoaded, setEventAndAttendeeLoaded] = useState(false);
 	const [exists, setExists] = useState(false);
 	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
+	const attendee = useSelector((state) => state.attendee.currentAttendee);
 	const attendeeURL = window.location.pathname.split("/")[2];
 
 	useEffect(() => {
@@ -47,13 +49,12 @@ const EventPage = () => {
 
 	// if you are host:
 	// list all Attendees for this event, display which ones are going or not.
-	// let you edit attendees in a modal
 	// lets you edit event in a modal
 	//  let you edit menu  and items
 	// lets you comment
 
 	// if not host:
-	// lets you view attendees
+	// lets you view attendees x
 	// lets you edit your attendee info
 	// lets you comment
 
@@ -63,6 +64,7 @@ const EventPage = () => {
 	return (
 		<div>
 			{attendeeFormModal}
+			{attendeeURL.length === 64 && attendee && <CurrentAttendeeDetail />}
 			{attendeeURL.length === 64 && <AttendeesList />}
 		</div>
 	);

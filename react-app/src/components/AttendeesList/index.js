@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { useHistory } from "react-router-dom";
 import "./AttendeesList.css";
 import { Alert, Badge, Button, Accordion, Card } from "react-bootstrap";
-// import * as eventActions from "../../store/event";
 import * as attendeeActions from "../../store/attendee";
-import EditAttendeeFormModal from "../EditAttendeeFormModal";
 
 const AttendeesList = () => {
 	const dispatch = useDispatch();

@@ -1,7 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { NavLink, useHistory } from "react-router-dom";
 import LoginFormModal from "../LoginFormModal";
 import SignUpModal from "../SignUpModal";
 import { Nav, Navbar, Button } from "react-bootstrap";
@@ -11,6 +10,7 @@ import "./Navigation.css";
 
 const Navigation = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const sessionUser = useSelector((state) => state.session.user);
 
 	let sessionLinks;
@@ -34,6 +34,7 @@ const Navigation = () => {
 
 	const handleSubmit = async () => {
 		await dispatch(sessionActions.login({ credential: "demo@user.iocom", password: "password" }));
+		history.go(0);
 	};
 
 	return (

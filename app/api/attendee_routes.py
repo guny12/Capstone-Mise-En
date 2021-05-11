@@ -116,6 +116,7 @@ def delete_attendee(targetAttendeeId):
     return {"message": "success"}
 
 
+# make an attendee a host
 @attendee_routes.route("/<int:targetAttendeeId>", methods=["PATCH"])
 def set_attendee_host(targetAttendeeId):
     attendeeURL = request.json

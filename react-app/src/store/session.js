@@ -67,7 +67,7 @@ export const logout = () => async (dispatch) => {
 };
 
 // reducer
-const initialState = { user: null, attendee: null };
+const initialState = { user: null };
 
 const sessionReducer = (sessionState = initialState, action) => {
 	switch (action.type) {

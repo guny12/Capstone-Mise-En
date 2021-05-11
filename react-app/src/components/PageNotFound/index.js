@@ -9,6 +9,8 @@ const PageNotFound = () => {
 				<a href="/" style={{ color: "darkblue" }}>
 					<div>
 						Whoops! Can't find the attendee or event.
+						<p /> If you used a account with this event before, please log in.
+						<p />
 						<p /> It may have been deleted by the admin. <p />
 						CLICK HERE to go home.
 					</div>
