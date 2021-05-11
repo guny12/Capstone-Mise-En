@@ -1,16 +1,16 @@
-.attendee-text-center {
-	width: 270px;
+.event-text-center {
+	width: 450px;
 	height: auto;
 	margin: 0;
 }
 
-.attendee-card-text {
+.event-card-text {
 	overflow-y: auto;
 	max-height: 60px;
 	margin: 0;
 }
 
-.attendee-card-header {
+.event-card-header {
 	padding-top: 0;
 	margin-top: -18px;
 }

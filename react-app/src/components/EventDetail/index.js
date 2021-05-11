@@ -7,18 +7,10 @@ import "./EventDetail.css";
 const EventDetail = () => {
 	const dispatch = useDispatch();
 	const event = useSelector((state) => state.event.currentEvent);
-	const [errors, setErrors] = useState([]);
 	const currentAttendeeURL = window.location.pathname.split("/")[2];
 
 	return (
-		<Card className="event-text-center" variant="dark" bg="dark" text="white" className="mb-2">
-			{
-				<ul>
-					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
-					))}
-				</ul>
-			}
+		<Card variant="dark" bg="dark" text="white" className="mb-2 event-text-center">
 			<Card.Header className="event-card-header">
 				Welcome to {event.type && event.type} Event: {event.eventName}
 			</Card.Header>
@@ -31,7 +23,7 @@ const EventDetail = () => {
 				<Card.Text className="event-card-text">Description: {event.description}</Card.Text>
 				<Card.Text className="event-card-text">
 					Starts at :{" "}
-					{`${event.date.slice(0, 16)}, ${event.startTime.slice(0, 5)}, ${
+					{`${event.date.slice(0, 16)}, ${event.startTime.slice(0, 5)}${
 						Number(event.startTime.slice(0, 2)) >= 12 ? "PM" : "AM"
 					}`}
 				</Card.Text>

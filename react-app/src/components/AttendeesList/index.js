@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "./AttendeesList.css";
+import { useHistory } from "react-router-dom";
 import { Alert, Badge, Button, Accordion, Card } from "react-bootstrap";
 import * as attendeeActions from "../../store/attendee";
+import "./AttendeesList.css";
 
 const AttendeesList = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const listAttendees = useSelector((state) => state.attendee?.listAttendees);
 	const totalAttendees = useSelector((state) => state.attendee?.totalAttendees);
 	const numGoing = useSelector((state) => state.attendee?.numGoing);
 	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
+	const attendee = useSelector((state) => state.attendee.currentAttendee);
 	const [showAlert, setShowAlert] = useState(false);
 	const [errors, setErrors] = useState([]);
 	const currentAttendeeURL = window.location.pathname.split("/")[2];
@@ -19,7 +22,7 @@ const AttendeesList = () => {
 		const targetAttendeeId = Number(TargetAttendeeId);
 		const deleted = await dispatch(attendeeActions.deleteTargetAttendee({ targetAttendeeId, currentAttendeeURL }));
 		if (deleted.errors) setErrors(deleted.errors);
-		return;
+		if (targetAttendeeId === attendee.id) history.push("/");
 	};
 
 	const makeAttendeeHost = async (TargetAttendeeId) => {

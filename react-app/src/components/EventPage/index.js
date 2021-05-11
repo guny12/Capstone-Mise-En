@@ -76,8 +76,8 @@ const EventPage = () => {
 
 	return (
 		<div>
-			{attendeeFormModal}
 			<EventDetail />
+			{attendeeFormModal}
 			{attendeeURL.length === 64 && attendee && <AttendeeDetail />}
 			{attendeeURL.length === 64 && <AttendeesList />}
 		</div>
