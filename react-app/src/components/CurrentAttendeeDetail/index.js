@@ -26,11 +26,11 @@ const CurrentAttendeeDetail = () => {
 					))}
 				</ul>
 			}
-			<Card.Header>
+			<Card.Header className="attendee-card-header">
 				{attendee.host === true && <Badge variant="info">Host</Badge>} Name: {attendee?.name}
 			</Card.Header>
 			<Card.Body>
-				<Card.Text className="attendee-text">Contact Info: {attendee.contactInfo}</Card.Text>
+				<Card.Text className="attendee-card-text">Contact Info: {attendee.contactInfo}</Card.Text>
 				{isGoing ? (
 					<Button variant="success" onClick={setGoingStatus}>
 						Going
