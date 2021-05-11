@@ -45,7 +45,7 @@ const EventPage = () => {
 	}, []);
 
 	if (!eventAndAttendeeLoaded) return null;
-	if (!exists && eventAndAttendeeLoaded) return <PageNotFound />;
+	if ((!exists && eventAndAttendeeLoaded) || (attendeeURL.length === 15 && !isHost)) return <PageNotFound />;
 
 	// if you are host:
 	// list all Attendees for this event, display which ones are going or not.
@@ -59,7 +59,8 @@ const EventPage = () => {
 	// lets you comment
 
 	// if it is 15keyEventPage or user is a host, create attendee shows
-	const attendeeFormModal = isHost || attendeeURL.length === 15 ? <AttendeeFormModal /> : null;
+	const attendeeFormModal =
+		attendeeURL.length === 15 || (attendeeURL.length === 64 && isHost) ? <AttendeeFormModal /> : null;
 
 	return (
 		<div>
