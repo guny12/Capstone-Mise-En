@@ -27,8 +27,8 @@ const AttendeesList = () => {
 					</Accordion.Toggle>
 					<Accordion.Collapse eventKey={attendee.id}>
 						<Card.Body>
-							{attendee.contactInfo}
-							<EditAttendeeFormModal attendee={attendee} />
+							contact info: {attendee.contactInfo}
+							{isHost && <EditAttendeeFormModal attendee={attendee} />}
 						</Card.Body>
 					</Accordion.Collapse>
 				</Card>
