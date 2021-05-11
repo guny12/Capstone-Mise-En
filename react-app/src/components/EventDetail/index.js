@@ -7,6 +7,7 @@ import "./EventDetail.css";
 const EventDetail = () => {
 	const dispatch = useDispatch();
 	const event = useSelector((state) => state.event.currentEvent);
+	const attendee = useSelector((state) => state.attendee.currentAttendee);
 	const currentAttendeeURL = window.location.pathname.split("/")[2];
 
 	return (
@@ -31,6 +32,7 @@ const EventDetail = () => {
 				<Card.Text className="event-card-text">Location: {event.location}</Card.Text>
 				{event.thingsNeeded && <Card.Text className="event-card-text">Things Needed: {event.thingsNeeded}</Card.Text>}
 				{event.totalCost && <Card.Text className="event-card-text">Total Cost: {event.totalCost}</Card.Text>}
+				{attendee.host && <Button variant="light">Edit Event</Button>}
 			</Card.Body>
 			<Card.Footer className="text-muted" text="white">
 				Last updated: {event.updatedAt}
