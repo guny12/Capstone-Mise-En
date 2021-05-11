@@ -18,7 +18,7 @@ def create_attendee(eventId):
     form["csrf_token"].data = request.cookies["csrf_token"]
     form["eventId"].data = eventId
     event = Event.query.filter(Event.id == eventId).first()
-    if event.availableSpots is not None or event.availableSpots <= 0:
+    if event.availableSpots is not None and event.availableSpots <= 0:
         return {"errors": "Sorry No more spots left in event"}, 401
 
     if form.validate_on_submit():
@@ -46,6 +46,8 @@ def create_attendee(eventId):
             eventId=eventId,
             userId=userId,
         )
+
+        event.availableSpots = event.availableSpots - 1
         db.session.add(newAttendee)
         db.session.commit()
         return {"newAttendee": newAttendee.to_dict()}
@@ -103,6 +105,7 @@ def delete_attendee(targetAttendeeId):
     attendeeURL = request.json
     attendee = Attendee.query.filter(Attendee.id == targetAttendeeId).first()
     askingAttendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
+    event = Event.query.get(attendee.eventId)
     if attendee is None or askingAttendee is None:
         return {"errors": "Attendee does not exist"}, 400
     if askingAttendee.host is False:
@@ -111,9 +114,10 @@ def delete_attendee(targetAttendeeId):
     # check if there's another host in the event they're making. otherwise event will be deleted.
     elif attendee.host is True:
         allHosts = Attendee.query.filter(Attendee.host == True, Attendee.eventId == attendee.eventId).count()
-        event = Event.query.get(attendee.eventId)
+
         if allHosts <= 1 and event:
             db.session.delete(event)
+    event.availableSpots = event.availableSpots + 1
     db.session.delete(attendee)
     db.session.commit()
     return {"message": "success"}

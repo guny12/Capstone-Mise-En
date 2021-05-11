@@ -57,6 +57,7 @@ const EventPage = () => {
 	// if not host:
 	// lets you view attendees, displays who's going and not x
 	// lets you edit your attendee info
+	// let you edit going or not. X
 	// lets you comment
 
 	// if it is 15keyEventPage or user is a host, create attendee button shows
