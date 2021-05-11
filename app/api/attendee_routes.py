@@ -133,6 +133,19 @@ def set_attendee_host(targetAttendeeId):
     return {"message": "success"}
 
 
+# make an attendee a host
+@attendee_routes.route("/<string:attendeeURL>", methods=["PATCH"])
+def set_attendee_going(attendeeURL):
+    attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
+    if attendee is None:
+        return {"errors": "Attendee does not exist"}, 400
+
+    attendee.going = not attendee.going
+    attendee.updatedAt = datetime.now()
+    db.session.commit()
+    return {"message": "success"}
+
+
 # checkAttendee
 @attendee_routes.route("/check", methods=["POST"])
 def check_attendee():

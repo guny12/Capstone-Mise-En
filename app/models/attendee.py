@@ -24,7 +24,7 @@ class Attendee(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            # "contactInfo": self.contactInfo,
+            "contactInfo": self.contactInfo,
             "attendeeURL": self.attendeeURL,
             # "attendeeEmail": self.attendeeEmail,
             "going": self.going,

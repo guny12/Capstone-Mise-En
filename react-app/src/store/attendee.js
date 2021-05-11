@@ -80,6 +80,19 @@ export const setAttendeeHost = (targetIdAndCurrentAttendeeURL) => async (dispatc
 	} else return response.json();
 };
 
+export const setAttendeeGoing = (currentAttendeeURL) => async (dispatch) => {
+	const response = await fetch(`/api/attendee/${currentAttendeeURL}`, {
+		method: "PATCH",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(currentAttendeeURL),
+	});
+	if (response.ok) {
+		const success = await response.json();
+		dispatch(attendeesUnloaded());
+		return success;
+	} else return response.json();
+};
+
 export const checkAttendeeData = (attendeeData) => async (dispatch) => {
 	const response = await fetch(`/api/attendee/check`, {
 		method: "POST",
