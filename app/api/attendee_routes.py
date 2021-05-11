@@ -98,7 +98,6 @@ def get_attendees(attendeeURL):
 @attendee_routes.route("/<int:targetAttendeeId>", methods=["DELETE"])
 def delete_attendee(targetAttendeeId):
     attendeeURL = request.json
-    userId = current_user.id if current_user.is_active else None
     attendee = Attendee.query.filter(Attendee.id == targetAttendeeId).first()
     askingAttendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
     if attendee is None or askingAttendee is None:
@@ -113,6 +112,22 @@ def delete_attendee(targetAttendeeId):
         if allHosts <= 1 and event:
             db.session.delete(event)
     db.session.delete(attendee)
+    db.session.commit()
+    return {"message": "success"}
+
+
+@attendee_routes.route("/<int:targetAttendeeId>", methods=["PATCH"])
+def set_attendee_host(targetAttendeeId):
+    attendeeURL = request.json
+    attendee = Attendee.query.filter(Attendee.id == targetAttendeeId).first()
+    askingAttendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
+    if attendee is None or askingAttendee is None:
+        return {"errors": "Attendee does not exist"}, 400
+    if askingAttendee.host is False:
+        return {"errors": "No permission"}, 400
+
+    attendee.host = True
+    attendee.updatedAt = datetime.now()
     db.session.commit()
     return {"message": "success"}
 

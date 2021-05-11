@@ -25,6 +25,14 @@ const AttendeesList = () => {
 		return;
 	};
 
+	const makeAttendeeHost = async (TargetAttendeeId) => {
+		setErrors([]);
+		const targetAttendeeId = Number(TargetAttendeeId);
+		const isHost = await dispatch(attendeeActions.setAttendeeHost({ targetAttendeeId, currentAttendeeURL }));
+		if (isHost.errors) setErrors(isHost.errors);
+		return;
+	};
+
 	let attendees, attendeesList;
 	if (listAttendees) {
 		attendees = Object.values(listAttendees);
@@ -40,9 +48,13 @@ const AttendeesList = () => {
 					<Accordion.Collapse eventKey={attendee.id}>
 						<Card.Body>
 							<p className="accordion-item-contact">
-								contact info: {attendee.contactInfo?.length >= 1 ? attendee.contactInfo : "None provided"}
+								contact info: {attendee.contactInfo?.length >= 1 ? attendee.contactInfo : "None"}
 							</p>
-							{isHost && attendee.host === false && <Button variant="info">Make Host</Button>}
+							{isHost && attendee.host === false && (
+								<Button variant="info" onClick={() => makeAttendeeHost(attendee.id)}>
+									Make Host
+								</Button>
+							)}
 							{isHost && (
 								<Button variant="danger" onClick={() => setShowAlert(true)}>
 									Remove

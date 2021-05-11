@@ -66,6 +66,20 @@ export const deleteTargetAttendee = (targetIdAndCurrentAttendeeURL) => async (di
 	} else return response.json();
 };
 
+export const setAttendeeHost = (targetIdAndCurrentAttendeeURL) => async (dispatch) => {
+	const { targetAttendeeId, currentAttendeeURL } = targetIdAndCurrentAttendeeURL;
+	const response = await fetch(`/api/attendee/${targetAttendeeId}`, {
+		method: "PATCH",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(currentAttendeeURL),
+	});
+	if (response.ok) {
+		const success = await response.json();
+		dispatch(attendeesUnloaded());
+		return success;
+	} else return response.json();
+};
+
 export const checkAttendeeData = (attendeeData) => async (dispatch) => {
 	const response = await fetch(`/api/attendee/check`, {
 		method: "POST",
