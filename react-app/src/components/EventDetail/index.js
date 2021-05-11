@@ -1,24 +1,17 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Card, Badge } from "react-bootstrap";
-import * as attendeeActions from "../../store/attendee";
+import * as eventActions from "../../store/event";
 import "./EventDetail.css";
 
 const EventDetail = () => {
 	const dispatch = useDispatch();
-	const attendee = useSelector((state) => state.attendee.currentAttendee);
-	const [isGoing, setGoing] = useState(attendee.going);
+	const event = useSelector((state) => state.event.currentEvent);
 	const [errors, setErrors] = useState([]);
 	const currentAttendeeURL = window.location.pathname.split("/")[2];
 
-	const setGoingStatus = async (attendeeURL) => {
-		const going = await dispatch(attendeeActions.setAttendeeGoing(currentAttendeeURL));
-		if (going.errors) setErrors(going.errors);
-		setGoing(!isGoing);
-	};
-
 	return (
-		<Card className="attendee-text-center">
+		<Card className="event-text-center" variant="dark" bg="dark" text="white" className="mb-2">
 			{
 				<ul>
 					{errors.map((error, idx) => (
@@ -26,21 +19,15 @@ const EventDetail = () => {
 					))}
 				</ul>
 			}
-			<Card.Header className="attendee-card-header">
-				{attendee.host === true && <Badge variant="info">Host</Badge>} Name: {attendee?.name}
-			</Card.Header>
+			<Card.Header className="event-card-header">Welcome to Event: {event.eventName}</Card.Header>
+
 			<Card.Body>
-				<Card.Text className="attendee-card-text">Contact Info: {attendee.contactInfo}</Card.Text>
-				{isGoing ? (
-					<Button variant="success" onClick={setGoingStatus}>
-						Going
-					</Button>
-				) : (
-					<Button variant="danger" onClick={setGoingStatus}>
-						Not Going
-					</Button>
-				)}
+				<Card.Title>{event.availableSpots === null ? "Unlimited" : event.availableSpots} Spots Left</Card.Title>
+				<Card.Text className="event-card-text">{event.description}</Card.Text>
 			</Card.Body>
+			<Card.Footer className="text-muted" text="white">
+				Last updated: {event.updatedAt}
+			</Card.Footer>
 		</Card>
 	);
 };

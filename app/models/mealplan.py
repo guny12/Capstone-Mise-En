@@ -19,4 +19,5 @@ class Mealplan(db.Model):
             "id": self.id,
             "name": self.name,
             "eventId": self.eventId,
+            "updatedAt": self.updatedAt,
         }

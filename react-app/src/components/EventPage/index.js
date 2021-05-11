@@ -9,6 +9,7 @@ import AttendeeFormModal from "../AttendeeFormModal";
 import PageNotFound from "../PageNotFound";
 import AttendeesList from "../AttendeesList";
 import AttendeeDetail from "../AttendeeDetail";
+import EventDetail from "../EventDetail";
 
 const EventPage = () => {
 	const dispatch = useDispatch();
@@ -65,6 +66,7 @@ const EventPage = () => {
 	return (
 		<div>
 			{attendeeFormModal}
+			<EventDetail />
 			{attendeeURL.length === 64 && attendee && <AttendeeDetail />}
 			{attendeeURL.length === 64 && <AttendeesList />}
 		</div>
