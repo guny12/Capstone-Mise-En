@@ -108,13 +108,12 @@ def delete_attendee(targetAttendeeId):
     event = Event.query.get(attendee.eventId)
     if attendee is None or askingAttendee is None:
         return {"errors": "Attendee does not exist"}, 400
-    if askingAttendee.host is False:
+    if askingAttendee.host is False and askingAttendee.id != attendee.id:
         return {"errors": "No permission"}, 400
 
     # check if there's another host in the event they're making. otherwise event will be deleted.
     elif attendee.host is True:
         allHosts = Attendee.query.filter(Attendee.host == True, Attendee.eventId == attendee.eventId).count()
-
         if allHosts <= 1 and event:
             db.session.delete(event)
     event.availableSpots = event.availableSpots + 1
