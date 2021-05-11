@@ -72,13 +72,14 @@ def get_event(eventId):
 # deleteEvent Route
 @event_routes.route("/<int:eventId>/<string:attendeeURL>", methods=["DELETE"])
 def delete_event(eventId, attendeeURL):
-    print(attendeeURL, eventId, "\n\n\n\n\n THIS \n\n\n\n")
     host = Attendee.query.filter(
         Attendee.host == True, Attendee.attendeeURL == attendeeURL, Attendee.eventId == eventId
     ).first()
-    if host is None:
-        return {"errors": "You do not have permission to delete this event"}, 401
     event = Event.query.get(eventId)
+    # prevent people from deleting demo events
+    if host is None or 1 <= event.id <= 20:
+        return {"errors": "You do not have permission to delete this event"}, 401
+
     db.session.delete(event)
     db.session.commit()
     return {"message": "success"}

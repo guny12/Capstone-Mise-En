@@ -11,7 +11,15 @@ def seed_users():
         firstName="Demo", lastName="User", email="demo@user.iocom", username="demoUser", password="password"
     )
     db.session.add(demoUser)
-    for i in range(50):
+    controlledUser = User(
+        firstName="Controlled",
+        lastName="User",
+        email="controlled@user.iocom",
+        username="controlledUser",
+        password="passwordforcontrolledUser",
+    )
+    db.session.add(controlledUser)
+    for i in range(49):
         demo = User(
             firstName=faker.first_name(),
             lastName=faker.last_name(),

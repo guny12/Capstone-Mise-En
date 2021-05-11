@@ -41,7 +41,7 @@ const AttendeesList = () => {
 				<Card key={`attendee-card-${i}`}>
 					<Accordion.Toggle as={Card.Header} eventKey={attendee.id} className="attendees-accordion-header">
 						<span className="accordion-item-name">{attendee.name}</span>
-						{attendee.host === true && <Badge variant="info">Host</Badge>}
+						{attendee.host === true && <Badge variant="light">Host</Badge>}
 						{attendee.going === true && <Badge variant="success">Going</Badge>}
 						{attendee.going === false && <Badge variant="danger">Not Going</Badge>}
 					</Accordion.Toggle>
@@ -51,7 +51,7 @@ const AttendeesList = () => {
 								contact info: {attendee.contactInfo?.length >= 1 ? attendee.contactInfo : "None"}
 							</p>
 							{isHost && attendee.host === false && (
-								<Button variant="info" onClick={() => makeAttendeeHost(attendee.id)}>
+								<Button variant="light" onClick={() => makeAttendeeHost(attendee.id)}>
 									Make Host
 								</Button>
 							)}

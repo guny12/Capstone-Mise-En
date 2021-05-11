@@ -40,3 +40,7 @@ body {
 		translate-y: 100%;
 	}
 }
+
+.card {
+	background-color: #7e99bd;
+}

@@ -47,7 +47,8 @@ def create_attendee(eventId):
             userId=userId,
         )
 
-        event.availableSpots = event.availableSpots - 1
+        if event.availableSpots is not None:
+            event.availableSpots = event.availableSpots - 1
         db.session.add(newAttendee)
         db.session.commit()
         return {"newAttendee": newAttendee.to_dict()}
