@@ -47,7 +47,7 @@ const Landing = () => {
 			)}
 			<h1>Create your Event and start inviting people</h1>
 			<EventFormModal />
-			<div>{sessionLinks}</div>
+			<div>{!sessionUser && sessionLinks}</div>
 		</div>
 	);
 };

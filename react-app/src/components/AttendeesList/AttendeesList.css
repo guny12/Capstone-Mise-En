@@ -57,7 +57,7 @@
 .accordion-item-name {
 	overflow-x: auto;
 	white-space: nowrap;
-	margin-left: 0.2rem;
+	margin-left: -0.5rem;
 	margin-right: 0.2rem;
 	width: 200px;
 	height: auto;
@@ -88,7 +88,7 @@
 }
 
 .accordion {
-	height: 50vh;
+	height: 60vh;
 	overflow-y: auto;
 }
 
@@ -99,6 +99,4 @@
 	overflow-x: auto;
 	overflow-y: hidden;
 	width: 275px;
-	margin-top: 5px;
-	margin-bottom: 5px;
 }

@@ -8,7 +8,7 @@ import * as attendeeActions from "../../store/attendee";
 import AttendeeFormModal from "../AttendeeFormModal";
 import PageNotFound from "../PageNotFound";
 import AttendeesList from "../AttendeesList";
-import CurrentAttendeeDetail from "../CurrentAttendeeDetail";
+import AttendeeDetail from "../AttendeeDetail";
 
 const EventPage = () => {
 	const dispatch = useDispatch();
@@ -48,24 +48,24 @@ const EventPage = () => {
 	if ((!exists && eventAndAttendeeLoaded) || (attendeeURL.length === 15 && !isHost)) return <PageNotFound />;
 
 	// if you are host:
-	// list all Attendees for this event, display which ones are going or not.
+	// list all Attendees for this event, display which ones are going or not X
 	// lets you edit event in a modal
-	//  let you edit menu  and items
+	// let you edit menu  and items
 	// lets you comment
 
 	// if not host:
-	// lets you view attendees x
+	// lets you view attendees, displays who's going and not x
 	// lets you edit your attendee info
 	// lets you comment
 
-	// if it is 15keyEventPage or user is a host, create attendee shows
+	// if it is 15keyEventPage or user is a host, create attendee button shows
 	const attendeeFormModal =
 		attendeeURL.length === 15 || (attendeeURL.length === 64 && isHost) ? <AttendeeFormModal /> : null;
 
 	return (
 		<div>
 			{attendeeFormModal}
-			{attendeeURL.length === 64 && attendee && <CurrentAttendeeDetail />}
+			{attendeeURL.length === 64 && attendee && <AttendeeDetail />}
 			{attendeeURL.length === 64 && <AttendeesList />}
 		</div>
 	);

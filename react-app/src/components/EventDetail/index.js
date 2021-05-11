@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Card, Badge } from "react-bootstrap";
 import * as attendeeActions from "../../store/attendee";
-import "./CurrentAttendeeDetail.css";
+import "./EventDetail.css";
 
-const CurrentAttendeeDetail = () => {
+const EventDetail = () => {
 	const dispatch = useDispatch();
 	const attendee = useSelector((state) => state.attendee.currentAttendee);
 	const [isGoing, setGoing] = useState(attendee.going);
@@ -44,4 +44,4 @@ const CurrentAttendeeDetail = () => {
 		</Card>
 	);
 };
-export default CurrentAttendeeDetail;
+export default EventDetail;
