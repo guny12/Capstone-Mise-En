@@ -13,17 +13,17 @@ const EditEventForm = ({ event }) => {
 	const [location, setLocation] = useState(event.location);
 	const [description, setDescription] = useState(event.description);
 	const [date, setDate] = useState(new Date(event.date).toISOString().slice(0, 10));
-	const [startTime, setStartTime] = useState(event.startTime);
+	const [startTime, setStartTime] = useState(event.startTime.slice(0, 5));
 	const [type, setType] = useState(event.type);
 	const [totalCost, setTotalCost] = useState(event.totalCost);
 	const [availableSpots, setAvailableSpots] = useState(event.availableSpots);
 	const [thingsNeeded, setThingsNeeded] = useState(event.thingsNeeded);
+	const attendeeURL = window.location.pathname.split("/")[2];
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setErrors([]);
 		const eventId = event.id;
-		console.log(startTime, "START TIME");
 		const eventData = {
 			eventName,
 			locationName,
@@ -37,13 +37,8 @@ const EditEventForm = ({ event }) => {
 			availableSpots,
 			thingsNeeded,
 			eventId,
+			attendeeURL,
 		};
-		// const userId = creatorUserId;
-		// const CheckEventData = await dispatch(eventActions.checkEventData(eventData));
-		// if (CheckEventData.errors) return setErrors(CheckEventData.errors);
-		// const attendeeData = { name, contactInfo, attendeeEmail, userId };
-		// const CheckAttendeeData = await dispatch(attendeeActions.checkAttendeeData(attendeeData));
-		// if (CheckAttendeeData.errors) return setErrors(CheckAttendeeData.errors);
 
 		const CurrentEvent = await dispatch(eventActions.updateEvent(eventData));
 		if (CurrentEvent.errors) setErrors(CurrentEvent.errors);
@@ -77,6 +72,7 @@ const EditEventForm = ({ event }) => {
 				<Form.Control
 					as="textarea"
 					rows={3}
+					style={{ resize: "none" }}
 					value={description}
 					onChange={(e) => setDescription(e.target.value)}
 					required
@@ -124,6 +120,7 @@ const EditEventForm = ({ event }) => {
 				<Form.Label>Event Total Cost </Form.Label>
 				<Form.Control
 					type="number"
+					step="0.01"
 					value={totalCost}
 					onChange={(e) => setTotalCost(e.target.value)}
 					placeholder="Optional Total Cost"
@@ -145,6 +142,7 @@ const EditEventForm = ({ event }) => {
 				<Form.Control
 					as="textarea"
 					value={location}
+					style={{ resize: "none" }}
 					rows={3}
 					onChange={(e) => setLocation(e.target.value)}
 					required
@@ -156,6 +154,7 @@ const EditEventForm = ({ event }) => {
 				<Form.Label>Things Needed </Form.Label>
 				<Form.Control
 					as="textarea"
+					style={{ resize: "none" }}
 					rows={3}
 					value={thingsNeeded}
 					onChange={(e) => setThingsNeeded(e.target.value)}

@@ -9,7 +9,6 @@ const EventDetail = () => {
 	const dispatch = useDispatch();
 	const event = useSelector((state) => state.event.currentEvent);
 	const attendee = useSelector((state) => state.attendee.currentAttendee);
-	const currentAttendeeURL = window.location.pathname.split("/")[2];
 
 	return (
 		<Card variant="dark" bg="dark" text="white" className="mb-2 event-text-center">

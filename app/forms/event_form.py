@@ -5,11 +5,11 @@ from app.models import User
 import datetime
 
 
-def check_creatorUserId(form, field):
-    userId = field.data
-    user = User.query.filter(User.id == userId)
-    if not user:
-        raise ValidationError("Invalid Credentials")
+# def check_creatorUserId(form, field):
+#     userId = field.data
+#     user = User.query.filter(User.id == userId)
+#     if not user:
+#         raise ValidationError("Invalid Credentials")
 
 
 def check_date(form, field):
@@ -62,4 +62,4 @@ class CreateEventForm(FlaskForm):
     totalCost = DecimalField("totalCost", validators=[NumberRange(min=0), Optional()])
     availableSpots = IntegerField("availableSpots", validators=[NumberRange(min=0), Optional()])
     thingsNeeded = StringField("thingsNeed", validators=[Optional()])
-    creatorUserId = IntegerField("creatorUserId", validators=[check_creatorUserId, Optional()])
+    # creatorUserId = IntegerField("creatorUserId", validators=[check_creatorUserId, Optional()])

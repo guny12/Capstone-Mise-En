@@ -49,6 +49,33 @@ def create_event():
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
+# Update Event
+@event_routes.route("/<int:eventId>", methods=["PATCH"])
+def update_event(eventId):
+    form = CreateEventForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        event = Event.query.get(eventId)
+        body = request.json
+        attendee = Attendee.query.filter(Attendee.attendeeURL == body["attendeeURL"], Attendee.host == True).first()
+        if attendee.host is None:
+            return {"errors": "No permission to modify this event"}
+        event.eventName = body["eventName"]
+        event.locationName = body["locationName"]
+        event.location = body["location"]
+        event.description = body["description"]
+        event.date = body["date"]
+        event.startTime = body["startTime"]
+        event.type = body["type"]
+        event.totalCost = body["totalCost"] if body["totalCost"] is not None else None
+        event.availableSpots = body["availableSpots"] if body["availableSpots"] is not None else None
+        event.thingsNeeded = body["thingsNeeded"] if body["thingsNeeded"] is not None else None
+
+        db.session.commit()
+        return {"CurrentEvent": event.to_dict()}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
 # checkEvent
 @event_routes.route("/check", methods=["POST"])
 def check_event():
