@@ -49,7 +49,7 @@
 } */
 
 .accordion-card {
-	width: 275px;
+	width: 33vw;
 	overflow-y: auto;
 	height: 75vh;
 }
@@ -59,7 +59,7 @@
 	white-space: nowrap;
 	margin-left: -0.5rem;
 	margin-right: 0.2rem;
-	width: 200px;
+	width: 30vw;
 	height: auto;
 	justify-self: start;
 	overscroll-behavior-y: none;
@@ -69,7 +69,7 @@
 	overflow-x: auto;
 	overflow-y: auto;
 	word-wrap: break-word;
-	max-width: 200px;
+	max-width: 30vw;
 	height: auto;
 	justify-self: start;
 }
@@ -83,12 +83,14 @@
 	justify-content: center;
 	display: grid;
 	max-height: 75vh;
-	width: 275px;
+	/* max-width: 400px; */
+	width: 33vw;
 	overflow-y: auto;
 }
 
 .accordion {
 	height: 60vh;
+	width: 33vw;
 	overflow-y: auto;
 }
 
@@ -98,6 +100,6 @@
 	justify-content: space-around;
 	overflow-x: auto;
 	overflow-y: hidden;
-	width: 275px;
+	width: 33vw;
 	cursor: pointer;
 }
