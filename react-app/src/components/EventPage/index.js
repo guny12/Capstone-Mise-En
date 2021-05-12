@@ -47,7 +47,7 @@ const EventPage = () => {
 		(async () => {
 			if (!eventLoaded && currentEventId) await dispatch(eventActions.getEvent(currentEventId));
 		})();
-	}, [dispatch, eventLoaded]);
+	}, [dispatch, eventLoaded, currentEventId]);
 
 	// used to close the logo transition modal if it's there.
 	useEffect(() => {

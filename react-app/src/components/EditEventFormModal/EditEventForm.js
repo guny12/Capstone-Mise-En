@@ -15,9 +15,9 @@ const EditEventForm = ({ event }) => {
 	const [date, setDate] = useState(new Date(event.date).toISOString().slice(0, 10));
 	const [startTime, setStartTime] = useState(event.startTime.slice(0, 5));
 	const [type, setType] = useState(event.type);
-	const [totalCost, setTotalCost] = useState(event.totalCost);
-	const [availableSpots, setAvailableSpots] = useState(event.availableSpots);
-	const [thingsNeeded, setThingsNeeded] = useState(event.thingsNeeded);
+	const [totalCost, setTotalCost] = useState(event.totalCost ? event.totalCost : "");
+	const [availableSpots, setAvailableSpots] = useState(event.availableSpots ? event.availableSpots : "");
+	const [thingsNeeded, setThingsNeeded] = useState(event.thingsNeeded ? event.thingsNeeded : "");
 	const [isChanged, setIsChanged] = useState(false);
 	const attendeeURL = window.location.pathname.split("/")[2];
 	const close = document.querySelector("#modal-background");
