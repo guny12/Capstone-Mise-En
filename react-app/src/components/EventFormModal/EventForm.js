@@ -128,7 +128,7 @@ const EventForm = () => {
 						value={type}
 						onChange={(e) => setType(e.target.value)}
 						required
-						placeholder="Enter Event Type"
+						placeholder="ex:Private/Virtual..."
 					/>
 				</Form.Group>{" "}
 			</Form.Row>
@@ -195,7 +195,7 @@ const EventForm = () => {
 						onChange={(e) => setName(e.target.value)}
 						required
 						maxLength="250"
-						placeholder="Enter YourName"
+						placeholder="Enter Your Name"
 					/>
 				</Form.Group>
 

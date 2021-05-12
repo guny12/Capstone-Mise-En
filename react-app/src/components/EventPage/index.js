@@ -75,7 +75,7 @@ const EventPage = () => {
 		attendeeURL.length === 15 || (attendeeURL.length === 64 && isHost) ? <AttendeeFormModal /> : null;
 
 	return (
-		<div>
+		<div className="Event-Page-Container">
 			<EventDetail />
 			{attendeeFormModal}
 			{attendeeURL.length === 64 && attendee && <AttendeeDetail />}

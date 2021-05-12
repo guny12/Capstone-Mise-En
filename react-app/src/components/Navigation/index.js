@@ -38,7 +38,7 @@ const Navigation = () => {
 	};
 
 	return (
-		<Navbar className="navBar" variant="dark">
+		<Navbar className="navBar" variant="dark" sticky="top">
 			<Nav className="mr-auto">
 				<NavLink to={"/"} className="nav-link">
 					Home

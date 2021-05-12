@@ -72,6 +72,7 @@
 	max-width: 30vw;
 	height: auto;
 	justify-self: start;
+	min-width: 200px;
 }
 
 .badge {
@@ -83,13 +84,13 @@
 	justify-content: center;
 	display: grid;
 	max-height: 75vh;
-	/* max-width: 400px; */
+	/* min-width: 350px; */
 	width: 33vw;
 	overflow-y: auto;
 }
 
 .accordion {
-	height: 60vh;
+	height: 45vh;
 	width: 33vw;
 	overflow-y: auto;
 }
