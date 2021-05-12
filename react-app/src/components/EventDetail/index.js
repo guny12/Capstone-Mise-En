@@ -21,21 +21,37 @@ const EventDetail = () => {
 					{event.availableSpots === null ? "Unlimited" : event.availableSpots} Available Spots Remaining
 				</Card.Title>
 
-				<Card.Text className="event-card-text">Description: {event.description}</Card.Text>
 				<Card.Text className="event-card-text">
-					Starts at :{" "}
+					<strong>Description: </strong> {event.description}
+				</Card.Text>
+				<Card.Text className="event-card-text">
+					<strong>Starts at : </strong>
 					{`${event.date.slice(0, 16)}, ${event.startTime.slice(0, 5)}${
 						Number(event.startTime.slice(0, 2)) >= 12 ? "PM" : "AM"
 					}`}
 				</Card.Text>
-				<Card.Text className="event-card-text">Location Name: {event.locationName}</Card.Text>
-				<Card.Text className="event-card-text">Location: {event.location}</Card.Text>
-				{event.thingsNeeded && <Card.Text className="event-card-text">Things Needed: {event.thingsNeeded}</Card.Text>}
-				{event.totalCost > 0 && <Card.Text className="event-card-text">Total Cost: {event.totalCost}</Card.Text>}
+				<Card.Text className="event-card-text">
+					<strong>Location Name:</strong> {event.locationName}
+				</Card.Text>
+				<Card.Text className="event-card-text">
+					<strong>Location: </strong> {event.location}
+				</Card.Text>
+				{event.thingsNeeded && (
+					<Card.Text className="event-card-text">
+						<strong>Things Needed: </strong>
+						{event.thingsNeeded}
+					</Card.Text>
+				)}
+				{event.totalCost > 0 && (
+					<Card.Text className="event-card-text">
+						<strong>Total Cost: </strong>
+						{event.totalCost}
+					</Card.Text>
+				)}
 				{attendee.host && <EditEventFormModal event={event} />}
 			</Card.Body>
 			<Card.Footer className="text-muted" text="white">
-				Last updated: {event.updatedAt}
+				<strong>Last updated:</strong> {event.updatedAt}
 			</Card.Footer>
 		</Card>
 	);

@@ -30,6 +30,11 @@ body {
 	/* animation: fade-in 2s linear; */
 }
 
+strong {
+	font-family: "math";
+	font-size: large;
+}
+
 @keyframes button-fade-in {
 	0% {
 		opacity: 0;

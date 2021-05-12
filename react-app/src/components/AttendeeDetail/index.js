@@ -14,7 +14,7 @@ const AttendeeDetail = () => {
 	const currentAttendeeURL = window.location.pathname.split("/")[2];
 	const [showAlert, setShowAlert] = useState(false);
 
-	const setGoingStatus = async (attendeeURL) => {
+	const setGoingStatus = async () => {
 		const going = await dispatch(attendeeActions.setAttendeeGoing(currentAttendeeURL));
 		if (going.errors) setErrors(going.errors);
 		setGoing(!isGoing);
@@ -36,7 +36,6 @@ const AttendeeDetail = () => {
 				<p>Name: {attendee?.name} </p>
 			</Card.Header>
 			<Card.Body className="attendee-card-body">
-				{/* <Card.Text className="attendee-card-text">Contact Info: {attendee.contactInfo}</Card.Text> */}
 				{isGoing ? (
 					<Button variant="success" onClick={setGoingStatus}>
 						Going
