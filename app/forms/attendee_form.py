@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, TimeField, IntegerField, DecimalField
+from wtforms import StringField, IntegerField
 from wtforms.fields.core import BooleanField
-from wtforms.validators import DataRequired, Email, ValidationError, Length, NumberRange, Optional
-from app.models import User, Event, Attendee
+from wtforms.validators import DataRequired, ValidationError, Length, Optional
+from app.models import User, Event
 
 
 def check_creatorUserId(form, field):

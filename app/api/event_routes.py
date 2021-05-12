@@ -58,7 +58,7 @@ def update_event(eventId):
         event = Event.query.get(eventId)
         body = request.json
         attendee = Attendee.query.filter(Attendee.attendeeURL == body["attendeeURL"], Attendee.host == True).first()
-        if attendee.host is None:
+        if attendee is None:
             return {"errors": "No permission to modify this event"}
         event.eventName = body["eventName"]
         event.locationName = body["locationName"]

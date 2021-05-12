@@ -1,8 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
-from wtforms.fields.core import
 from wtforms.validators import DataRequired, ValidationError, Length
-from app.models import  Event
+from app.models import Event
 
 
 def check_eventId(form, field):
