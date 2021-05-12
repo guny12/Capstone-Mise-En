@@ -13,6 +13,6 @@ const Logo = () => {
 	}, []);
 
 	if (attendeeURL) return <img src={logo} alt="logo"></img>;
-	return <img src="mise-en-logo.png" alt="logo"></img>;
+	return <img src={logo} alt="logo"></img>;
 };
 export default Logo;

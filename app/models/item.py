@@ -11,7 +11,7 @@ class Item(db.Model):
     thing = db.Column(db.String(100), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     unit = db.Column(db.String(100), nullable=False)
-    someoneBringing = db.Column(db.Boolean, nullable=False, default=False)
+    whoBring = db.Column(db.String(64))
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
@@ -22,5 +22,5 @@ class Item(db.Model):
             "thing": self.thing,
             "quantity": self.quantity,
             "unit": self.unit,
-            "someoneBringing": self.someoneBringing,
+            "whoBring": self.whoBring,
         }

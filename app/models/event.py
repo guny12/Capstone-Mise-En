@@ -14,7 +14,7 @@ class Event(db.Model):
     date = db.Column(db.Date, nullable=False)
     startTime = db.Column(db.Time, nullable=False)
     type = db.Column(db.String(100), nullable=False)
-    totalCost = db.Column(db.Numeric(precision=2, asdecimal=False), nullable=True)
+    totalCost = db.Column(db.Numeric(scale=2, asdecimal=False), nullable=True)
     availableSpots = db.Column(db.Integer)
     thingsNeeded = db.Column(db.Text)
     creatorUserId = db.Column(db.Integer, db.ForeignKey("users.id"))
