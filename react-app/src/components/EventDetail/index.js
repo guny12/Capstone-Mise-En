@@ -31,7 +31,7 @@ const EventDetail = () => {
 				<Card.Text className="event-card-text">Location Name: {event.locationName}</Card.Text>
 				<Card.Text className="event-card-text">Location: {event.location}</Card.Text>
 				{event.thingsNeeded && <Card.Text className="event-card-text">Things Needed: {event.thingsNeeded}</Card.Text>}
-				{event.totalCost && <Card.Text className="event-card-text">Total Cost: {event.totalCost}</Card.Text>}
+				{event.totalCost > 0 && <Card.Text className="event-card-text">Total Cost: {event.totalCost}</Card.Text>}
 				{attendee.host && <EditEventFormModal event={event} />}
 			</Card.Body>
 			<Card.Footer className="text-muted" text="white">

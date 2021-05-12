@@ -18,7 +18,9 @@ const EditEventForm = ({ event }) => {
 	const [totalCost, setTotalCost] = useState(event.totalCost);
 	const [availableSpots, setAvailableSpots] = useState(event.availableSpots);
 	const [thingsNeeded, setThingsNeeded] = useState(event.thingsNeeded);
+	const [isChanged, setIsChanged] = useState(false);
 	const attendeeURL = window.location.pathname.split("/")[2];
+	const close = document.querySelector("#modal-background");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -42,6 +44,7 @@ const EditEventForm = ({ event }) => {
 
 		const CurrentEvent = await dispatch(eventActions.updateEvent(eventData));
 		if (CurrentEvent.errors) setErrors(CurrentEvent.errors);
+		else if (close) close.click();
 	};
 
 	const handleCancel = (e) => {
@@ -61,7 +64,10 @@ const EditEventForm = ({ event }) => {
 				<Form.Control
 					type="text"
 					value={eventName}
-					onChange={(e) => setEventName(e.target.value)}
+					onChange={(e) => {
+						setEventName(e.target.value);
+						setIsChanged(true);
+					}}
 					required
 					maxLength="100"
 					placeholder="Enter Event Name"
@@ -74,7 +80,10 @@ const EditEventForm = ({ event }) => {
 					rows={3}
 					style={{ resize: "none" }}
 					value={description}
-					onChange={(e) => setDescription(e.target.value)}
+					onChange={(e) => {
+						setDescription(e.target.value);
+						setIsChanged(true);
+					}}
 					required
 					placeholder="Enter Description"
 				/>
@@ -82,14 +91,25 @@ const EditEventForm = ({ event }) => {
 			<Form.Row>
 				<Form.Group as={Col} controlId="formBasicDate">
 					<Form.Label>Event Date </Form.Label>
-					<Form.Control type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+					<Form.Control
+						type="date"
+						value={date}
+						onChange={(e) => {
+							setDate(e.target.value);
+							setIsChanged(true);
+						}}
+						required
+					/>
 				</Form.Group>
 				<Form.Group as={Col} controlId="formBasicStartTime">
 					<Form.Label>Event Start Time </Form.Label>
 					<Form.Control
 						type="time"
 						value={startTime}
-						onChange={(e) => setStartTime(e.target.value)}
+						onChange={(e) => {
+							setStartTime(e.target.value);
+							setIsChanged(true);
+						}}
 						required
 						placeholder="Enter Start Time"
 					/>
@@ -99,7 +119,10 @@ const EditEventForm = ({ event }) => {
 					<Form.Control
 						type="text"
 						value={type}
-						onChange={(e) => setType(e.target.value)}
+						onChange={(e) => {
+							setType(e.target.value);
+							setIsChanged(true);
+						}}
 						required
 						placeholder="Enter Event Type"
 					/>
@@ -110,7 +133,10 @@ const EditEventForm = ({ event }) => {
 				<Form.Control
 					type="text"
 					value={locationName}
-					onChange={(e) => setLocationName(e.target.value)}
+					onChange={(e) => {
+						setLocationName(e.target.value);
+						setIsChanged(true);
+					}}
 					required
 					maxLength="200"
 					placeholder="Enter Location Name"
@@ -122,7 +148,10 @@ const EditEventForm = ({ event }) => {
 					type="number"
 					step="0.01"
 					value={totalCost}
-					onChange={(e) => setTotalCost(e.target.value)}
+					onChange={(e) => {
+						setTotalCost(e.target.value);
+						setIsChanged(true);
+					}}
 					placeholder="Optional Total Cost"
 					min="0"
 				/>
@@ -132,7 +161,10 @@ const EditEventForm = ({ event }) => {
 				<Form.Control
 					type="number"
 					value={availableSpots}
-					onChange={(e) => setAvailableSpots(e.target.value)}
+					onChange={(e) => {
+						setAvailableSpots(e.target.value);
+						setIsChanged(true);
+					}}
 					placeholder="Optional Available Spots"
 					min="0"
 				/>
@@ -144,7 +176,10 @@ const EditEventForm = ({ event }) => {
 					value={location}
 					style={{ resize: "none" }}
 					rows={3}
-					onChange={(e) => setLocation(e.target.value)}
+					onChange={(e) => {
+						setLocation(e.target.value);
+						setIsChanged(true);
+					}}
 					required
 					maxLength="400"
 					placeholder="Enter Location/Address"
@@ -157,14 +192,19 @@ const EditEventForm = ({ event }) => {
 					style={{ resize: "none" }}
 					rows={3}
 					value={thingsNeeded}
-					onChange={(e) => setThingsNeeded(e.target.value)}
+					onChange={(e) => {
+						setThingsNeeded(e.target.value);
+						setIsChanged(true);
+					}}
 					placeholder="Optional Things Needed"
 				/>
 			</Form.Group>
 			<Form.Row>
-				<Button type="submit" variant="secondary">
-					Update Event
-				</Button>
+				{isChanged && (
+					<Button type="submit" variant="secondary">
+						Update Event
+					</Button>
+				)}
 				<Button onClick={(e) => handleCancel(e)} variant="warning">
 					Cancel
 				</Button>
