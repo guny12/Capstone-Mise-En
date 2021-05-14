@@ -34,7 +34,7 @@ def create_mealplans(eventId):
             Attendee.attendeeURL == attendeeURL, Attendee.host == True, Attendee.eventId == eventId
         ).first()
         if attendee is None:
-            return {"errors": "No permission to modify this Event"}
+            return {"errors": "No permission to modify this Event"}, 400
         newMealplan = Mealplan(
             eventId=eventId,
             name=name,
@@ -43,3 +43,21 @@ def create_mealplans(eventId):
         db.session.commit()
         return {"currentMealPlan": newMealplan.to_dict()}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+# Delete a mealplan inside an event after confirming userURL and permission
+@mealplan_routes.route("/<int:eventId>", methods=["DELETE"])
+def delete_mealplans(eventId):
+    attendeeURL = request.json["attendeeURL"]
+    attendee = Attendee.query.filter(
+        Attendee.attendeeURL == attendeeURL, Attendee.host == True, Attendee.eventId == eventId
+    ).first()
+    if attendee is None:
+        return {"errors": "No permission to modify this Event"}, 400
+    mealplanId = request.json["mealplanId"]
+    mealplan = Mealplan.query.filter(Mealplan.id == mealplanId, Mealplan.eventId == eventId).first()
+    if mealplan is None:
+        return {"errors": "Mealplan does not exist"}, 400
+    db.session.delete(mealplan)
+    db.session.commit()
+    return {"message": "success"}
