@@ -21,6 +21,18 @@ def get_mealplans(eventId):
     return {"Mealplans": mealplans}
 
 
+# get current Mealplan after editing or accessing single one
+@mealplan_routes.route("/current/<int:mealplanId>/<string:attendeeURL>", methods=["GET"])
+def get_mealplan(mealplanId, attendeeURL):
+    attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
+    if attendee is None:
+        return {"errors": "Attendee does not exist"}
+    Mealplan = Mealplan.query.filter(Mealplan.id == mealplanId).first()
+    if Mealplan is None:
+        return {"errors": "Mealplan does not exist"}, 400
+    return {"Mealplans": Mealplan.to_dict()}
+
+
 # create a mealplan inside an event after confirming userURL and permission
 @mealplan_routes.route("/<int:eventId>", methods=["POST"])
 def create_mealplans(eventId):

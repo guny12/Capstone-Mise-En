@@ -34,12 +34,22 @@ export const createMealplan = (attendeeAndMealplanData) => async (dispatch) => {
 	} else return response.json();
 };
 
+// get mealplan to put in store- used after edit or accessing details.
+export const getMealplan = (mealplanId) => async (dispatch) => {
+	const response = await fetch(`/api/mealplan/current/${mealplanId}`);
+	if (response.ok) {
+		const mealplan = await response.json();
+		dispatch(setMealplan(mealplan));
+		if (mealplan.eventId) return mealplan.eventId;
+		return mealplan.id;
+	} else return response.json();
+};
+
 // get all mealplans in event
 // call this after you modify a single event as well, just because someone else may have modified
-// the mealplans elsewhere. If you just grab the one you just modified, can be inconsistent.
-// this may run into scaling issues later. But go with this for now.
-export const getMealplans = (eventId) => async (dispatch) => {
-	const response = await fetch(`/api/mealplan/${eventId}`);
+// the mealplans elsewhere. If you just grab the one you just modified, will be inconsistent/
+export const getMealplans = (attendeeURL) => async (dispatch) => {
+	const response = await fetch(`/api/mealplan/${attendeeURL}`);
 	if (response.ok) {
 		const mealplans = await response.json();
 		dispatch(setListMealplans(mealplans));
@@ -76,7 +86,8 @@ const mealplanReducer = (mealplanState = initialState, action) => {
 			const { CurrentMealplan } = action.payload;
 			return { ...mealplanState, currentMealplan: CurrentMealplan };
 		case SET_LISTMEALPLANS:
-			return mealplanState;
+			const { Mealplans } = action.payload;
+			return { ...mealplanState, listMealplans: Mealplans };
 		case SET_MEALPLANSLOADEDFALSE:
 			return { ...mealplanState, loaded: false };
 		default:
