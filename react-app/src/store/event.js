@@ -29,11 +29,11 @@ export const createEvent = (eventData) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-
 		return data;
 	} else return response.json();
 };
 
+//  updates an event and then sets eventsUnloaded to trigger useEffect
 export const updateEvent = (eventData) => async (dispatch) => {
 	const { eventId } = eventData;
 	const response = await fetch(`/api/event/${eventId}`, {
