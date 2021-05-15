@@ -34,18 +34,9 @@ export const createMealplan = (attendeeAndMealplanData) => async (dispatch) => {
 	} else return response.json();
 };
 
-// get mealplan to put in store- used after edit. might be better to update all though-
-export const getMealplan = (attendeeURL) => async (dispatch) => {
-	const response = await fetch(`/api/mealplan/current/${attendeeURL}`);
-	if (response.ok) {
-		const mealplan = await response.json();
-		dispatch(setMealplan(mealplan));
-		if (mealplan.eventId) return mealplan.eventId;
-		return mealplan.id;
-	} else return response.json();
-};
-
 // get all mealplans in event
+// call this after you modify a single event as well, just because someone else may have modified
+// the mealplans elsewhere. If you just grab the one you just modified, can be inconsistent.
 export const getMealplans = (attendeeURL) => async (dispatch) => {
 	const response = await fetch(`/api/mealplan/${attendeeURL}`);
 	if (response.ok) {
