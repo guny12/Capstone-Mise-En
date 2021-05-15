@@ -37,8 +37,9 @@ export const createMealplan = (attendeeAndMealplanData) => async (dispatch) => {
 // get all mealplans in event
 // call this after you modify a single event as well, just because someone else may have modified
 // the mealplans elsewhere. If you just grab the one you just modified, can be inconsistent.
-export const getMealplans = (attendeeURL) => async (dispatch) => {
-	const response = await fetch(`/api/mealplan/${attendeeURL}`);
+// this may run into scaling issues later. But go with this for now.
+export const getMealplans = (eventId) => async (dispatch) => {
+	const response = await fetch(`/api/mealplan/${eventId}`);
 	if (response.ok) {
 		const mealplans = await response.json();
 		dispatch(setListMealplans(mealplans));
