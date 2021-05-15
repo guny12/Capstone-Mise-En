@@ -35,8 +35,9 @@ export const createMealplan = (attendeeAndMealplanData) => async (dispatch) => {
 };
 
 // get mealplan to put in store- used after edit or accessing details.
-export const getMealplan = (mealplanId) => async (dispatch) => {
-	const response = await fetch(`/api/mealplan/current/${mealplanId}`);
+export const getMealplan = (mealplanIdAndAttendeeURL) => async (dispatch) => {
+	const { mealplanId, attendeeURL } = mealplanIdAndAttendeeURL;
+	const response = await fetch(`/api/mealplan/current/${mealplanId}/${attendeeURL}`);
 	if (response.ok) {
 		const mealplan = await response.json();
 		dispatch(setMealplan(mealplan));

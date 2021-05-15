@@ -8,7 +8,7 @@ const MealplanContainer = () => {
 	const dispatch = useDispatch();
 	const event = useSelector((state) => state.event.currentEvent);
 	const attendee = useSelector((state) => state.attendee.currentAttendee);
-	const
+	const mealplans = useSelector((state) => state.mealplan.listMealplans);
 
 	return (
 		<Tab.Container id="mealplan-container" defaultActiveKey="first">
