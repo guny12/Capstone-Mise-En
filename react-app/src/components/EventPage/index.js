@@ -5,6 +5,7 @@ import "./EventPage.css";
 // import { Button, Form, Col, Image } from "react-bootstrap";
 import * as eventActions from "../../store/event";
 import * as attendeeActions from "../../store/attendee";
+import * as mealplanActions from "../../store/mealplan";
 import AttendeeFormModal from "../AttendeeFormModal";
 import PageNotFound from "../PageNotFound";
 import AttendeesList from "../AttendeesList";
@@ -15,6 +16,7 @@ import MealplanContainer from "../MealplanContainer";
 const EventPage = () => {
 	const dispatch = useDispatch();
 	const attendeesLoaded = useSelector((state) => state.attendee?.loaded);
+	const mealplansLoaded = useSelector((state) => state.mealplan?.loaded);
 	const eventLoaded = useSelector((state) => state.event?.loaded);
 	const currentEventId = useSelector((state) => state.event?.currentEvent?.id);
 	const [eventAndAttendeeLoaded, setEventAndAttendeeLoaded] = useState(false);
@@ -49,6 +51,14 @@ const EventPage = () => {
 			if (!eventLoaded && currentEventId) await dispatch(eventActions.getEvent(currentEventId));
 		})();
 	}, [dispatch, eventLoaded, currentEventId]);
+
+	// updates the list of mealplans if there is a change in creation or deletion.
+	// won't auto refresh if someone else changes it on a different page though.
+	useEffect(() => {
+		(async () => {
+			if (!mealplansLoaded && attendeeURL.length === 64) await dispatch(mealplanActions.getMealplans(attendeeURL));
+		})();
+	}, [dispatch, mealplansLoaded, attendeeURL]);
 
 	// used to close the logo transition modal if it's there.
 	useEffect(() => {

@@ -10,14 +10,18 @@ mealplan_routes = Blueprint("mealplan", __name__)
 
 # get all Mealplans that are inside an event Route
 # /mealplan/${eventid}
-@mealplan_routes.route("/<int:eventId>", methods=["GET"])
-def get_mealplans(eventId):
-    Mealplans = Mealplan.query.filter(Mealplan.eventId == eventId).all()
+@mealplan_routes.route("/<string:attendeeURL>", methods=["GET"])
+def get_mealplans(attendeeURL):
+    attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
+    if attendee is None:
+        return {"errors": "Attendee does not exist"}
+    Mealplans = Mealplan.query.filter(Mealplan.eventId == attendee.eventId).all()
     if Mealplans is None:
         return {"errors": "Event does not exist"}, 400
     mealplans = {}
     for mealplan in Mealplans:
         mealplans[mealplan.id] = mealplan.to_dict()
+    # if no mealplans, this returns an empty object back
     return {"Mealplans": mealplans}
 
 

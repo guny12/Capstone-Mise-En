@@ -53,6 +53,7 @@ export const getMealplans = (attendeeURL) => async (dispatch) => {
 	const response = await fetch(`/api/mealplan/${attendeeURL}`);
 	if (response.ok) {
 		const mealplans = await response.json();
+		console.log(mealplans, "THUNK");
 		dispatch(setListMealplans(mealplans));
 		return true;
 	} else return response.json();
@@ -88,7 +89,7 @@ const mealplanReducer = (mealplanState = initialState, action) => {
 			return { ...mealplanState, currentMealplan: CurrentMealplan };
 		case SET_LISTMEALPLANS:
 			const { Mealplans } = action.payload;
-			return { ...mealplanState, listMealplans: Mealplans };
+			return { ...mealplanState, listMealplans: Mealplans, loaded: true };
 		case SET_MEALPLANSLOADEDFALSE:
 			return { ...mealplanState, loaded: false };
 		default:

@@ -10,8 +10,9 @@ const MealplanContainer = () => {
 	const attendee = useSelector((state) => state.attendee.currentAttendee);
 	const mealplans = useSelector((state) => state.mealplan.listMealplans);
 
+	console.log(mealplans);
 	return (
-		<Tab.Container id="mealplan-container" defaultActiveKey="first">
+		<Tab.Container transition={false} id="mealplan-container" defaultActiveKey="first">
 			<Row>
 				<Col sm={3}>
 					<Nav variant="tabs" className="flex-column">
