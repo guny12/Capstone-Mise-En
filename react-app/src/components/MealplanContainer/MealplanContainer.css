@@ -1,0 +1,20 @@
+.event-text-center {
+	width: 50vw;
+	height: auto;
+	margin: 0;
+}
+
+.event-card-text {
+	overflow-y: auto;
+	max-height: 60px;
+	margin: 0;
+}
+
+.event-card-header {
+	padding-top: 0;
+	margin-top: 0;
+}
+
+/* .event-card-body {
+	background-color: transparent;
+} */
