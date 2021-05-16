@@ -46,19 +46,20 @@ def create_items(attendeeURL):
 
 
 # get all items that are inside an mealplan Route
-@item_routes.route("/<string:attendeeURL>", methods=["GET"])
-def get_items(attendeeURL):
+@item_routes.route("/<string:attendeeURL>/<int:mealPlanId>", methods=["GET"])
+def get_items(attendeeURL, mealPlanId):
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
     if attendee is None:
         return {"errors": "Attendee does not exist"}
-    Mealplans = Mealplan.query.filter(Mealplan.eventId == attendee.eventId).all()
-    if Mealplans is None:
-        return {"errors": "Event does not exist"}, 400
-    mealplans = {}
-    for mealplan in Mealplans:
-        mealplans[mealplan.id] = mealplan.to_dict()
-    # if no mealplans, this returns an empty object back
-    return {"Mealplans": mealplans}
+    mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == mealPlanId).first()
+    if mealplan is None:
+        return {"errors": "Mealplan does not exist"}, 400
+    Items = Item.query.filter(Item.mealPlanId == mealPlanId).all()
+    items = {}
+    for item in Items:
+        items[item.id] = item.to_dict()
+    # if no items, this returns an empty object back
+    return {"Items": items}
 
 
 # Delete a item inside an mealplan after confirming userURL and permission
