@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Col, Nav, Tab, Row } from "react-bootstrap";
+import { Col, Nav, Tab, Row, Button } from "react-bootstrap";
 import * as mealplanActions from "../../store/mealplan";
 import "./MealplanContainer.css";
 
@@ -18,7 +18,9 @@ const MealplanContainer = () => {
 		mealplanNavItemList = mealplans.map((mealplan, i) => {
 			return (
 				<Nav.Item>
-					<Nav.Link eventKey={mealplan.id}>{mealplan.name}</Nav.Link>
+					<Nav.Link eventKey={mealplan.id}>
+						{mealplan.name} <Button> Delete</Button>
+					</Nav.Link>
 				</Nav.Item>
 			);
 		});
@@ -35,7 +37,7 @@ const MealplanContainer = () => {
 		<Tab.Container transition={false} id="mealplan-container" defaultActiveKey="first">
 			<Row>
 				<Col sm={3}>
-					<Nav variant="pills" className="flex-column">
+					<Nav variant="tabs" className="flex-column">
 						{mealplanNavItemList}
 					</Nav>
 				</Col>
