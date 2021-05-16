@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
 from wtforms.validators import DataRequired, ValidationError, Length, NumberRange, Optional
-from app.models import Item, Mealplan, Attendee
+from app.models import Item, Mealplan
 
 
 def check_mealPlanId(form, field):
@@ -9,13 +9,6 @@ def check_mealPlanId(form, field):
     mealplan = Mealplan.query.filter(Mealplan.id == mealPlanId).first()
     if not mealplan:
         raise ValidationError("Mealplan does not exist")
-
-
-def check_whoBring(form, field):
-    attendeeURL = field.data
-    attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
-    if not attendee:
-        raise ValidationError("Attendee does not exist")
 
 
 def thing_exists(form, field):
@@ -53,4 +46,3 @@ class CreateItemForm(FlaskForm):
             Length(min=1, message="Unit must be at least 1 character"),
         ],
     )
-    whoBring = StringField("whoBring", validators=[Optional(), check_whoBring])

@@ -20,11 +20,11 @@ const itemsUnloaded = () => ({
 // thunk action creators
 // create item
 export const createItem = (attendeeAndItemData) => async (dispatch) => {
-	const { attendeeURL, itemData } = attendeeAndItemData;
-	const response = await fetch(`/api/item/${attendeeURL}`, {
+	const mealPlanId = attendeeAndItemData.mealPlanId;
+	const response = await fetch(`/api/item/${mealPlanId}`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(itemData),
+		body: JSON.stringify(attendeeAndItemData),
 	});
 	if (response.ok) {
 		const item = await response.json();

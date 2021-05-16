@@ -19,6 +19,14 @@ def create_items(attendeeURL):
     ).first()
     if attendee is None:
         return {"errors": "No permission to modify this Event"}, 400
+    mealPlanId = request.json["mealPlanId"] if "mealPlanId" in request.json else None
+    mealplan = Mealplan.query.filter(
+        Mealplan.eventId == attendee.eventId,
+        Mealplan.id == mealPlanId,
+    ).first()
+    if mealplan is None or mealPlanId is None:
+        return {"errors": "Mealplan does not exist"}, 400
+
     if form.validate_on_submit():
         thing = request.json["thing"]
         quantity = request.json["quantity"]
