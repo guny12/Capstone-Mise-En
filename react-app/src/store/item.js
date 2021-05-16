@@ -28,7 +28,7 @@ export const createItem = (attendeeAndMealplanData) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const mealplan = await response.json();
-		dispatch(mealplansUnloaded());
+		dispatch(itemsUnloaded());
 		return mealplan;
 	} else return response.json();
 };
@@ -37,9 +37,8 @@ export const createItem = (attendeeAndMealplanData) => async (dispatch) => {
 export const getItems = (attendeeURL) => async (dispatch) => {
 	const response = await fetch(`/api/mealplan/${attendeeURL}`);
 	if (response.ok) {
-		const mealplans = await response.json();
-		console.log(mealplans, "THUNK");
-		dispatch(setListMealplans(mealplans));
+		const items = await response.json();
+		dispatch(setListItems(items));
 		return true;
 	} else return response.json();
 };
@@ -54,8 +53,7 @@ export const deleteItem = (eventIdAndMealplanIdAndCurrentAttendeeURL) => async (
 	});
 	if (response.ok) {
 		const success = await response.json();
-		dispatch(mealplansUnloaded());
-		// dispatch({ type: SET_EVENTLOADEDFALSE });
+		dispatch(itemsUnloaded());
 		return success;
 	} else return response.json();
 };
