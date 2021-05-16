@@ -2,37 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Col, Nav, Tab, Row, Button } from "react-bootstrap";
 import * as mealplanActions from "../../store/mealplan";
-import "./MealplanContainer.css";
+import * as itemActions from "../../store/item";
+import "./ItemsContainer.css";
 
-const MealplanContainer = () => {
+const ItemsContainer = () => {
 	const dispatch = useDispatch();
 	const event = useSelector((state) => state.event.currentEvent);
 	const attendee = useSelector((state) => state.attendee.currentAttendee);
-	const listMealplans = useSelector((state) => state.mealplan.listMealplans);
 	const currentMealPlan = useSelector((state) => state.mealplan.currentMealplan);
+	const itemLoaded = useSelector((state) => state.item.loaded);
 
-	console.log(listMealplans);
-
-	let mealplanNavItemList, mealplanTabPaneList, mealplans;
-	if (listMealplans) {
-		mealplans = Object.values(listMealplans);
-		mealplanNavItemList = mealplans.map((mealplan, i) => {
-			return (
-				<Nav.Item>
-					<Nav.Link eventKey={mealplan.id}>
-						{mealplan.name} <Button> Delete</Button>
-					</Nav.Link>
-				</Nav.Item>
-			);
-		});
-		mealplanTabPaneList = mealplans.map((mealplan, i) => {
-			return (
-				<Tab.Pane eventKey={mealplan.id}>
-					<h1>MealPlanItems</h1>
-				</Tab.Pane>
-			);
-		});
-	}
+	// grab the list of items when changing the currentMealplan (aka opening one)
+	useEffect(() => {
+		(async () => {
+			if (!itemLoaded && attendeeURL.length === 64) await dispatch(itemActions.getItems({ attendeeURL, mealPlanId }));
+		})();
+	}, [dispatch, itemLoaded, attendeeURL]);
 
 	return (
 		<Tab.Container transition={false} id="mealplan-container" defaultActiveKey="first">
@@ -50,4 +35,4 @@ const MealplanContainer = () => {
 	);
 };
 
-export default MealplanContainer;
+export default ItemsContainer;

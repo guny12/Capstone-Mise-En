@@ -6,6 +6,7 @@ import "./EventPage.css";
 import * as eventActions from "../../store/event";
 import * as attendeeActions from "../../store/attendee";
 import * as mealplanActions from "../../store/mealplan";
+import * as itemActions from "../../store/item";
 import AttendeeFormModal from "../AttendeeFormModal";
 import PageNotFound from "../PageNotFound";
 import AttendeesList from "../AttendeesList";

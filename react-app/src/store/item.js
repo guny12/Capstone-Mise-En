@@ -46,11 +46,11 @@ export const getItems = (attendeeURLandMealPlanId) => async (dispatch) => {
 
 // delete item
 export const deleteItem = (itemIdAndCurrentAttendeeURL) => async (dispatch) => {
-	const { itemId } = itemIdAndCurrentAttendeeURL;
+	const { itemId, attendeeURL } = itemIdAndCurrentAttendeeURL;
 	const response = await fetch(`/api/item/${itemId}`, {
 		method: "DELETE",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(itemIdAndCurrentAttendeeURL),
+		body: JSON.stringify(attendeeURL),
 	});
 	if (response.ok) {
 		const success = await response.json();
