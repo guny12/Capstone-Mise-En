@@ -44,7 +44,7 @@ class CreateItemForm(FlaskForm):
         "quantity",
         validators=[DataRequired(), NumberRange(min=0)],
     )
-    # put a validator to select form a list of specific units later
+    # put a validator to select form a list of specific units later, to stop people from making false units?
     unit = StringField(
         "unit",
         validators=[

@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.models import db, Mealplan, Event, Item, Attendee
-from app.forms.mealplan_form import CreateMealplanForm
+from app.forms.item_form import CreateItemForm
 from . import validation_errors_to_error_messages
 
 item_routes = Blueprint("item", __name__)

@@ -5,7 +5,6 @@ from app.models import User
 
 
 def email_exists(form, field):
-    print("Checking if user exits", field.data)
     email = field.data
     user = User.query.filter(User.email == email).first()
     if user:
@@ -13,7 +12,6 @@ def email_exists(form, field):
 
 
 def user_exists(form, field):
-    print("Checking if user exits", field.data)
     username = field.data
     user = User.query.filter(User.username == username).first()
     if user:
@@ -21,16 +19,17 @@ def user_exists(form, field):
 
 
 class SignUpForm(FlaskForm):
-    firstName = StringField('First name', validators=[DataRequired()])
-    lastName = StringField('Last name', validators=[DataRequired()])
-    email = StringField('Email', validators=[
-        DataRequired(),
-        email_exists,
-        Email(),
-    ])
-    username = StringField('Username', validators=[
-        DataRequired(),
-        user_exists
-    ])
-    password = StringField('Password', validators=[DataRequired(), Length(
-        min=8, message="password must be at least 8 characters")])
+    firstName = StringField("First name", validators=[DataRequired()])
+    lastName = StringField("Last name", validators=[DataRequired()])
+    email = StringField(
+        "Email",
+        validators=[
+            DataRequired(),
+            email_exists,
+            Email(),
+        ],
+    )
+    username = StringField("Username", validators=[DataRequired(), user_exists])
+    password = StringField(
+        "Password", validators=[DataRequired(), Length(min=8, message="password must be at least 8 characters")]
+    )
