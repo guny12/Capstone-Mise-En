@@ -19,23 +19,23 @@ const itemsUnloaded = () => ({
 
 // thunk action creators
 // create item
-export const createItem = (attendeeAndMealplanData) => async (dispatch) => {
-	const eventId = attendeeAndMealplanData.attendee.eventId;
-	const response = await fetch(`/api/mealplan/${eventId}`, {
+export const createItem = (attendeeAndItemData) => async (dispatch) => {
+	const { attendeeURL, itemData } = attendeeAndItemData;
+	const response = await fetch(`/api/item/${attendeeURL}`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(attendeeAndMealplanData),
+		body: JSON.stringify(itemData),
 	});
 	if (response.ok) {
-		const mealplan = await response.json();
+		const item = await response.json();
 		dispatch(itemsUnloaded());
-		return mealplan;
+		return item;
 	} else return response.json();
 };
 
 // get all items in mealplan
 export const getItems = (attendeeURL) => async (dispatch) => {
-	const response = await fetch(`/api/mealplan/${attendeeURL}`);
+	const response = await fetch(`/api/item/${attendeeURL}`);
 	if (response.ok) {
 		const items = await response.json();
 		dispatch(setListItems(items));

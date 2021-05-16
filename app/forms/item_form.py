@@ -21,7 +21,7 @@ def check_whoBring(form, field):
 def thing_exists(form, field):
     mealplanId = form.mealPlanId.data
     thing = field.data
-    thingExists = Item.query.filter(Item.thing.lower() == thing.lower(), Item.mealPlanId == mealplanId).first()
+    thingExists = Item.query.filter(Item.thing == thing, Item.mealPlanId == mealplanId).first()
     if thingExists:
         raise ValidationError("Item already exists in this mealplan")
 

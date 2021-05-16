@@ -8,8 +8,36 @@ from . import validation_errors_to_error_messages
 item_routes = Blueprint("item", __name__)
 
 
+# create a item inside an mealplan after confirming userURL and permission
+@item_routes.route("/<string:attendeeURL>", methods=["POST"])
+def create_items(attendeeURL):
+    form = CreateItemForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    attendee = Attendee.query.filter(
+        Attendee.attendeeURL == attendeeURL,
+        Attendee.host == True,
+    ).first()
+    if attendee is None:
+        return {"errors": "No permission to modify this Event"}, 400
+    if form.validate_on_submit():
+        thing = request.json["thing"]
+        quantity = request.json["quantity"]
+        unit = request.json["unit"]
+        mealPlanId = request.json["mealPlanId"]
+        newItem = Item(
+            mealPlanId=mealPlanId,
+            thing=thing,
+            quantity=quantity,
+            unit=unit,
+            whoBring=None,
+        )
+        db.session.add(newItem)
+        db.session.commit()
+        return {"CurrentItem": newItem.to_dict()}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
 # get all items that are inside an mealplan Route
-# /item/${mealplanId}
 @item_routes.route("/<string:attendeeURL>", methods=["GET"])
 def get_items(attendeeURL):
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
@@ -23,30 +51,6 @@ def get_items(attendeeURL):
         mealplans[mealplan.id] = mealplan.to_dict()
     # if no mealplans, this returns an empty object back
     return {"Mealplans": mealplans}
-
-
-# create a item inside an mealplan after confirming userURL and permission
-@item_routes.route("/<int:mealPlanId>", methods=["POST"])
-def create_items(mealPlanId):
-    form = CreateMealplanForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
-
-    if form.validate_on_submit():
-        name = request.json["name"]
-        attendeeURL = request.json["attendeeURL"]
-        attendee = Attendee.query.filter(
-            Attendee.attendeeURL == attendeeURL, Attendee.host == True, Attendee.eventId == eventId
-        ).first()
-        if attendee is None:
-            return {"errors": "No permission to modify this Event"}, 400
-        newMealplan = Mealplan(
-            eventId=eventId,
-            name=name,
-        )
-        db.session.add(newMealplan)
-        db.session.commit()
-        return {"currentMealPlan": newMealplan.to_dict()}
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
 # Delete a item inside an mealplan after confirming userURL and permission
