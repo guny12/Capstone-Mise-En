@@ -5,12 +5,13 @@ from app.models import db, Mealplan, Event, Item, Attendee
 from app.forms.mealplan_form import CreateMealplanForm
 from . import validation_errors_to_error_messages
 
-mealplan_routes = Blueprint("mealplan", __name__)
+item_routes = Blueprint("item", __name__)
 
 
-# get all Mealplans that are inside an event Route
-@mealplan_routes.route("/<string:attendeeURL>", methods=["GET"])
-def get_mealplans(attendeeURL):
+# get all items that are inside an mealplan Route
+# /item/${mealplanId}
+@item_routes.route("/<string:attendeeURL>", methods=["GET"])
+def get_items(attendeeURL):
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
     if attendee is None:
         return {"errors": "Attendee does not exist"}
@@ -24,21 +25,9 @@ def get_mealplans(attendeeURL):
     return {"Mealplans": mealplans}
 
 
-# get current Mealplan after editing or accessing single one
-@mealplan_routes.route("/current/<int:mealplanId>/<string:attendeeURL>", methods=["GET"])
-def get_mealplan(mealplanId, attendeeURL):
-    attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
-    if attendee is None:
-        return {"errors": "Attendee does not exist"}
-    Mealplan = Mealplan.query.filter(Mealplan.id == mealplanId).first()
-    if Mealplan is None:
-        return {"errors": "Mealplan does not exist"}, 400
-    return {"Mealplans": Mealplan.to_dict()}
-
-
-# create a mealplan inside an event after confirming userURL and permission
-@mealplan_routes.route("/<int:eventId>", methods=["POST"])
-def create_mealplans(eventId):
+# create a item inside an mealplan after confirming userURL and permission
+@item_routes.route("/<int:mealPlanId>", methods=["POST"])
+def create_items(mealPlanId):
     form = CreateMealplanForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
 
@@ -60,9 +49,9 @@ def create_mealplans(eventId):
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
-# Delete a mealplan inside an event after confirming userURL and permission
-@mealplan_routes.route("/<int:eventId>", methods=["DELETE"])
-def delete_mealplans(eventId):
+# Delete a item inside an mealplan after confirming userURL and permission
+@item_routes.route("/<int:mealPlanId>", methods=["DELETE"])
+def delete_items(mealPlanId):
     attendeeURL = request.json["attendeeURL"]
     attendee = Attendee.query.filter(
         Attendee.attendeeURL == attendeeURL, Attendee.host == True, Attendee.eventId == eventId
