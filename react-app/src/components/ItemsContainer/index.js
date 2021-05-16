@@ -5,34 +5,30 @@ import * as mealplanActions from "../../store/mealplan";
 import * as itemActions from "../../store/item";
 import "./ItemsContainer.css";
 
-const ItemsContainer = () => {
+const ItemsContainer = ({ mealPlanId }) => {
 	const dispatch = useDispatch();
 	const event = useSelector((state) => state.event.currentEvent);
-	const attendee = useSelector((state) => state.attendee.currentAttendee);
+	const attendeeURL = useSelector((state) => state.attendee.currentAttendee?.attendeeURL);
 	const currentMealPlan = useSelector((state) => state.mealplan.currentMealplan);
 	const itemLoaded = useSelector((state) => state.item.loaded);
 
 	// grab the list of items when changing the currentMealplan (aka opening one)
+
 	useEffect(() => {
 		(async () => {
-			if (!itemLoaded && attendeeURL.length === 64) await dispatch(itemActions.getItems({ attendeeURL, mealPlanId }));
+			if (!itemLoaded) await dispatch(itemActions.getItems({ attendeeURL, mealPlanId }));
 		})();
-	}, [dispatch, itemLoaded, attendeeURL]);
+	}, [dispatch, itemLoaded]);
 
-	return (
-		<Tab.Container transition={false} id="mealplan-container" defaultActiveKey="first">
-			<Row>
-				<Col sm={3}>
-					<Nav variant="tabs" className="flex-column">
-						{mealplanNavItemList}
-					</Nav>
-				</Col>
-				<Col sm={9}>
-					<Tab.Content>{mealplanTabPaneList}</Tab.Content>
-				</Col>
-			</Row>
-		</Tab.Container>
-	);
+	const items = useSelector((state) => state.item.listItems);
+	console.log(items, "GET ITEM");
+	let itemTabPane;
+	if (items) {
+		itemTabPane = items.map((item, i) => {
+			return <h1>{item.thing}</h1>;
+		});
+	}
+	return <Tab.Pane eventKey={mealPlanId}>{itemTabPane}</Tab.Pane>;
 };
 
 export default ItemsContainer;
