@@ -28,6 +28,7 @@ body {
 	font-family: "Abril Fatface", cursive;
 	font-size: large;
 	/* animation: fade-in 2s linear; */
+	box-sizing: border-box;
 }
 
 strong {

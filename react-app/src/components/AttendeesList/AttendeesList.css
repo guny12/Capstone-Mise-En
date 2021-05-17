@@ -87,6 +87,7 @@
 	/* min-width: 350px; */
 	width: 33vw;
 	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .accordion {

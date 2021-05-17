@@ -41,23 +41,25 @@ const MealplanContainer = () => {
 		const itemsList = Object.values(listItems);
 		itemsTab = itemsList.map((item, i) => {
 			return (
-				<Toast key={`toast-${item.id}`}>
-					<Toast.Header closeButton={false}>
-						<strong className="mr-auto">
-							{item.thing}
-							{"   "}
-							{item.quantity}
-							{item.unit}
-						</strong>
-						<small>{item.whoBring ? `${item.whoBring} will bring` : "Still needed"}</small>
-					</Toast.Header>
-					<Toast.Body>
-						{isHost && <Button variant="secondary"> Edit Item</Button>}
-						{item.whoBring === attendeeURL && <Button variant="warning">Can't Bring</Button>}
-						{!item.whoBring && <Button variant="success">Bring it</Button>}
-						{isHost && <Button variant="danger"> Delete</Button>}
-					</Toast.Body>
-				</Toast>
+				<div className="toast-div">
+					<Toast key={`toast-${item.id}`}>
+						<Toast.Header closeButton={false}>
+							<strong className="mr-auto">
+								{item.thing}
+								{"   "}
+								{item.quantity}
+								{item.unit}
+							</strong>
+							<small>{item.whoBring ? `${item.whoBring} will bring` : "Still needed"}</small>
+						</Toast.Header>
+						<Toast.Body>
+							{isHost && <Button variant="secondary"> Edit Item</Button>}
+							{item.whoBring === attendeeURL && <Button variant="warning">Can't Bring</Button>}
+							{!item.whoBring && <Button variant="success">Bring it</Button>}
+							{isHost && <Button variant="danger"> Delete</Button>}
+						</Toast.Body>
+					</Toast>
+				</div>
 			);
 		});
 	}
@@ -73,12 +75,12 @@ const MealplanContainer = () => {
 			onSelect={(mealplanId) => selectedMealplan(mealplanId)}
 		>
 			<Row>
-				<Col sm={3}>
+				<Col sm={4}>
 					<Nav variant="pills" className="flex-column">
 						{mealplanNavItemList ? mealplanNavItemList : null}
 					</Nav>
 				</Col>
-				<Col sm={4}>
+				<Col sm={6}>
 					<Tab.Content>
 						<Tab.Pane eventKey={targetKey}>{itemsTab && itemsTab}</Tab.Pane>
 					</Tab.Content>

@@ -1,3 +1,37 @@
 .Event-Page-Container {
-	max-height: 50vh;
+	max-height: 100vh;
+	display: grid;
+	grid-template-columns: 50vw 18w 29vw;
+	grid-template-rows: 20vh 20vh 50vh;
+	grid-template-areas:
+		"event-detail attendee-detail attendees-list"
+		"event-detail create-attendee-button attendees-list"
+		"menu-plan-and-items menu-plan-and-items menu-plan-and-items";
+}
+
+.event-text-center {
+	grid-area: event-detail;
+}
+
+#AttendeeButton {
+	grid-area: create-attendee-button;
+	max-width: 300px;
+	max-height: 60px;
+}
+
+.event-text-center {
+	grid-area: event-detail;
+}
+
+.attendee-text-center {
+	grid-area: attendee-detail;
+}
+
+.attendees-accordion-container {
+	grid-area: attendees-list;
+	width: auto;
+}
+
+.row {
+	grid-area: menu-plan-and-items;
 }

@@ -9,10 +9,16 @@
 }
 
 .tab-content {
-	max-height: 20vh;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-content: flex-start;
 	overflow-y: auto;
-	overscroll-behavior-y: none;
-	width: auto;
+	overscroll-behavior: none;
+	height: 40vh;
+	padding: 0;
+	margin: 0;
+	min-width: 180px;
 }
 
 .mr-auto {
@@ -29,4 +35,30 @@
 small {
 	white-space: nowrap;
 	margin-left: 5px;
+}
+
+.toast {
+	padding: 0;
+	margin: 9px;
+	background-clip: padding-box;
+	background-size: cover;
+	box-sizing: border-box;
+	position: relative;
+	height: auto;
+	flex: 0 1 40%;
+	background-color: #fff;
+	z-index: 0;
+	width: 340px;
+	border-radius: 20px;
+	display: flex;
+}
+
+.toast-div {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-content: space-between;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	max-height: 40vh;
 }
