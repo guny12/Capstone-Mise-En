@@ -30,10 +30,10 @@ def get_mealplan(mealplanId, attendeeURL):
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
     if attendee is None:
         return {"errors": "Attendee does not exist"}
-    Mealplan = Mealplan.query.filter(Mealplan.id == mealplanId).first()
-    if Mealplan is None:
+    mealplan = Mealplan.query.filter(Mealplan.id == mealplanId).first()
+    if mealplan is None:
         return {"errors": "Mealplan does not exist"}, 400
-    return {"Mealplans": Mealplan.to_dict()}
+    return {"CurrentMealplan": mealplan.to_dict()}
 
 
 # create a mealplan inside an event after confirming userURL and permission
