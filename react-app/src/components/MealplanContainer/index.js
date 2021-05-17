@@ -42,7 +42,7 @@ const MealplanContainer = () => {
 		itemsTab = itemsList.map((item, i) => {
 			return (
 				<Toast key={`toast-${item.id}`}>
-					<Toast.Header closeLabel="Bringing" closeButton={false}>
+					<Toast.Header closeButton={false}>
 						<strong className="mr-auto">
 							{item.thing}
 							{"   "}
@@ -51,7 +51,12 @@ const MealplanContainer = () => {
 						</strong>
 						<small>{item.whoBring ? `${item.whoBring} will bring` : "Still needed"}</small>
 					</Toast.Header>
-					{/* <Toast.Body>{item.unit}</Toast.Body> */}
+					<Toast.Body>
+						{isHost && <Button variant="secondary"> Edit Item</Button>}
+						{item.whoBring === attendeeURL && <Button variant="warning">Can't Bring</Button>}
+						{!item.whoBring && <Button variant="success">Bring it</Button>}
+						{isHost && <Button variant="danger"> Delete</Button>}
+					</Toast.Body>
 				</Toast>
 			);
 		});
