@@ -1,6 +1,6 @@
-export const SET_ITEM = "mealplan/SET_MEALPLAN";
-export const SET_LISTITEMS = "mealplan/SET_LISTMEALPLANS";
-export const SET_ITEMSLOADEDFALSE = "mealplan/SET_MEALPLANSLOADEDFALSE";
+export const SET_ITEM = "mealplan/SET_ITEM";
+export const SET_LISTITEMS = "mealplan/SET_LISTITEMS";
+export const SET_ITEMSLOADEDFALSE = "mealplan/SET_ITEMSLOADEDFALSE";
 
 // actions
 const setItem = (mealplan) => ({
@@ -34,13 +34,13 @@ export const createItem = (attendeeAndItemData) => async (dispatch) => {
 };
 
 // get all items in mealplan
-export const getItems = (attendeeURLandMealPlanId) => async (dispatch) => {
-	const { attendeeURL, mealPlanId } = attendeeURLandMealPlanId;
-	const response = await fetch(`/api/item/${attendeeURL}/${mealPlanId}`);
+export const getItems = (attendeeURLandMealplanId) => async (dispatch) => {
+	const { attendeeURL, mealplanId } = attendeeURLandMealplanId;
+	const response = await fetch(`/api/item/${attendeeURL}/${mealplanId}`);
 	if (response.ok) {
 		const items = await response.json();
 		dispatch(setListItems(items));
-		return true;
+		return items;
 	} else return response.json();
 };
 
