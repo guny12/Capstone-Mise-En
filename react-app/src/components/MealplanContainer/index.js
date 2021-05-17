@@ -7,46 +7,47 @@ import ItemsContainer from "../ItemsContainer";
 
 const MealplanContainer = () => {
 	const dispatch = useDispatch();
-	const event = useSelector((state) => state.event.currentEvent);
-	const attendee = useSelector((state) => state.attendee.currentAttendee);
 	const listMealplans = useSelector((state) => state.mealplan.listMealplans);
 	const currentMealPlan = useSelector((state) => state.mealplan.currentMealplan);
-	const [targetKey, setTargetKey] = useState("first");
+	const attendeeURL = window.location.pathname.split("/")[2];
 
 	console.log(listMealplans);
 
-	let mealplanNavItemList, itemTabPaneList, mealplans;
+	const selectedMealplan = async (mealplanId) => {
+		const mealplan = await dispatch(mealplanActions.getMealplan({ mealplanId, attendeeURL }));
+		setTargetKey(mealplanId);
+		console.log(mealplanId);
+		console.log(currentMealPlan);
+	};
+
+	let mealplanNavItemList, mealplans;
 	if (listMealplans) {
 		mealplans = Object.values(listMealplans);
 		mealplanNavItemList = mealplans.map((mealplan, i) => {
 			return (
-				<Nav.Item>
-					<Nav.Link eventKey={i === 0 ? "first" : mealplan.id}>
+				<Nav.Item key={i}>
+					<Nav.Link eventKey={mealplan.id}>
 						{mealplan.name} <Button> Delete</Button>
 					</Nav.Link>
 				</Nav.Item>
 			);
 		});
-		itemTabPaneList = mealplans.map((mealplan, i) => {
-			return <ItemsContainer mealPlanId={mealplan.id} />;
-		});
 	}
+
+	const [targetKey, setTargetKey] = useState("");
 
 	return (
 		<Tab.Container
 			transition={false}
 			id="mealplan-container"
 			activeKey={targetKey}
-			onSelect={(select) => setTargetKey(select)}
+			onSelect={(mealplanId) => selectedMealplan(mealplanId)}
 		>
 			<Row>
 				<Col sm={3}>
 					<Nav variant="tabs" className="flex-column">
-						{mealplanNavItemList}
+						{mealplanNavItemList ? mealplanNavItemList : null}
 					</Nav>
-				</Col>
-				<Col sm={9}>
-					<Tab.Content>{itemTabPaneList}</Tab.Content>
 				</Col>
 			</Row>
 		</Tab.Container>
