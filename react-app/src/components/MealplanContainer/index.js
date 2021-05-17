@@ -10,6 +10,7 @@ const MealplanContainer = () => {
 	const dispatch = useDispatch();
 	const listMealplans = useSelector((state) => state.mealplan.listMealplans);
 	const currentMealPlan = useSelector((state) => state.mealplan.currentMealplan);
+	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
 	const listItems = useSelector((state) => state.item.listItems);
 	const attendeeURL = window.location.pathname.split("/")[2];
 	const [items, setItems] = useState("");
@@ -29,7 +30,8 @@ const MealplanContainer = () => {
 			return (
 				<Nav.Item key={i}>
 					<Nav.Link eventKey={mealplan.id}>
-						{mealplan.name} <Button variant="danger"> Delete</Button>
+						{mealplan.name}
+						{isHost && <Button variant="danger"> Delete</Button>}
 					</Nav.Link>
 				</Nav.Item>
 			);
@@ -41,10 +43,15 @@ const MealplanContainer = () => {
 			return (
 				<Toast key={`toast-${item.id}`}>
 					<Toast.Header closeLabel="Bringing" closeButton={false}>
-						<strong className="mr-auto">{item.thing}</strong>
-						<small className="toast-small-header">{item.quantity}</small>
+						<strong className="mr-auto">
+							{item.thing}
+							{"   "}
+							{item.quantity}
+							{item.unit}
+						</strong>
+						<small>{item.whoBring ? item.whoBring : "Still needed"}</small>
 					</Toast.Header>
-					<Toast.Body>{item.unit}</Toast.Body>
+					{/* <Toast.Body>{item.unit}</Toast.Body> */}
 				</Toast>
 			);
 		});
