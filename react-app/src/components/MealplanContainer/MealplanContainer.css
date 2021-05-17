@@ -7,3 +7,26 @@
 .nav-item .nav-link.active {
 	background-color: rgb(16 54 125);
 }
+
+.tab-content {
+	max-height: 20vh;
+	overflow-y: auto;
+	overscroll-behavior-y: none;
+	width: auto;
+}
+
+.mr-auto {
+	white-space: nowrap;
+	overflow-x: auto;
+	padding: 5px;
+	margin: 5px;
+}
+
+.toast-header {
+	width: auto;
+}
+
+small {
+	white-space: nowrap;
+	margin-left: 5px;
+}

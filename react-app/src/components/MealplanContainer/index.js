@@ -30,7 +30,7 @@ const MealplanContainer = () => {
 			return (
 				<Nav.Item key={i}>
 					<Nav.Link eventKey={mealplan.id}>
-						{mealplan.name}
+						{mealplan.name} {"   "}
 						{isHost && <Button variant="danger"> Delete</Button>}
 					</Nav.Link>
 				</Nav.Item>
@@ -49,7 +49,7 @@ const MealplanContainer = () => {
 							{item.quantity}
 							{item.unit}
 						</strong>
-						<small>{item.whoBring ? item.whoBring : "Still needed"}</small>
+						<small>{item.whoBring ? `${item.whoBring} will bring` : "Still needed"}</small>
 					</Toast.Header>
 					{/* <Toast.Body>{item.unit}</Toast.Body> */}
 				</Toast>
@@ -73,7 +73,7 @@ const MealplanContainer = () => {
 						{mealplanNavItemList ? mealplanNavItemList : null}
 					</Nav>
 				</Col>
-				<Col sm={9}>
+				<Col sm={4}>
 					<Tab.Content>
 						<Tab.Pane eventKey={targetKey}>{itemsTab && itemsTab}</Tab.Pane>
 					</Tab.Content>
