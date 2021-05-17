@@ -5,6 +5,7 @@ import * as mealplanActions from "../../store/mealplan";
 import * as itemActions from "../../store/item";
 import "./MealplanContainer.css";
 // import ItemsContainer from "../ItemsContainer";
+import MealplanFormModal from "../MealplanFormModal";
 
 const MealplanContainer = () => {
 	const dispatch = useDispatch();
@@ -77,6 +78,7 @@ const MealplanContainer = () => {
 			<Row>
 				<Col sm={4}>
 					<Nav variant="pills" className="flex-column">
+						{isHost && <MealplanFormModal />}
 						{mealplanNavItemList ? mealplanNavItemList : null}
 					</Nav>
 				</Col>

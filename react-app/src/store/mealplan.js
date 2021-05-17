@@ -21,7 +21,7 @@ const mealplansUnloaded = () => ({
 // thunk action creators
 // create mealplan
 export const createMealplan = (attendeeAndMealplanData) => async (dispatch) => {
-	const eventId = attendeeAndMealplanData.attendee.eventId;
+	const eventId = attendeeAndMealplanData.eventId;
 	const response = await fetch(`/api/mealplan/${eventId}`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },

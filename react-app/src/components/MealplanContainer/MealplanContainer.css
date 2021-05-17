@@ -62,3 +62,8 @@ small {
 	flex-direction: column;
 	max-height: 40vh;
 }
+
+.col-sm-4 {
+	max-height: 40vh;
+	overflow-y: auto;
+}
