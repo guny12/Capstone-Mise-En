@@ -14,13 +14,25 @@ const MealplanContainer = () => {
 	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
 	const listItems = useSelector((state) => state.item.listItems);
 	const attendeeURL = window.location.pathname.split("/")[2];
+	const eventId = useSelector((state) => state.event.currentEvent?.id);
 	const [items, setItems] = useState("");
+	const [errors, setErrors] = useState([]);
 
 	const selectedMealplan = async (mealplanId) => {
 		setTargetKey(mealplanId);
 		const mealplan = await dispatch(mealplanActions.getMealplan({ mealplanId, attendeeURL }));
-		const currentItems = await dispatch(itemActions.getItems({ mealplanId, attendeeURL }));
+		let currentItems = null;
+		if (mealplan) currentItems = await dispatch(itemActions.getItems({ mealplanId, attendeeURL }));
+
 		setItems(currentItems);
+	};
+
+	const deleteMealplan = async (e) => {
+		e.stopPropagation();
+		const mealplanId = e.target.id;
+		const message = await dispatch(mealplanActions.deleteMealplan({ eventId, attendeeURL, mealplanId }));
+		if (message.errors) setErrors(message.errors);
+		else await dispatch(itemActions.itemsUnloaded());
 	};
 
 	let mealplanNavItemList, mealplans, itemsTab;
@@ -32,17 +44,23 @@ const MealplanContainer = () => {
 				<Nav.Item key={i}>
 					<Nav.Link eventKey={mealplan.id}>
 						{mealplan.name} {"   "}
-						{isHost && <Button variant="danger"> Delete</Button>}
+						{isHost && <Button variant="secondary">Edit Name</Button>}
+						{isHost && (
+							<Button variant="danger" id={mealplan.id} onClick={(e) => deleteMealplan(e)}>
+								{" "}
+								Delete
+							</Button>
+						)}
 					</Nav.Link>
 				</Nav.Item>
 			);
 		});
 	}
-	if (items) {
+	if (listItems) {
 		const itemsList = Object.values(listItems);
 		itemsTab = itemsList.map((item, i) => {
 			return (
-				<div className="toast-div">
+				<div className="toast-div" key={i}>
 					<Toast key={`toast-${item.id}`}>
 						<Toast.Header closeButton={false}>
 							<strong className="mr-auto">
@@ -77,6 +95,13 @@ const MealplanContainer = () => {
 		>
 			<Row>
 				<Col sm={4}>
+					{
+						<ul>
+							{errors.map((error, idx) => (
+								<li key={idx}>{error}</li>
+							))}
+						</ul>
+					}
 					<Nav variant="pills" className="flex-column">
 						{isHost && <MealplanFormModal />}
 						{mealplanNavItemList ? mealplanNavItemList : null}

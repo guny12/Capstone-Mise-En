@@ -13,7 +13,7 @@ const setListItems = (mealplans) => ({
 	payload: mealplans,
 });
 
-const itemsUnloaded = () => ({
+export const itemsUnloaded = () => ({
 	type: SET_ITEMSLOADEDFALSE,
 });
 
@@ -71,7 +71,7 @@ const itemReducer = (itemState = initialState, action) => {
 			const { Items } = action.payload;
 			return { ...itemState, listItems: Items, loaded: true };
 		case SET_ITEMSLOADEDFALSE:
-			return { ...itemState, loaded: false };
+			return { ...itemState, listItems: null, loaded: false };
 		default:
 			return itemState;
 	}

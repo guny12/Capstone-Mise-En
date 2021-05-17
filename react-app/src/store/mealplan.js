@@ -67,8 +67,7 @@ export const deleteMealplan = (eventIdAndMealplanIdAndCurrentAttendeeURL) => asy
 	});
 	if (response.ok) {
 		const success = await response.json();
-		dispatch(mealplansUnloaded());
-		// dispatch({ type: SET_EVENTLOADEDFALSE });
+		await dispatch(mealplansUnloaded());
 		return success;
 	} else return response.json();
 };
