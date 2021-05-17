@@ -7,9 +7,9 @@ class Attendee(db.Model):
     __tablename__ = "attendees"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(250), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     contactInfo = db.Column(db.String(250))
-    attendeeEmail = db.Column(db.String(200))
+    attendeeEmail = db.Column(db.String(50))
     attendeeURL = db.Column(db.String(64), nullable=False)
     going = db.Column(db.Boolean, default=False)
     host = db.Column(db.Boolean, default=False)

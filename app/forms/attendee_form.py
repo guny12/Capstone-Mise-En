@@ -30,7 +30,7 @@ class CreateAttendeeForm(FlaskForm):
         "name",
         validators=[
             DataRequired(),
-            Length(max=250, message="Name can be max 250 characters"),
+            Length(max=50, message="Name can be max 50 characters"),
             Length(min=1, message="Name must be at least 1 character"),
         ],
     )
@@ -39,7 +39,7 @@ class CreateAttendeeForm(FlaskForm):
         "attendeeEmail",
         validators=[
             Optional(),
-            Length(max=200, message="Email can be max 200 characters"),
+            Length(max=50, message="Email can be max 50 characters"),
             Length(min=1, message="Location Name must be at least 1 character"),
         ],
     )

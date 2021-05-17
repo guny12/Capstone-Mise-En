@@ -8,9 +8,9 @@ class Item(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     mealPlanId = db.Column(db.Integer, db.ForeignKey("mealplans.id"), nullable=False)
-    thing = db.Column(db.String(100), nullable=False)
+    thing = db.Column(db.String(50), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
-    unit = db.Column(db.String(100), nullable=False)
+    unit = db.Column(db.String(50), nullable=False)
     whoBring = db.Column(db.String(64))
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())

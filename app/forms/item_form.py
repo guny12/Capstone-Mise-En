@@ -24,7 +24,7 @@ class CreateItemForm(FlaskForm):
         "thing",
         validators=[
             DataRequired(),
-            Length(max=100, message="Thing can be max 100 characters"),
+            Length(max=50, message="Thing can be max 50 characters"),
             Length(min=1, message="Thing must be at least 1 character"),
             thing_exists,
         ],
@@ -42,7 +42,7 @@ class CreateItemForm(FlaskForm):
         "unit",
         validators=[
             DataRequired(),
-            Length(max=100, message="Unit can be max 100 characters"),
+            Length(max=50, message="Unit can be max 50 characters"),
             Length(min=1, message="Unit must be at least 1 character"),
         ],
     )

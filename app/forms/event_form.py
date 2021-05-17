@@ -36,7 +36,7 @@ class CreateEventForm(FlaskForm):
         "eventName",
         validators=[
             DataRequired(),
-            Length(max=100, message="Name can be max 100 characters"),
+            Length(max=50, message="Name can be max 50 characters"),
             Length(min=1, message="Name must be at least 1 character"),
         ],
     )
@@ -44,7 +44,7 @@ class CreateEventForm(FlaskForm):
         "locationName",
         validators=[
             DataRequired(),
-            Length(max=200, message="Location Name can be max 200 characters"),
+            Length(max=100, message="Location Name can be max 100 characters"),
             Length(min=1, message="Location Name must be at least 1 character"),
         ],
     )

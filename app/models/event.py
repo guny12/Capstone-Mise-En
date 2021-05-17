@@ -7,13 +7,13 @@ class Event(db.Model):
     __tablename__ = "events"
 
     id = db.Column(db.Integer, primary_key=True)
-    eventName = db.Column(db.String(100), nullable=False)
-    locationName = db.Column(db.String(200), nullable=False)
+    eventName = db.Column(db.String(50), nullable=False)
+    locationName = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(400), nullable=False)
     description = db.Column(db.Text, nullable=False)
     date = db.Column(db.Date, nullable=False)
     startTime = db.Column(db.Time, nullable=False)
-    type = db.Column(db.String(100), nullable=False)
+    type = db.Column(db.String(50), nullable=False)
     totalCost = db.Column(db.Numeric(scale=2, asdecimal=False), nullable=True)
     availableSpots = db.Column(db.Integer)
     thingsNeeded = db.Column(db.Text)
