@@ -53,9 +53,8 @@ export const deleteItem = (itemIdAndCurrentAttendeeURL) => async (dispatch) => {
 		body: JSON.stringify(attendeeURL),
 	});
 	if (response.ok) {
-		const success = await response.json();
-		dispatch(itemsUnloaded());
-		return success;
+		const mealplanId = await response.json();
+		return mealplanId.mealplanId;
 	} else return response.json();
 };
 

@@ -65,7 +65,7 @@ def get_items(attendeeURL, mealPlanId):
 # Delete a item inside an mealplan after confirming userURL and permission
 @item_routes.route("/<int:itemId>", methods=["DELETE"])
 def delete_items(itemId):
-    attendeeURL = request.json["attendeeURL"] if "attendeeURL" in request.json else None
+    attendeeURL = request.json
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL, Attendee.host == True).first()
     if attendee is None:
         return {"errors": "No permission to modify this Event"}, 400
@@ -77,4 +77,4 @@ def delete_items(itemId):
         return {"errors": "Mealplan does not exist"}, 400
     db.session.delete(item)
     db.session.commit()
-    return {"message": "success"}
+    return {"mealplanId": mealplan.id}

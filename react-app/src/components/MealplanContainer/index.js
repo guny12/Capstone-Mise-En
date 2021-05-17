@@ -10,7 +10,6 @@ import MealplanFormModal from "../MealplanFormModal";
 const MealplanContainer = () => {
 	const dispatch = useDispatch();
 	const listMealplans = useSelector((state) => state.mealplan.listMealplans);
-	const currentMealPlan = useSelector((state) => state.mealplan.currentMealplan);
 	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
 	const listItems = useSelector((state) => state.item.listItems);
 	const attendeeURL = window.location.pathname.split("/")[2];
@@ -23,7 +22,6 @@ const MealplanContainer = () => {
 		const mealplan = await dispatch(mealplanActions.getMealplan({ mealplanId, attendeeURL }));
 		let currentItems = null;
 		if (mealplan) currentItems = await dispatch(itemActions.getItems({ mealplanId, attendeeURL }));
-
 		setItems(currentItems);
 	};
 
@@ -33,6 +31,14 @@ const MealplanContainer = () => {
 		const message = await dispatch(mealplanActions.deleteMealplan({ eventId, attendeeURL, mealplanId }));
 		if (message.errors) setErrors(message.errors);
 		else await dispatch(itemActions.itemsUnloaded());
+	};
+
+	const deleteItem = async (e) => {
+		e.stopPropagation();
+		const itemId = e.target.id;
+		const mealplanId = await dispatch(itemActions.deleteItem({ attendeeURL, itemId }));
+		if (mealplanId.errors) setErrors(mealplanId.errors);
+		else await dispatch(itemActions.getItems({ mealplanId, attendeeURL }));
 	};
 
 	let mealplanNavItemList, mealplans, itemsTab;
@@ -75,7 +81,12 @@ const MealplanContainer = () => {
 							{isHost && <Button variant="secondary"> Edit Item</Button>}
 							{item.whoBring === attendeeURL && <Button variant="warning">Can't Bring</Button>}
 							{!item.whoBring && <Button variant="success">Bring it</Button>}
-							{isHost && <Button variant="danger"> Delete</Button>}
+							{isHost && (
+								<Button variant="danger" id={item.id} onClick={(e) => deleteItem(e)}>
+									{" "}
+									Delete
+								</Button>
+							)}
 						</Toast.Body>
 					</Toast>
 				</div>
@@ -87,33 +98,29 @@ const MealplanContainer = () => {
 	console.log(items);
 
 	return (
-		<Tab.Container
-			transition={false}
-			id="mealplan-container"
-			activeKey={targetKey}
-			onSelect={(mealplanId) => selectedMealplan(mealplanId)}
-		>
-			<Row>
-				<Col sm={4}>
-					{
-						<ul>
-							{errors.map((error, idx) => (
-								<li key={idx}>{error}</li>
-							))}
-						</ul>
-					}
-					<Nav variant="pills" className="flex-column">
-						{isHost && <MealplanFormModal />}
-						{mealplanNavItemList ? mealplanNavItemList : null}
-					</Nav>
-				</Col>
-				<Col sm={6}>
-					<Tab.Content>
-						<Tab.Pane eventKey={targetKey}>{itemsTab && itemsTab}</Tab.Pane>
-					</Tab.Content>
-				</Col>
-			</Row>
-		</Tab.Container>
+		<>
+			{errors && <ul>{errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}</ul>}
+			<Tab.Container
+				transition={false}
+				id="mealplan-container"
+				activeKey={targetKey}
+				onSelect={(mealplanId) => selectedMealplan(mealplanId)}
+			>
+				<Row>
+					<Col sm={4}>
+						<Nav variant="pills" className="flex-column">
+							{isHost && <MealplanFormModal />}
+							{mealplanNavItemList ? mealplanNavItemList : null}
+						</Nav>
+					</Col>
+					<Col sm={6}>
+						<Tab.Content>
+							<Tab.Pane eventKey={targetKey}>{itemsTab && itemsTab}</Tab.Pane>
+						</Tab.Content>
+					</Col>
+				</Row>
+			</Tab.Container>
+		</>
 	);
 };
 

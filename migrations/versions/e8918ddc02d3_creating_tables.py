@@ -1,8 +1,8 @@
-""" creating tables
+"""creating tables
 
-Revision ID: 27e1332f69ce
+Revision ID: e8918ddc02d3
 Revises: 
-Create Date: 2021-05-12 12:58:26.020586
+Create Date: 2021-05-17 04:11:34.983220
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '27e1332f69ce'
+revision = 'e8918ddc02d3'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,13 +33,13 @@ def upgrade():
     )
     op.create_table('events',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('eventName', sa.String(length=100), nullable=False),
-    sa.Column('locationName', sa.String(length=200), nullable=False),
+    sa.Column('eventName', sa.String(length=50), nullable=False),
+    sa.Column('locationName', sa.String(length=100), nullable=False),
     sa.Column('location', sa.String(length=400), nullable=False),
     sa.Column('description', sa.Text(), nullable=False),
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('startTime', sa.Time(), nullable=False),
-    sa.Column('type', sa.String(length=100), nullable=False),
+    sa.Column('type', sa.String(length=50), nullable=False),
     sa.Column('totalCost', sa.Numeric(scale=2, asdecimal=False), nullable=True),
     sa.Column('availableSpots', sa.Integer(), nullable=True),
     sa.Column('thingsNeeded', sa.Text(), nullable=True),
@@ -51,9 +51,9 @@ def upgrade():
     )
     op.create_table('attendees',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=250), nullable=False),
+    sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('contactInfo', sa.String(length=250), nullable=True),
-    sa.Column('attendeeEmail', sa.String(length=200), nullable=True),
+    sa.Column('attendeeEmail', sa.String(length=50), nullable=True),
     sa.Column('attendeeURL', sa.String(length=64), nullable=False),
     sa.Column('going', sa.Boolean(), nullable=True),
     sa.Column('host', sa.Boolean(), nullable=True),
@@ -86,9 +86,9 @@ def upgrade():
     op.create_table('items',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('mealPlanId', sa.Integer(), nullable=False),
-    sa.Column('thing', sa.String(length=100), nullable=False),
+    sa.Column('thing', sa.String(length=50), nullable=False),
     sa.Column('quantity', sa.Integer(), nullable=False),
-    sa.Column('unit', sa.String(length=100), nullable=False),
+    sa.Column('unit', sa.String(length=50), nullable=False),
     sa.Column('whoBring', sa.String(length=64), nullable=True),
     sa.Column('createdAt', sa.DateTime(), nullable=True),
     sa.Column('updatedAt', sa.DateTime(), nullable=True),
