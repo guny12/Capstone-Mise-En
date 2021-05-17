@@ -1,0 +1,9 @@
+.nav-item .nav-link {
+	background-color: rgb(122 148 183);
+	border: 1px solid black;
+	color: black;
+}
+
+.nav-item .nav-link.active {
+	background-color: rgb(16 54 125);
+}

@@ -41,8 +41,7 @@ export const getMealplan = (mealplanIdAndAttendeeURL) => async (dispatch) => {
 	if (response.ok) {
 		const mealplan = await response.json();
 		dispatch(setMealplan(mealplan));
-		if (mealplan.eventId) return mealplan.eventId;
-		return mealplan.id;
+		return mealplan;
 	} else return response.json();
 };
 
@@ -53,7 +52,6 @@ export const getMealplans = (attendeeURL) => async (dispatch) => {
 	const response = await fetch(`/api/mealplan/${attendeeURL}`);
 	if (response.ok) {
 		const mealplans = await response.json();
-		console.log(mealplans, "THUNK");
 		dispatch(setListMealplans(mealplans));
 		return true;
 	} else return response.json();

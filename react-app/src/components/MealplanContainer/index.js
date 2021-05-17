@@ -11,15 +11,12 @@ const MealplanContainer = () => {
 	const currentMealPlan = useSelector((state) => state.mealplan.currentMealplan);
 	const attendeeURL = window.location.pathname.split("/")[2];
 
-	console.log(listMealplans);
-
 	const selectedMealplan = async (mealplanId) => {
-		const mealplan = await dispatch(mealplanActions.getMealplan({ mealplanId, attendeeURL }));
 		setTargetKey(mealplanId);
-		console.log(mealplanId);
-		console.log(currentMealPlan);
+		const mealplan = await dispatch(mealplanActions.getMealplan({ mealplanId, attendeeURL }));
 	};
 
+	console.log(listMealplans);
 	let mealplanNavItemList, mealplans;
 	if (listMealplans) {
 		mealplans = Object.values(listMealplans);
@@ -27,7 +24,7 @@ const MealplanContainer = () => {
 			return (
 				<Nav.Item key={i}>
 					<Nav.Link eventKey={mealplan.id}>
-						{mealplan.name} <Button> Delete</Button>
+						{mealplan.name} <Button variant="danger"> Delete</Button>
 					</Nav.Link>
 				</Nav.Item>
 			);
@@ -45,7 +42,7 @@ const MealplanContainer = () => {
 		>
 			<Row>
 				<Col sm={3}>
-					<Nav variant="tabs" className="flex-column">
+					<Nav variant="pills" className="flex-column">
 						{mealplanNavItemList ? mealplanNavItemList : null}
 					</Nav>
 				</Col>
