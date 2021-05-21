@@ -117,7 +117,8 @@ def delete_attendee(targetAttendeeId):
         allHosts = Attendee.query.filter(Attendee.host == True, Attendee.eventId == attendee.eventId).count()
         if allHosts <= 1 and event:
             db.session.delete(event)
-    event.availableSpots = event.availableSpots + 1
+    if event.availableSpots is not None:
+        event.availableSpots = event.availableSpots + 1
     db.session.delete(attendee)
     db.session.commit()
     return {"message": "success"}
