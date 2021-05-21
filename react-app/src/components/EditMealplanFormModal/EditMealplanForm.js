@@ -17,6 +17,7 @@ const EditMealplanForm = ({ eventId, mealplanName }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		e.stopPropagation();
 		const message = await dispatch(mealplanActions.editMealplan({ name, eventId, attendeeURL, mealplanId }));
 		if (message.errors) setErrors(message.errors);
 		else {
@@ -35,6 +36,7 @@ const EditMealplanForm = ({ eventId, mealplanName }) => {
 					autoComplete="name"
 					value={name}
 					onChange={(e) => {
+						e.stopPropagation();
 						setName(e.target.value);
 						setShow(true);
 					}}

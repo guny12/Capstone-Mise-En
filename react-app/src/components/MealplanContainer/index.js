@@ -100,7 +100,10 @@ const MealplanContainer = () => {
 				transition={false}
 				id="mealplan-container"
 				activeKey={targetKey}
-				onSelect={(mealplanId) => selectedMealplan(mealplanId)}
+				onSelect={(mealplanId, e) => {
+					if (e.type === "keydown") return;
+					selectedMealplan(mealplanId);
+				}}
 			>
 				<Row>
 					<Col sm={4}>

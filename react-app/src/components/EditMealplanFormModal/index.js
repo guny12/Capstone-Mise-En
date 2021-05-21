@@ -8,7 +8,7 @@ function EditMealplanFormModal({ eventId, mealplanName }) {
 
 	return (
 		<>
-			<Button id="EditMealplanButton" variant="secondary" onClick={() => setShowModal(true)}>
+			<Button id="EditMealplanButton" variant="secondary" onClick={(e) => setShowModal(true)}>
 				Edit Name
 			</Button>
 			{showModal && (

@@ -92,9 +92,9 @@ def edit_mealplan(eventId):
     if mealplan is None:
         return {"errors": "Mealplan does not exist"}, 400
     name = request.json["name"]
-    if len(name) >= 1:
+    if len(name) >= 1 and len(name) <= 100:
         mealplan.name = name
         db.session.commit()
         return {"message": "success"}
     else:
-        return {"errors": "Mealplan needs to be at least 1 character"}, 400
+        return {"errors": "Mealplan must be between 1 and 100 characters"}, 400
