@@ -42,6 +42,7 @@ const AttendeeForm = ({ eventData }) => {
 			setContactInfo("");
 			setAttendeeEmail("");
 			setHost(false);
+			document.getElementById("formCheckHost").checked = false;
 			return;
 		}
 	};
