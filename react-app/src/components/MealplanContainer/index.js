@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Col, Nav, Tab, Row, Button, Toast } from "react-bootstrap";
 import * as mealplanActions from "../../store/mealplan";
 import * as itemActions from "../../store/item";
 import "./MealplanContainer.css";
-// import ItemsContainer from "../ItemsContainer";
 import MealplanFormModal from "../MealplanFormModal";
 import EditMealplanFormModal from "../EditMealplanFormModal";
 
@@ -15,15 +14,12 @@ const MealplanContainer = () => {
 	const listItems = useSelector((state) => state.item.listItems);
 	const attendeeURL = window.location.pathname.split("/")[2];
 	const eventId = useSelector((state) => state.event.currentEvent?.id);
-	const [items, setItems] = useState("");
 	const [errors, setErrors] = useState([]);
 
 	const selectedMealplan = async (mealplanId) => {
 		setTargetKey(mealplanId);
 		const mealplan = await dispatch(mealplanActions.getMealplan({ mealplanId, attendeeURL }));
-		let currentItems = null;
-		if (mealplan) currentItems = await dispatch(itemActions.getItems({ mealplanId, attendeeURL }));
-		setItems(currentItems);
+		if (mealplan) await dispatch(itemActions.getItems({ mealplanId, attendeeURL }));
 	};
 
 	const deleteMealplan = async (e) => {
@@ -42,14 +38,6 @@ const MealplanContainer = () => {
 		else await dispatch(itemActions.getItems({ mealplanId, attendeeURL }));
 	};
 
-	const editMealplan = async (e) => {
-		e.stopPropagation();
-		const mealplanId = e.target.id;
-		const message = await dispatch(mealplanActions.editMealplan({ eventId, attendeeURL, mealplanId }));
-		if (message.errors) setErrors(message.errors);
-		else await dispatch(itemActions.itemsUnloaded());
-	};
-
 	let mealplanNavItemList, mealplans, itemsTab;
 	if (listMealplans) {
 		mealplans = Object.values(listMealplans);
@@ -59,7 +47,7 @@ const MealplanContainer = () => {
 				<Nav.Item key={i}>
 					<Nav.Link eventKey={mealplan.id}>
 						{mealplan.name} {"   "}
-						{isHost && <EditMealplanFormModal />}
+						{isHost && <EditMealplanFormModal eventId={eventId} mealplanName={mealplan.name} />}
 						{isHost && (
 							<Button variant="danger" id={mealplan.id} onClick={(e) => deleteMealplan(e)}>
 								{" "}

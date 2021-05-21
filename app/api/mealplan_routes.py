@@ -91,7 +91,10 @@ def edit_mealplan(eventId):
     mealplan = Mealplan.query.filter(Mealplan.id == mealplanId, Mealplan.eventId == eventId).first()
     if mealplan is None:
         return {"errors": "Mealplan does not exist"}, 400
-
-    db.session.delete(mealplan)
-    db.session.commit()
-    return {"message": "success"}
+    name = request.json["name"]
+    if len(name) >= 1:
+        mealplan.name = name
+        db.session.commit()
+        return {"message": "success"}
+    else:
+        return {"errors": "Mealplan needs to be at least 1 character"}, 400

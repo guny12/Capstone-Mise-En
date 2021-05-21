@@ -3,7 +3,7 @@ import { Modal } from "../../context/Modal";
 import EditMealplanForm from "./EditMealplanForm";
 import { Button } from "react-bootstrap";
 
-function EditMealplanFormModal({ eventData }) {
+function EditMealplanFormModal({ eventId, mealplanName }) {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
@@ -13,7 +13,7 @@ function EditMealplanFormModal({ eventData }) {
 			</Button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
-					<EditMealplanForm />
+					<EditMealplanForm eventId={eventId} mealplanName={mealplanName} />
 				</Modal>
 			)}
 		</>

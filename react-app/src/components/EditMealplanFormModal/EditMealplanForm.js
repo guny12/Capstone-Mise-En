@@ -1,28 +1,32 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as mealplanActions from "../../store/mealplan";
+import * as itemActions from "../../store/item";
 
 import "./EditMealplanForm.css";
 import { Button, Form } from "react-bootstrap";
 
-const EditMealplanForm = () => {
+const EditMealplanForm = ({ eventId, mealplanName }) => {
 	const dispatch = useDispatch();
-	const [errors, setErrors] = useState([]);
-	const [name, setName] = useState("");
+	const [errors, setErrors] = useState("");
+	const [show, setShow] = useState(false);
+	const [name, setName] = useState(mealplanName);
 	const attendeeURL = window.location.pathname.split("/")[2];
 	const close = document.querySelector("#modal-background");
-	const currentEvent = useSelector((state) => state.event?.currentEvent);
+	const mealplanId = useSelector((state) => state.mealplan?.currentMealplan?.id);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const eventId = currentEvent.id;
-		const data = await dispatch(mealplanActions.createMealplan({ name, attendeeURL, eventId }));
-		if (data?.errors) setErrors(data.errors);
-		else if (close) close.click();
+		const message = await dispatch(mealplanActions.editMealplan({ name, eventId, attendeeURL, mealplanId }));
+		if (message.errors) setErrors(message.errors);
+		else {
+			await dispatch(itemActions.itemsUnloaded());
+			close.click();
+		}
 	};
 
 	return (
-		<Form onSubmit={handleSubmit} className="mealplan__Form">
+		<Form className="mealplan__Form">
 			{errors.length > 0 && <h5>{errors} </h5>}
 			<Form.Group controlId="formBasicName">
 				<Form.Label>Mealplan Name </Form.Label>
@@ -30,15 +34,21 @@ const EditMealplanForm = () => {
 					type="text"
 					autoComplete="name"
 					value={name}
-					onChange={(e) => setName(e.target.value)}
+					onChange={(e) => {
+						setName(e.target.value);
+						setShow(true);
+					}}
 					required
+					minLength="1"
 					maxLength="100"
 					placeholder="Enter Mealplan Name"
 				/>
 			</Form.Group>
-			<Button variant="primary" type="submit">
-				Create Mealplan
-			</Button>
+			{show && (
+				<Button variant="primary" onClick={handleSubmit}>
+					Update Name
+				</Button>
+			)}
 		</Form>
 	);
 };
