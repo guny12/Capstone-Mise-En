@@ -38,6 +38,10 @@ const AttendeeForm = ({ eventData }) => {
 				<p>{`https://mise-en.herokuapp.com/event/${data.newAttendee.attendeeURL}`}</p>,
 				<p>{`Please send that link to ${data.newAttendee.name}. It will give them unique access to this event.`}</p>,
 			]);
+			setName("");
+			setContactInfo("");
+			setAttendeeEmail("");
+			setHost(false);
 			return;
 		}
 	};
