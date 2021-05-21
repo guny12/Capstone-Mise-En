@@ -71,7 +71,9 @@ def update_event(eventId):
         event.availableSpots = (
             body["availableSpots"] if body["availableSpots"] is not None and body["availableSpots"] != "" else None
         )
-        event.thingsNeeded = body["thingsNeeded"] if body["thingsNeeded"] is not None else None
+        event.thingsNeeded = (
+            body["thingsNeeded"] if body["thingsNeeded"] is not None and body["thingsNeeded"] != "" else None
+        )
 
         db.session.commit()
         return {"CurrentEvent": event.to_dict()}
