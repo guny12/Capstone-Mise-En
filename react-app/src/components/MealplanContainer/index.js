@@ -95,7 +95,6 @@ const MealplanContainer = () => {
 	}
 
 	const [targetKey, setTargetKey] = useState(itemsTab ? itemsTab[0]?.id : null);
-	console.log(items);
 
 	return (
 		<>

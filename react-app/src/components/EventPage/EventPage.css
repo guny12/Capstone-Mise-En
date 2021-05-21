@@ -2,7 +2,7 @@
 	max-height: 98vh;
 	display: grid;
 	grid-template-columns: 50vw 18w 27vw;
-	grid-template-rows: 15vh 20vh 50vh;
+	grid-template-rows: 300px 20vh 50vh;
 	grid-template-areas:
 		"event-detail attendee-detail attendees-list"
 		"event-detail create-attendee-button attendees-list"

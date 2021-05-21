@@ -1,4 +1,3 @@
-import { SET_EVENTLOADEDFALSE } from "./event";
 export const SET_MEALPLAN = "mealplan/SET_MEALPLAN";
 export const SET_LISTMEALPLANS = "mealplan/SET_LISTMEALPLANS";
 export const SET_MEALPLANSLOADEDFALSE = "mealplan/SET_MEALPLANSLOADEDFALSE";

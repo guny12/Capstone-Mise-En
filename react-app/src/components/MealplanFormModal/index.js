@@ -11,7 +11,7 @@ function MealplanFormModal({ eventData }) {
 
 	return (
 		<>
-			<Button id="CreateMealplanButton" variant="dark" onClick={() => setShowModal(true)}>
+			<Button id="CreateMealplanButton" variant="dark" style={{ width: "300px" }} onClick={() => setShowModal(true)}>
 				Create Mealplan
 			</Button>
 			{showModal && (

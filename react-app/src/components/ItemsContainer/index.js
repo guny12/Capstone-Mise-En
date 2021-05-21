@@ -21,7 +21,6 @@ const ItemsContainer = ({ mealPlanId }) => {
 	}, [dispatch, itemLoaded]);
 
 	const items = useSelector((state) => state.item.listItems);
-	console.log(items, "GET ITEM");
 	let itemTabPane;
 	if (items) {
 		itemTabPane = items.map((item, i) => {

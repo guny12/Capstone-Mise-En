@@ -15,7 +15,6 @@ const MealplanForm = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(currentEvent, "CURRENT EVENT");
 		const eventId = currentEvent.id;
 		const data = await dispatch(mealplanActions.createMealplan({ name, attendeeURL, eventId }));
 		if (data?.errors) setErrors(data.errors);
