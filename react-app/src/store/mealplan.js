@@ -72,12 +72,12 @@ export const deleteMealplan = (eventIdAndMealplanIdAndCurrentAttendeeURL) => asy
 };
 
 // edit mealplan
-export const editMealplan = (eventIdAndMealplanIdAndCurrentAttendeeURL) => async (dispatch) => {
-	const { eventId } = eventIdAndMealplanIdAndCurrentAttendeeURL;
+export const editMealplan = (eventIdAndMealplanIdAndCurrentAttendeeURLAndNewName) => async (dispatch) => {
+	const { eventId } = eventIdAndMealplanIdAndCurrentAttendeeURLAndNewName;
 	const response = await fetch(`/api/mealplan/${eventId}`, {
 		method: "PATCH",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(eventIdAndMealplanIdAndCurrentAttendeeURL),
+		body: JSON.stringify(eventIdAndMealplanIdAndCurrentAttendeeURLAndNewName),
 	});
 	if (response.ok) {
 		const success = await response.json();

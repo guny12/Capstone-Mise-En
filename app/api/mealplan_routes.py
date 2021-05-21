@@ -38,7 +38,7 @@ def get_mealplan(mealplanId, attendeeURL):
 
 # create a mealplan inside an event after confirming userURL and permission
 @mealplan_routes.route("/<int:eventId>", methods=["POST"])
-def create_mealplans(eventId):
+def create_mealplan(eventId):
     form = CreateMealplanForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
 
@@ -62,7 +62,7 @@ def create_mealplans(eventId):
 
 # Delete a mealplan inside an event after confirming userURL and permission
 @mealplan_routes.route("/<int:eventId>", methods=["DELETE"])
-def delete_mealplans(eventId):
+def delete_mealplan(eventId):
     attendeeURL = request.json["attendeeURL"]
     attendee = Attendee.query.filter(
         Attendee.attendeeURL == attendeeURL, Attendee.host == True, Attendee.eventId == eventId
@@ -73,6 +73,25 @@ def delete_mealplans(eventId):
     mealplan = Mealplan.query.filter(Mealplan.id == mealplanId, Mealplan.eventId == eventId).first()
     if mealplan is None:
         return {"errors": "Mealplan does not exist"}, 400
+    db.session.delete(mealplan)
+    db.session.commit()
+    return {"message": "success"}
+
+
+# edit a mealplan inside an event after confirming userURL and permission
+@mealplan_routes.route("/<int:eventId>", methods=["PATCH"])
+def edit_mealplan(eventId):
+    attendeeURL = request.json["attendeeURL"]
+    attendee = Attendee.query.filter(
+        Attendee.attendeeURL == attendeeURL, Attendee.host == True, Attendee.eventId == eventId
+    ).first()
+    if attendee is None:
+        return {"errors": "No permission to modify this Event"}, 400
+    mealplanId = request.json["mealplanId"]
+    mealplan = Mealplan.query.filter(Mealplan.id == mealplanId, Mealplan.eventId == eventId).first()
+    if mealplan is None:
+        return {"errors": "Mealplan does not exist"}, 400
+
     db.session.delete(mealplan)
     db.session.commit()
     return {"message": "success"}

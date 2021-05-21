@@ -6,6 +6,7 @@ import * as itemActions from "../../store/item";
 import "./MealplanContainer.css";
 // import ItemsContainer from "../ItemsContainer";
 import MealplanFormModal from "../MealplanFormModal";
+import EditMealplanFormModal from "../EditMealplanFormModal";
 
 const MealplanContainer = () => {
 	const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const MealplanContainer = () => {
 	const editMealplan = async (e) => {
 		e.stopPropagation();
 		const mealplanId = e.target.id;
-		const message = await dispatch(mealplanActions.deleteMealplan({ eventId, attendeeURL, mealplanId }));
+		const message = await dispatch(mealplanActions.editMealplan({ eventId, attendeeURL, mealplanId }));
 		if (message.errors) setErrors(message.errors);
 		else await dispatch(itemActions.itemsUnloaded());
 	};
@@ -58,7 +59,7 @@ const MealplanContainer = () => {
 				<Nav.Item key={i}>
 					<Nav.Link eventKey={mealplan.id}>
 						{mealplan.name} {"   "}
-						{isHost && <Button variant="secondary">Edit Name</Button>}
+						{isHost && <EditMealplanFormModal />}
 						{isHost && (
 							<Button variant="danger" id={mealplan.id} onClick={(e) => deleteMealplan(e)}>
 								{" "}
