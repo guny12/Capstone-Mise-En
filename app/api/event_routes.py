@@ -67,8 +67,10 @@ def update_event(eventId):
         event.date = body["date"]
         event.startTime = body["startTime"]
         event.type = body["type"]
-        event.totalCost = body["totalCost"] if body["totalCost"] is not None else None
-        event.availableSpots = body["availableSpots"] if body["availableSpots"] is not None else None
+        event.totalCost = body["totalCost"] if body["totalCost"] is not None and body["totalCost"] != "" else None
+        event.availableSpots = (
+            body["availableSpots"] if body["availableSpots"] is not None and body["availableSpots"] != "" else None
+        )
         event.thingsNeeded = body["thingsNeeded"] if body["thingsNeeded"] is not None else None
 
         db.session.commit()
