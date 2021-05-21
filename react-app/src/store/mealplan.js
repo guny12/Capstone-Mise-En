@@ -71,6 +71,21 @@ export const deleteMealplan = (eventIdAndMealplanIdAndCurrentAttendeeURL) => asy
 	} else return response.json();
 };
 
+// edit mealplan
+export const editMealplan = (eventIdAndMealplanIdAndCurrentAttendeeURL) => async (dispatch) => {
+	const { eventId } = eventIdAndMealplanIdAndCurrentAttendeeURL;
+	const response = await fetch(`/api/mealplan/${eventId}`, {
+		method: "PATCH",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(eventIdAndMealplanIdAndCurrentAttendeeURL),
+	});
+	if (response.ok) {
+		const success = await response.json();
+		await dispatch(mealplansUnloaded());
+		return success;
+	} else return response.json();
+};
+
 //reducer
 const initialState = {
 	currentMealplan: null,

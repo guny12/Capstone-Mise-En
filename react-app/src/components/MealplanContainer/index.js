@@ -41,6 +41,14 @@ const MealplanContainer = () => {
 		else await dispatch(itemActions.getItems({ mealplanId, attendeeURL }));
 	};
 
+	const editMealplan = async (e) => {
+		e.stopPropagation();
+		const mealplanId = e.target.id;
+		const message = await dispatch(mealplanActions.deleteMealplan({ eventId, attendeeURL, mealplanId }));
+		if (message.errors) setErrors(message.errors);
+		else await dispatch(itemActions.itemsUnloaded());
+	};
+
 	let mealplanNavItemList, mealplans, itemsTab;
 	if (listMealplans) {
 		mealplans = Object.values(listMealplans);
