@@ -34,13 +34,13 @@ function App() {
 					<Navigation />
 					<Home />
 				</ProtectedRoute>
-				<Route path="/" exact={true}>
-					{loggedIn && <Navigation />}
-					<Landing />
-				</Route>
 				<Route path="/event/">
 					<Navigation />
 					<EventPage />
+				</Route>
+				<Route path="/" exact={true}>
+					{loggedIn && <Navigation />}
+					<Landing />
 				</Route>
 				<Route path="/">
 					<Redirect to="/" />
