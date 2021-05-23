@@ -41,9 +41,11 @@ def verify_item(itemId):
     return item
 
 
-# create a item inside an mealplan after confirming userURL and permission
 @item_routes.route("/<string:attendeeURL>", methods=["POST"])
 def create_items(attendeeURL):
+    """
+    Create a item inside an mealplan after confirming userURL and permission
+    """
     form = CreateItemForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     attendee = authenticate_attendeeHost(attendeeURL)
@@ -73,9 +75,11 @@ def create_items(attendeeURL):
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
-# get all items that are inside an mealplan Route
 @item_routes.route("/<string:attendeeURL>/<int:mealPlanId>", methods=["GET"])
 def get_items(attendeeURL, mealPlanId):
+    """
+    Get all items that are inside an mealplan Route
+    """
     attendee = authenticate_attendee(attendeeURL)
     mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == mealPlanId).first()
     if mealplan is None:
@@ -88,9 +92,11 @@ def get_items(attendeeURL, mealPlanId):
     return {"Items": items}
 
 
-# edit a item inside an mealplan after confirming userURL and permission
 @item_routes.route("/<int:itemId>", methods=["PATCH"])
 def edit_items(itemId):
+    """
+    Edit a item inside an mealplan after confirming userURL and permission
+    """
     attendeeURL = request.json
     attendee = authenticate_attendeeHost(attendeeURL)
     item = verify_item(itemId)
@@ -102,9 +108,11 @@ def edit_items(itemId):
     return {"mealplanId": mealplan.id}
 
 
-# Delete a item inside an mealplan after confirming userURL and permission
 @item_routes.route("/<int:itemId>", methods=["DELETE"])
 def delete_items(itemId):
+    """
+    Delete a item inside an mealplan after confirming userURL and permission
+    """
     attendeeURL = request.json
     attendee = authenticate_attendeeHost(attendeeURL)
     item = verify_item(itemId)
