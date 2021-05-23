@@ -1,6 +1,6 @@
 from .db import db
-from sqlalchemy.orm import relationship
 from datetime import datetime
+from app.models import Attendee
 
 
 class Item(db.Model):
@@ -15,6 +15,12 @@ class Item(db.Model):
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
+    def check_whoBring(self, attendeeURL):
+        attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
+        if attendee is None:
+            return None
+        return attendee.name
+
     def to_dict(self):
         return {
             "id": self.id,
@@ -22,5 +28,5 @@ class Item(db.Model):
             "thing": self.thing,
             "quantity": self.quantity,
             "unit": self.unit,
-            "whoBring": self.whoBring,
+            "whoBring": self.check_whoBring(self.whoBring),
         }
