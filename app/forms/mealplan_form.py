@@ -13,7 +13,8 @@ def check_eventId(form, field):
 
 def check_mealplanName(form, field):
     name = field.data
-    mealplan = Mealplan.query.filter(Mealplan.name == name).first()
+    eventId = form.data["eventId"]
+    mealplan = Mealplan.query.filter(Mealplan.name == name, Mealplan.eventId == eventId).first()
     if mealplan:
         raise ValidationError("Mealplan Name already exists")
 
