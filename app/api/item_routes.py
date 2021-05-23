@@ -13,9 +13,7 @@ def authenticate_attendee(attendeeURL):
     Authenticates a attendee exists.
     """
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
-    if attendee is None:
-        return "error"
-    return attendee
+    return "error" if attendee is None else attendee
 
 
 def authenticate_attendeeHost(attendeeURL):
@@ -26,9 +24,7 @@ def authenticate_attendeeHost(attendeeURL):
         Attendee.attendeeURL == attendeeURL,
         Attendee.host == True,
     ).first()
-    if attendee is None:
-        return "error"
-    return attendee
+    return "error" if attendee is None else attendee
 
 
 def verify_item(itemId):
@@ -36,10 +32,7 @@ def verify_item(itemId):
     Verify item exists.
     """
     item = Item.query.filter(Item.id == itemId).first()
-    if item is None:
-        return "error"
-        return {"errors": "Item does not exist"}, 400
-    return item
+    return "error" if item is None else item
 
 
 @item_routes.route("/<string:attendeeURL>", methods=["POST"])
