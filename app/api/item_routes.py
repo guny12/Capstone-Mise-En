@@ -14,7 +14,7 @@ def authenticate_attendee(attendeeURL):
     """
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
     if attendee is None:
-        return {"errors": "Attendee does not exist"}, 400
+        return "error"
     return attendee
 
 
@@ -27,7 +27,7 @@ def authenticate_attendeeHost(attendeeURL):
         Attendee.host == True,
     ).first()
     if attendee is None:
-        return {"errors": "No permission to modify this Event"}, 400
+        return "error"
     return attendee
 
 
@@ -37,6 +37,7 @@ def verify_item(itemId):
     """
     item = Item.query.filter(Item.id == itemId).first()
     if item is None:
+        return "error"
         return {"errors": "Item does not exist"}, 400
     return item
 
@@ -49,6 +50,8 @@ def create_items(attendeeURL):
     form = CreateItemForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     attendee = authenticate_attendeeHost(attendeeURL)
+    if attendee == "error":
+        return {"errors": "No permission to modify this Event"}, 400
     mealPlanId = request.json["mealPlanId"] if "mealPlanId" in request.json else None
     mealplan = Mealplan.query.filter(
         Mealplan.eventId == attendee.eventId,
@@ -78,9 +81,11 @@ def create_items(attendeeURL):
 @item_routes.route("/<string:attendeeURL>/<int:mealPlanId>", methods=["GET"])
 def get_items(attendeeURL, mealPlanId):
     """
-    Get all items that are inside an mealplan Route
+    Get all items that are inside an mealplan Route. If no items, returns an empty object/dict.
     """
     attendee = authenticate_attendee(attendeeURL)
+    if attendee == "error":
+        return {"errors": "No permission to modify this Event"}, 400
     mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == mealPlanId).first()
     if mealplan is None:
         return {"errors": "Mealplan does not exist"}, 400
@@ -88,7 +93,6 @@ def get_items(attendeeURL, mealPlanId):
     items = {}
     for item in Items:
         items[item.id] = item.to_dict()
-    # if no items, this returns an empty object back
     return {"Items": items}
 
 
@@ -99,7 +103,11 @@ def edit_items(itemId):
     """
     attendeeURL = request.json
     attendee = authenticate_attendeeHost(attendeeURL)
+    if attendee == "error":
+        return {"errors": "No permission to modify this Event"}, 400
     item = verify_item(itemId)
+    if item == "error":
+        return {"errors": "Item does not exist"}, 400
     mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == item.mealPlanId).first()
     if mealplan is None:
         return {"errors": "Mealplan does not exist"}, 400
@@ -115,7 +123,11 @@ def delete_items(itemId):
     """
     attendeeURL = request.json
     attendee = authenticate_attendeeHost(attendeeURL)
+    if attendee == "error":
+        return {"errors": "No permission to modify this Event"}, 400
     item = verify_item(itemId)
+    if item == "error":
+        return {"errors": "Item does not exist"}, 400
     mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == item.mealPlanId).first()
     if mealplan is None:
         return {"errors": "Mealplan does not exist"}, 400
