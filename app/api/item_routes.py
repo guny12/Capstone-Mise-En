@@ -8,17 +8,45 @@ from . import validation_errors_to_error_messages
 item_routes = Blueprint("item", __name__)
 
 
-# create a item inside an mealplan after confirming userURL and permission
-@item_routes.route("/<string:attendeeURL>", methods=["POST"])
-def create_items(attendeeURL):
-    form = CreateItemForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
+def authenticate_attendee(attendeeURL):
+    """
+    Authenticates a attendee exists.
+    """
+    attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
+    if attendee is None:
+        return {"errors": "Attendee does not exist"}, 400
+    return attendee
+
+
+def authenticate_attendeeHost(attendeeURL):
+    """
+    Authenticates a attendee is Host.
+    """
     attendee = Attendee.query.filter(
         Attendee.attendeeURL == attendeeURL,
         Attendee.host == True,
     ).first()
     if attendee is None:
         return {"errors": "No permission to modify this Event"}, 400
+    return attendee
+
+
+def verify_item(itemId):
+    """
+    Verify item exists.
+    """
+    item = Item.query.filter(Item.id == itemId).first()
+    if item is None:
+        return {"errors": "Item does not exist"}, 400
+    return item
+
+
+# create a item inside an mealplan after confirming userURL and permission
+@item_routes.route("/<string:attendeeURL>", methods=["POST"])
+def create_items(attendeeURL):
+    form = CreateItemForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    attendee = authenticate_attendeeHost(attendeeURL)
     mealPlanId = request.json["mealPlanId"] if "mealPlanId" in request.json else None
     mealplan = Mealplan.query.filter(
         Mealplan.eventId == attendee.eventId,
@@ -48,9 +76,7 @@ def create_items(attendeeURL):
 # get all items that are inside an mealplan Route
 @item_routes.route("/<string:attendeeURL>/<int:mealPlanId>", methods=["GET"])
 def get_items(attendeeURL, mealPlanId):
-    attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
-    if attendee is None:
-        return {"errors": "Attendee does not exist"}
+    attendee = authenticate_attendee(attendeeURL)
     mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == mealPlanId).first()
     if mealplan is None:
         return {"errors": "Mealplan does not exist"}, 400
@@ -62,16 +88,26 @@ def get_items(attendeeURL, mealPlanId):
     return {"Items": items}
 
 
+# edit a item inside an mealplan after confirming userURL and permission
+@item_routes.route("/<int:itemId>", methods=["PATCH"])
+def edit_items(itemId):
+    attendeeURL = request.json
+    attendee = authenticate_attendeeHost(attendeeURL)
+    item = verify_item(itemId)
+    mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == item.mealPlanId).first()
+    if mealplan is None:
+        return {"errors": "Mealplan does not exist"}, 400
+    db.session.delete(item)
+    db.session.commit()
+    return {"mealplanId": mealplan.id}
+
+
 # Delete a item inside an mealplan after confirming userURL and permission
 @item_routes.route("/<int:itemId>", methods=["DELETE"])
 def delete_items(itemId):
     attendeeURL = request.json
-    attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL, Attendee.host == True).first()
-    if attendee is None:
-        return {"errors": "No permission to modify this Event"}, 400
-    item = Item.query.filter(Item.id == itemId).first()
-    if item is None:
-        return {"errors": "Item does not exist"}, 400
+    attendee = authenticate_attendeeHost(attendeeURL)
+    item = verify_item(itemId)
     mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == item.mealPlanId).first()
     if mealplan is None:
         return {"errors": "Mealplan does not exist"}, 400
