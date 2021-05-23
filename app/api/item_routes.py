@@ -54,16 +54,18 @@ def create_items(attendeeURL):
         return {"errors": "Mealplan does not exist"}, 400
 
     if form.validate_on_submit():
-        thing = request.json["thing"]
-        quantity = request.json["quantity"]
-        unit = request.json["unit"]
-        mealPlanId = request.json["mealPlanId"]
+        body = request.json
+        thing = body["thing"]
+        quantity = body["quantity"]
+        unit = body["unit"]
+        mealPlanId = body["mealPlanId"]
+        whoBring = body["whoBring"] if body["whoBring"] is not None and body["whoBring"] != "" else None
         newItem = Item(
             mealPlanId=mealPlanId,
             thing=thing,
             quantity=quantity,
             unit=unit,
-            whoBring=None,
+            whoBring=whoBring,
         )
         db.session.add(newItem)
         db.session.commit()

@@ -51,6 +51,7 @@ const ItemForm = () => {
 				<Form.Control
 					type="number"
 					value={quantity}
+					required
 					min="0"
 					max="999999999999"
 					onChange={(e) => setQuantity(e.target.value)}
