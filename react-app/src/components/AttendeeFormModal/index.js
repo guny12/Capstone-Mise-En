@@ -1,4 +1,3 @@
-// frontend/src/components/LoginFormModal/index.js
 import React, { useState } from "react";
 import { CreateAttendeeModalWrapper } from "../../context/Modal";
 import AttendeeForm from "./AttendeeForm";
@@ -6,9 +5,6 @@ import { Button } from "react-bootstrap";
 
 function AttendeeFormModal({ eventData }) {
 	const [showModal, setShowModal] = useState(false);
-
-	// const eventDataOk = document.querySelector("#LandingCreateEventButton");
-	// if (eventDataOk) eventDataOk.click();
 
 	return (
 		<>
