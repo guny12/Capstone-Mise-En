@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Col, Nav, Tab, Row, Button, Toast } from "react-bootstrap";
 import * as mealplanActions from "../../store/mealplan";
@@ -6,15 +6,24 @@ import * as itemActions from "../../store/item";
 import "./MealplanContainer.css";
 import MealplanFormModal from "../MealplanFormModal";
 import EditMealplanFormModal from "../EditMealplanFormModal";
+import ItemFormModal from "../ItemFormModal";
 
 const MealplanContainer = () => {
 	const dispatch = useDispatch();
+	const itemLoaded = useSelector((state) => state.item.loaded);
+	const mealplanId = useSelector((state) => state.mealplan?.currentMealplan?.id);
 	const listMealplans = useSelector((state) => state.mealplan.listMealplans);
 	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
 	const listItems = useSelector((state) => state.item.listItems);
 	const attendeeURL = window.location.pathname.split("/")[2];
 	const eventId = useSelector((state) => state.event.currentEvent?.id);
 	const [errors, setErrors] = useState([]);
+
+	useEffect(() => {
+		(async () => {
+			if (!itemLoaded && mealplanId) await dispatch(itemActions.getItems({ attendeeURL, mealplanId }));
+		})();
+	}, [dispatch, itemLoaded, mealplanId]);
 
 	const selectedMealplan = async (mealplanId) => {
 		setTargetKey(mealplanId);
@@ -114,7 +123,10 @@ const MealplanContainer = () => {
 					</Col>
 					<Col sm={6}>
 						<Tab.Content>
-							<Tab.Pane eventKey={targetKey}>{itemsTab && itemsTab}</Tab.Pane>
+							<Tab.Pane eventKey={targetKey}>
+								<ItemFormModal />
+								{itemsTab && itemsTab}
+							</Tab.Pane>
 						</Tab.Content>
 					</Col>
 				</Row>

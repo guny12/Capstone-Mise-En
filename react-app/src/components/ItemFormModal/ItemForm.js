@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as itemActions from "../../store/item";
 
@@ -7,9 +6,8 @@ import "./ItemForm.css";
 import { Button, Form } from "react-bootstrap";
 
 const ItemForm = () => {
-	const history = useHistory();
 	const dispatch = useDispatch();
-	const mealPlanId = useSelector((state) => state.mealplan?.currentMealPlan?.id);
+	const mealPlanId = useSelector((state) => state.mealplan?.currentMealplan?.id);
 	const [errors, setErrors] = useState([]);
 	const [thing, setThing] = useState("");
 	const [quantity, setQuantity] = useState("");
@@ -21,7 +19,6 @@ const ItemForm = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
 		const data = await dispatch(itemActions.createItem({ attendeeURL, thing, quantity, unit, whoBring, mealPlanId }));
 		if (data?.errors) setErrors(data.errors);
 		else if (closeAfter) close.click();
@@ -30,6 +27,7 @@ const ItemForm = () => {
 			setQuantity("");
 			setUnit("");
 			setWhoBring("");
+			document.getElementById("formCheckBring").checked = false;
 			return;
 		}
 	};
@@ -71,12 +69,20 @@ const ItemForm = () => {
 				/>
 			</Form.Group>
 			<Form.Group controlId="formCheckBring">
-				<Form.Label>Are you brining it?</Form.Label>
-				<Form.Control type="checkbox" value={whoBring} onChange={(e) => setWhoBring(attendeeURL)} />
+				<Form.Label>Are you bringing it?</Form.Label>
+				<Form.Control
+					type="checkbox"
+					value={whoBring}
+					onChange={(e) => (whoBring.length === 0 ? setWhoBring(attendeeURL) : setWhoBring(""))}
+				/>
+			</Form.Group>
+			<Form.Group controlId="formCheckCloseAfter">
+				<Form.Label>Close form after?</Form.Label>
+				<Form.Control type="checkbox" value={closeAfter} onChange={(e) => setCloseAfter(!closeAfter)} />
 			</Form.Group>
 
 			<Button variant="primary" type="submit">
-				Create Attendee
+				Create Item
 			</Button>
 		</Form>
 	);
