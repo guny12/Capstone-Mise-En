@@ -1,6 +1,6 @@
 // frontend/src/components/LoginFormModal/index.js
 import React, { useState } from "react";
-import { Modal } from "../../context/Modal";
+import { CreateAttendeeModalWrapper } from "../../context/Modal";
 import AttendeeForm from "./AttendeeForm";
 import { Button } from "react-bootstrap";
 
@@ -16,9 +16,9 @@ function AttendeeFormModal({ eventData }) {
 				Create Attendee
 			</Button>
 			{showModal && (
-				<Modal onClose={() => setShowModal(false)}>
+				<CreateAttendeeModalWrapper onClose={() => setShowModal(false)}>
 					<AttendeeForm eventData={eventData} />
-				</Modal>
+				</CreateAttendeeModalWrapper>
 			)}
 		</>
 	);

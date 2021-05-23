@@ -34,9 +34,9 @@ const AttendeeForm = ({ eventData }) => {
 			return;
 		} else {
 			setErrors([
-				<p>Access Link is:</p>,
-				<p>{`https://mise-en.herokuapp.com/event/${data.newAttendee.attendeeURL}`}</p>,
-				<p>{`Please send that link to ${data.newAttendee.name}. It will give them unique access to this event.`}</p>,
+				<p key="access-header">Access Link is:</p>,
+				<p key="access-link">{`https://mise-en.herokuapp.com/event/${data.newAttendee.attendeeURL}`}</p>,
+				<p key="access message">{`Please send that link to ${data.newAttendee.name}. It will give them unique access to this event.`}</p>,
 			]);
 			setName("");
 			setContactInfo("");
@@ -49,7 +49,7 @@ const AttendeeForm = ({ eventData }) => {
 
 	return (
 		<Form onSubmit={handleSubmit} className="loginform__Form">
-			{errors.length > 0 && <h5>{errors} </h5>}
+			{errors.length > 0 && <h5 key="error">{errors} </h5>}
 			<Form.Group controlId="formBasicName">
 				<Form.Label>Attendee Name </Form.Label>
 				<Form.Control
