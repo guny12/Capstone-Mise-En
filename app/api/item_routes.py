@@ -94,7 +94,8 @@ def edit_items(itemId):
     """
     Edit a item inside an mealplan after confirming userURL and permission
     """
-    attendeeURL = request.json
+    body = request.json
+    attendeeURL = body["attendeeURL"]
     attendee = authenticate_attendeeHost(attendeeURL)
     if attendee == "error":
         return {"errors": "No permission to modify this Event"}, 400
@@ -104,9 +105,16 @@ def edit_items(itemId):
     mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == item.mealPlanId).first()
     if mealplan is None:
         return {"errors": "Mealplan does not exist"}, 400
-    db.session.delete(item)
-    db.session.commit()
-    return {"mealplanId": mealplan.id}
+    form = CreateItemForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        item.thing = body["thing"]
+        item.quantity = body["quantity"]
+        item.unit = body["unit"]
+        item.whoBring = body["whoBring"] if body["whoBring"] is not None and body["whoBring"] != "" else None
+        db.session.commit()
+        return {"CurrentItem": item.to_dict()}
+    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
 @item_routes.route("/<int:itemId>", methods=["DELETE"])
