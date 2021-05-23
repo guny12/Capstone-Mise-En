@@ -112,6 +112,7 @@ def edit_items(itemId):
         item.quantity = body["quantity"]
         item.unit = body["unit"]
         item.whoBring = body["whoBring"] if body["whoBring"] is not None and body["whoBring"] != "" else None
+        item.updatedAt = datetime.now()
         db.session.commit()
         return {"CurrentItem": item.to_dict()}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401

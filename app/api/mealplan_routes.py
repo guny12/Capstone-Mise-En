@@ -94,6 +94,7 @@ def edit_mealplan(eventId):
     name = request.json["name"]
     if len(name) >= 1 and len(name) <= 100:
         mealplan.name = name
+        mealplan.updatedAt = datetime.now()
         db.session.commit()
         return {"message": "success"}
     else:
