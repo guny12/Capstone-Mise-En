@@ -48,7 +48,7 @@ const AttendeeForm = ({ eventData }) => {
 	};
 
 	return (
-		<Form onSubmit={handleSubmit} className="loginform__Form">
+		<Form onSubmit={handleSubmit}>
 			{errors.length > 0 && <h5 key="error">{errors} </h5>}
 			<Form.Group controlId="formBasicName">
 				<Form.Label>Attendee Name </Form.Label>
