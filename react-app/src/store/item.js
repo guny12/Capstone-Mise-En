@@ -44,6 +44,21 @@ export const getItems = (attendeeURLandMealplanId) => async (dispatch) => {
 	} else return response.json();
 };
 
+// edit item
+export const editItem = (itemIdAndCurrentAttendeeURLandItemData) => async (dispatch) => {
+	const { itemId } = itemIdAndCurrentAttendeeURLandItemData;
+	const response = await fetch(`/api/item/${itemId}`, {
+		method: "PATCH",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(itemIdAndCurrentAttendeeURLandItemData),
+	});
+	if (response.ok) {
+		const item = await response.json();
+		dispatch(itemsUnloaded());
+		return item;
+	} else return response.json();
+};
+
 // delete item
 export const deleteItem = (itemIdAndCurrentAttendeeURL) => async (dispatch) => {
 	const { itemId, attendeeURL } = itemIdAndCurrentAttendeeURL;
