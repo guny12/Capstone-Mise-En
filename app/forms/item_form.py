@@ -14,7 +14,9 @@ def check_mealPlanId(form, field):
 def thing_exists(form, field):
     mealplanId = form.mealPlanId.data
     thing = field.data
-    thingExists = Item.query.filter(Item.thing == thing, Item.mealPlanId == mealplanId).first()
+    thingExists = Item.query.filter(
+        Item.thing == thing, Item.mealPlanId == mealplanId, Item.id != form.itemId.data
+    ).first()
     if thingExists:
         raise ValidationError("Item already exists in this mealplan")
 
@@ -46,3 +48,4 @@ class CreateItemForm(FlaskForm):
             Length(min=1, message="Unit must be at least 1 character"),
         ],
     )
+    itemId = IntegerField("itemId", validators=[Optional(), NumberRange(min=0)])

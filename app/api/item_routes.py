@@ -110,9 +110,9 @@ def edit_items(itemId):
     form = CreateItemForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
-        item.thing = body["thing"] if body["thing"] !== item.thing else item.thing
-        item.quantity = body["quantity"] if body["quantity"] !== item.quantity else item.quantity
-        item.unit = body["unit"] if body["unit"] !== item.unit else item.unit
+        item.thing = body["thing"] if body["thing"] != item.thing else item.thing
+        item.quantity = body["quantity"] if body["quantity"] != item.quantity else item.quantity
+        item.unit = body["unit"] if body["unit"] != item.unit else item.unit
         item.whoBring = body["whoBring"] if body["whoBring"] is not None and body["whoBring"] != "" else None
         item.updatedAt = datetime.now()
         db.session.commit()
