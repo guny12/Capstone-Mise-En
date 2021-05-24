@@ -3,10 +3,6 @@ export const SET_LISTITEMS = "mealplan/SET_LISTITEMS";
 export const SET_ITEMSLOADEDFALSE = "mealplan/SET_ITEMSLOADEDFALSE";
 
 // actions
-const setItem = (mealplan) => ({
-	type: SET_ITEM,
-	payload: mealplan,
-});
 
 const setListItems = (mealplans) => ({
 	type: SET_LISTITEMS,

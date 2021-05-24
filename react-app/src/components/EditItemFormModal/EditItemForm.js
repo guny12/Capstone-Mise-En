@@ -12,14 +12,13 @@ const EditItemForm = ({ itemId }) => {
 	const [thing, setThing] = useState(currentItem.thing);
 	const [quantity, setQuantity] = useState(currentItem.quantity);
 	const [unit, setUnit] = useState(currentItem.unit);
-	const [whoBring, setWhoBring] = useState(currentItem.whoBring !== null ? currentItem.whoBring : "");
 	const attendeeURL = window.location.pathname.split("/")[2];
 	const close = document.querySelector("#modal-background");
 
 	const handleSubmit = async (e) => {
 		e.stopPropagation();
 		e.preventDefault();
-		const data = await dispatch(editItem({ attendeeURL, thing, quantity, unit, whoBring, mealPlanId, itemId }));
+		const data = await dispatch(editItem({ attendeeURL, thing, quantity, unit, mealPlanId, itemId }));
 		if (data?.errors) setErrors(data.errors);
 		else if (close) close.click();
 	};

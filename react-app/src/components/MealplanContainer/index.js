@@ -15,6 +15,7 @@ const MealplanContainer = () => {
 	const mealplanId = useSelector((state) => state.mealplan?.currentMealplan?.id);
 	const listMealplans = useSelector((state) => state.mealplan.listMealplans);
 	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
+	const attendeeName = useSelector((state) => state.attendee.currentAttendee?.name);
 	const listItems = useSelector((state) => state.item.listItems);
 	const attendeeURL = window.location.pathname.split("/")[2];
 	const eventId = useSelector((state) => state.event.currentEvent?.id);
@@ -24,7 +25,7 @@ const MealplanContainer = () => {
 		(async () => {
 			if (!itemLoaded && mealplanId) await dispatch(itemActions.getItems({ attendeeURL, mealplanId }));
 		})();
-	}, [dispatch, itemLoaded, mealplanId]);
+	}, [dispatch, itemLoaded, mealplanId, attendeeURL]);
 
 	const selectedMealplan = async (mealplanId) => {
 		setTargetKey(mealplanId);
@@ -46,6 +47,11 @@ const MealplanContainer = () => {
 		const mealplanId = await dispatch(itemActions.deleteItem({ attendeeURL, itemId }));
 		if (mealplanId.errors) setErrors(mealplanId.errors);
 		else await dispatch(itemActions.getItems({ mealplanId, attendeeURL }));
+	};
+
+	const setBring = async (e) => {
+		e.stopPropagation();
+		const itemId = e.target.id;
 	};
 
 	let mealplanNavItemList, mealplans, itemsTab;
@@ -86,8 +92,16 @@ const MealplanContainer = () => {
 						</Toast.Header>
 						<Toast.Body>
 							{isHost && <EditItemFormModal itemId={item.id} />}
-							{item.whoBring === attendeeURL && <Button variant="warning">Can't Bring</Button>}
-							{!item.whoBring && <Button variant="success">Bring it</Button>}
+							{item.whoBring === attendeeName && (
+								<Button id={item.id} variant="warning">
+									Won't Bring
+								</Button>
+							)}
+							{!item.whoBring && (
+								<Button id={item.id} variant="success">
+									Bring it
+								</Button>
+							)}
 							{isHost && (
 								<Button variant="danger" id={item.id} onClick={(e) => deleteItem(e)}>
 									{" "}

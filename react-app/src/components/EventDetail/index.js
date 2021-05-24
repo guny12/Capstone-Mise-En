@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Button, Card, Badge } from "react-bootstrap";
-import * as eventActions from "../../store/event";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Card } from "react-bootstrap";
 import "./EventDetail.css";
 import EditEventFormModal from "../EditEventFormModal";
 
 const EventDetail = () => {
-	const dispatch = useDispatch();
 	const event = useSelector((state) => state.event.currentEvent);
 	const attendee = useSelector((state) => state.attendee.currentAttendee);
 

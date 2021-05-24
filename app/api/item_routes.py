@@ -113,7 +113,9 @@ def edit_items(itemId):
         item.thing = body["thing"] if body["thing"] != item.thing else item.thing
         item.quantity = body["quantity"] if body["quantity"] != item.quantity else item.quantity
         item.unit = body["unit"] if body["unit"] != item.unit else item.unit
-        item.whoBring = body["whoBring"] if body["whoBring"] is not None and body["whoBring"] != "" else None
+        item.whoBring = (
+            body["whoBring"] if "whoBring" in body and body["whoBring"] is not None and body["whoBring"] != "" else None
+        )
         item.updatedAt = datetime.now()
         db.session.commit()
         return {"CurrentItem": item.to_dict()}
