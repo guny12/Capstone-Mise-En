@@ -52,6 +52,9 @@ const MealplanContainer = () => {
 	const setBring = async (e) => {
 		e.stopPropagation();
 		const itemId = e.target.id;
+		const item = await dispatch(itemActions.editItem({ itemId, attendeeURL, changeBring: "changeBring" }));
+		if (item.errors) setErrors(item.errors);
+		else return;
 	};
 
 	let mealplanNavItemList, mealplans, itemsTab;

@@ -107,6 +107,10 @@ def edit_items(itemId):
     mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == item.mealPlanId).first()
     if mealplan is None:
         return {"errors": "Mealplan does not exist"}, 400
+    if "changeBring" in body:
+        item.whoBring = attendee.attendeeURL if item.whoBring is None else None
+        db.session.commit()
+        return {"CurrentItem": item.to_dict()}
     form = CreateItemForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
