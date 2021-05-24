@@ -7,6 +7,7 @@ import EditEventFormModal from "../EditEventFormModal";
 const EventDetail = () => {
 	const event = useSelector((state) => state.event.currentEvent);
 	const attendee = useSelector((state) => state.attendee.currentAttendee);
+	const attendeeURL = window.location.pathname.split("/")[2];
 
 	return (
 		<Card variant="dark" bg="dark" text="white" className="mb-2 event-text-center">
@@ -47,6 +48,15 @@ const EventDetail = () => {
 					</Card.Text>
 				)}
 				{attendee.host && <EditEventFormModal event={event} />}
+				<p />
+				{attendee.host === true && (
+					<p>
+						You can send out this url to people to let them create their own attendee:{" "}
+						<a
+							href={`https://mise-en.herokuapp.com/event/${attendeeURL.slice(0, 15)}`}
+						>{`https://mise-en.herokuapp.com/event/${attendeeURL.slice(0, 15)}`}</a>
+					</p>
+				)}
 			</Card.Body>
 			<Card.Footer className="text-muted" text="white">
 				<strong>Last updated:</strong> {event.updatedAt}

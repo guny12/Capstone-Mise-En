@@ -1,6 +1,6 @@
 .attendee-text-center {
 	width: 300px;
-	height: auto;
+	height: fit-content;
 	margin: 0;
 }
 
