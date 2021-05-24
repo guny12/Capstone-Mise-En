@@ -96,12 +96,12 @@ const MealplanContainer = () => {
 						<Toast.Body>
 							{isHost && <EditItemFormModal itemId={item.id} />}
 							{item.whoBring === attendeeName && (
-								<Button id={item.id} variant="warning">
+								<Button id={item.id} variant="warning" onClick={(e) => setBring(e)}>
 									Won't Bring
 								</Button>
 							)}
 							{!item.whoBring && (
-								<Button id={item.id} variant="success">
+								<Button id={item.id} variant="success" onClick={(e) => setBring(e)}>
 									Bring it
 								</Button>
 							)}
