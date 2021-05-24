@@ -67,3 +67,7 @@ small {
 	max-height: 40vh;
 	overflow-y: auto;
 }
+
+.toast-header {
+	background-color: transparent;
+}

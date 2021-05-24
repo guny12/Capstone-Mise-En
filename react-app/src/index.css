@@ -1,13 +1,7 @@
 /* TODO Add site wide styles */
 body {
 	background-color: rgb(110 139 177 / 53%);
-	/* background-image: url("./images/mise-en-logo.png"); */
-	/* background-size: contain; */
 	background-repeat: no-repeat;
-	/* border-radius: 5px; */
-	/* border: 5px black solid; */
-	/* height: auto;
-	width: auto; */
 }
 
 .btn-dark {

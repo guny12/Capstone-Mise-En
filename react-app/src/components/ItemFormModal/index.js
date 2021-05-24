@@ -11,7 +11,7 @@ function ItemFormModal() {
 			<Button
 				id="ItemButton"
 				variant="dark"
-				style={{ width: "300px", position: "absolute", top: "-7vh", right: "20vw", zIndex: "5" }}
+				style={{ width: "300px", position: "absolute", top: "-7vh" /*right: "20vw",*/ }}
 				onClick={() => setShowModal(true)}
 			>
 				Create Item
