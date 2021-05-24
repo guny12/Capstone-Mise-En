@@ -7,6 +7,7 @@ import "./MealplanContainer.css";
 import MealplanFormModal from "../MealplanFormModal";
 import EditMealplanFormModal from "../EditMealplanFormModal";
 import ItemFormModal from "../ItemFormModal";
+import EditItemFormModal from "../EditItemFormModal";
 
 const MealplanContainer = () => {
 	const dispatch = useDispatch();
@@ -84,7 +85,7 @@ const MealplanContainer = () => {
 							<small>{item.whoBring ? `${item.whoBring} will bring` : "Still needed"}</small>
 						</Toast.Header>
 						<Toast.Body>
-							{isHost && <Button variant="secondary"> Edit Item</Button>}
+							{isHost && <EditItemFormModal itemId={item.id} />}
 							{item.whoBring === attendeeURL && <Button variant="warning">Can't Bring</Button>}
 							{!item.whoBring && <Button variant="success">Bring it</Button>}
 							{isHost && (

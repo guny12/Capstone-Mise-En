@@ -1,35 +1,27 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as itemActions from "../../store/item";
-
-import "./ItemForm.css";
+import { editItem } from "../../store/item";
 import { Button, Form } from "react-bootstrap";
 
-const ItemForm = () => {
+const EditItemForm = ({ itemId }) => {
 	const dispatch = useDispatch();
 	const mealPlanId = useSelector((state) => state.mealplan?.currentMealplan?.id);
+	const currentItem = useSelector((state) => state.item?.listItems[`${itemId}`]);
 	const [errors, setErrors] = useState([]);
-	const [thing, setThing] = useState("");
-	const [quantity, setQuantity] = useState("");
-	const [unit, setUnit] = useState("");
-	const [whoBring, setWhoBring] = useState("");
-	const [closeAfter, setCloseAfter] = useState(false);
+	const [show, setShow] = useState(false);
+	const [thing, setThing] = useState(currentItem.thing);
+	const [quantity, setQuantity] = useState(currentItem.quantity);
+	const [unit, setUnit] = useState(currentItem.unit);
+	const [whoBring, setWhoBring] = useState(currentItem.whoBring !== null ? currentItem.whoBring : "");
 	const attendeeURL = window.location.pathname.split("/")[2];
 	const close = document.querySelector("#modal-background");
 
 	const handleSubmit = async (e) => {
 		e.stopPropagation();
 		e.preventDefault();
-		const data = await dispatch(itemActions.createItem({ attendeeURL, thing, quantity, unit, whoBring, mealPlanId }));
+		const data = await dispatch(editItem({ attendeeURL, thing, quantity, unit, whoBring, mealPlanId, itemId }));
 		if (data?.errors) setErrors(data.errors);
-		else if (closeAfter) close.click();
-		else {
-			setThing("");
-			setQuantity("");
-			setUnit("");
-			setWhoBring("");
-			return;
-		}
+		else if (close) close.click();
 	};
 
 	return (
@@ -40,7 +32,10 @@ const ItemForm = () => {
 				<Form.Control
 					type="text"
 					value={thing}
-					onChange={(e) => setThing(e.target.value)}
+					onChange={(e) => {
+						setShow(true);
+						setThing(e.target.value);
+					}}
 					required
 					maxLength="50"
 					placeholder="Name of item"
@@ -54,7 +49,10 @@ const ItemForm = () => {
 					required
 					min="0"
 					max="999999999999"
-					onChange={(e) => setQuantity(e.target.value)}
+					onChange={(e) => {
+						setShow(true);
+						setQuantity(e.target.value);
+					}}
 					placeholder="Enter quantity of item, whole numbers"
 				/>
 			</Form.Group>
@@ -63,29 +61,21 @@ const ItemForm = () => {
 				<Form.Control
 					type="text"
 					value={unit}
-					onChange={(e) => setUnit(e.target.value)}
+					onChange={(e) => {
+						setShow(true);
+						setUnit(e.target.value);
+					}}
 					maxLength="50"
 					required
 					placeholder="Enter Unit of Measurement"
 				/>
 			</Form.Group>
-			<Form.Group controlId="formCheckBring">
-				<Form.Label>Are you bringing it?</Form.Label>
-				<Form.Control
-					type="checkbox"
-					value={whoBring}
-					onChange={(e) => (whoBring.length === 0 ? setWhoBring(attendeeURL) : setWhoBring(""))}
-				/>
-			</Form.Group>
-			<Form.Group controlId="formCheckCloseAfter">
-				<Form.Label>Close form after?</Form.Label>
-				<Form.Control type="checkbox" value={closeAfter} onChange={(e) => setCloseAfter(!closeAfter)} />
-			</Form.Group>
-
-			<Button variant="primary" type="submit">
-				Create Item
-			</Button>
+			{show && (
+				<Button variant="primary" type="submit">
+					Edit Item
+				</Button>
+			)}
 		</Form>
 	);
 };
-export default ItemForm;
+export default EditItemForm;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
-import EditItemForm from "./ItemForm";
+import EditItemForm from "./EditItemForm";
 import { Button } from "react-bootstrap";
 
-function EditItemFormModal() {
+function EditItemFormModal({ itemId }) {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
@@ -12,9 +12,9 @@ function EditItemFormModal() {
 				Edit Item
 			</Button>
 			{showModal && (
-				<CreateAttendeeModalWrapper onClose={() => setShowModal(false)}>
-					<ItemForm />
-				</CreateAttendeeModalWrapper>
+				<Modal onClose={() => setShowModal(false)}>
+					<EditItemForm itemId={itemId} />
+				</Modal>
 			)}
 		</>
 	);
