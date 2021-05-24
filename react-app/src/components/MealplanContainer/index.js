@@ -55,11 +55,10 @@ const MealplanContainer = () => {
 			return (
 				<Nav.Item key={i}>
 					<Nav.Link eventKey={mealplan.id}>
-						{mealplan.name} {"   "}
+						{mealplan.name}
 						{isHost && <EditMealplanFormModal eventId={eventId} mealplanName={mealplan.name} />}
 						{isHost && (
 							<Button variant="danger" id={mealplan.id} onClick={(e) => deleteMealplan(e)}>
-								{" "}
 								Delete
 							</Button>
 						)}
@@ -118,6 +117,7 @@ const MealplanContainer = () => {
 					<Col sm={4}>
 						<Nav variant="pills" className="flex-column">
 							{isHost && <MealplanFormModal />}
+
 							{mealplanNavItemList ? mealplanNavItemList : null}
 						</Nav>
 					</Col>
@@ -125,7 +125,7 @@ const MealplanContainer = () => {
 						<Tab.Content>
 							<Tab.Pane eventKey={targetKey}>
 								<ItemFormModal />
-								{itemsTab && itemsTab}
+								<div>{itemsTab && itemsTab}</div>
 							</Tab.Pane>
 						</Tab.Content>
 					</Col>

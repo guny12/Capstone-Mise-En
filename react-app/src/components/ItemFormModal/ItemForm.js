@@ -18,6 +18,7 @@ const ItemForm = () => {
 	const close = document.querySelector("#modal-background");
 
 	const handleSubmit = async (e) => {
+		e.stopPropagation();
 		e.preventDefault();
 		const data = await dispatch(itemActions.createItem({ attendeeURL, thing, quantity, unit, whoBring, mealPlanId }));
 		if (data?.errors) setErrors(data.errors);
@@ -27,7 +28,6 @@ const ItemForm = () => {
 			setQuantity("");
 			setUnit("");
 			setWhoBring("");
-			document.getElementById("formCheckBring").checked = false;
 			return;
 		}
 	};
