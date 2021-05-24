@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import * as mealplanActions from "../../store/mealplan";
 import * as itemActions from "../../store/item";
 
-import "./EditMealplanForm.css";
 import { Button, Form } from "react-bootstrap";
 
 const EditMealplanForm = ({ eventId, mealplanName }) => {

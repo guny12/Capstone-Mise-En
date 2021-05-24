@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as itemActions from "../../store/item";
 
-import "./ItemForm.css";
 import { Button, Form } from "react-bootstrap";
 
 const ItemForm = () => {
