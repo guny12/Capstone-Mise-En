@@ -33,15 +33,16 @@
 .attendees-accordion-container {
 	justify-content: center;
 	display: grid;
-	max-height: 75vh;
+	max-height: 50vh;
 	min-width: 350px;
 	width: 33vw;
 	overflow-x: hidden;
-	overflow-y: auto;
+	overflow-y: hidden;
 }
 
 .accordion {
 	height: auto;
+	max-height: 30vh;
 	width: 33vw;
 	overflow-y: auto;
 }
