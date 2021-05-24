@@ -58,7 +58,7 @@ const AttendeeForm = ({ eventData }) => {
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 					required
-					maxLength="250"
+					maxLength="50"
 					placeholder="Enter Attendee Name"
 				/>
 			</Form.Group>
@@ -80,7 +80,7 @@ const AttendeeForm = ({ eventData }) => {
 					autoComplete="email"
 					value={attendeeEmail}
 					onChange={(e) => setAttendeeEmail(e.target.value)}
-					maxLength="200"
+					maxLength="50"
 					placeholder="Enter Optional Email"
 				/>
 			</Form.Group>

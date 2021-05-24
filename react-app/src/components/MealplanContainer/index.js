@@ -56,6 +56,7 @@ const MealplanContainer = () => {
 				<Nav.Item key={i}>
 					<Nav.Link eventKey={mealplan.id}>
 						{mealplan.name}
+						{"   "}
 						{isHost && <EditMealplanFormModal eventId={eventId} mealplanName={mealplan.name} />}
 						{isHost && (
 							<Button variant="danger" id={mealplan.id} onClick={(e) => deleteMealplan(e)}>

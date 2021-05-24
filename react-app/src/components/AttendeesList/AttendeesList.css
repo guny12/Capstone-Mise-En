@@ -2,6 +2,7 @@
 	width: 33vw;
 	overflow-y: auto;
 	height: 75vh;
+	max-width: 550px;
 }
 
 .accordion-item-name {
@@ -38,6 +39,7 @@
 	width: 33vw;
 	overflow-x: hidden;
 	overflow-y: hidden;
+	max-width: 550px;
 }
 
 .accordion {
@@ -45,6 +47,7 @@
 	max-height: 30vh;
 	width: 33vw;
 	overflow-y: auto;
+	max-width: 550px;
 }
 
 .attendees-accordion-header {
@@ -55,4 +58,5 @@
 	overflow-y: hidden;
 	width: 33vw;
 	cursor: pointer;
+	max-width: 550px;
 }
