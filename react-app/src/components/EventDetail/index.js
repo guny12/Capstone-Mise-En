@@ -52,9 +52,9 @@ const EventDetail = () => {
 				{attendee.host === true && (
 					<p>
 						You can send out this url to people to let them create their own attendee:{" "}
-						<a
-							href={`https://mise-en.herokuapp.com/event/${attendeeURL.slice(0, 15)}`}
-						>{`https://mise-en.herokuapp.com/event/${attendeeURL.slice(0, 15)}`}</a>
+						<a href={`${window.location.origin}/event/${attendeeURL.slice(0, 15)}`}>{`${
+							window.location.origin
+						}/event/${attendeeURL.slice(0, 15)}`}</a>
 					</p>
 				)}
 			</Card.Body>
