@@ -6,9 +6,7 @@ import * as sessionActions from "../../store/session";
 import EventFormModal from "../EventFormModal";
 import LoginFormModal from "../LoginFormModal";
 import SignUpModal from "../SignUpModal";
-import ProfileButton from "../Navigation/ProfileButton";
 import { Button } from "react-bootstrap";
-import logo from "../../images/mise-en-logo.png";
 
 const Landing = () => {
 	const dispatch = useDispatch();
@@ -22,7 +20,9 @@ const Landing = () => {
 
 	const sessionUser = useSelector((state) => state.session.user);
 
-	if (sessionUser) history.push("/home");
+	useEffect(() => {
+		if (sessionUser) history.push("/home");
+	}, [history, sessionUser]);
 
 	const sessionLinks = (
 		<>

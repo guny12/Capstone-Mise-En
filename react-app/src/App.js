@@ -39,7 +39,6 @@ function App() {
 					<EventPage />
 				</Route>
 				<Route path="/" exact={true}>
-					{loggedIn && <Navigation />}
 					<Landing />
 				</Route>
 				<Route path="/">
