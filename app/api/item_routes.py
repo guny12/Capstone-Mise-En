@@ -94,7 +94,13 @@ def get_items(attendeeURL, mealPlanId):
 @item_routes.route("/<int:itemId>", methods=["PATCH"])
 def edit_items(itemId):
     """
-    Edit a item inside an mealplan after confirming userURL and permission
+    Edit a item inside an mealplan after confirming userURL and permission.
+    If someone edits an item, it will set whoBring to None automatically.
+    There is a clause for "whoBring" in body that someone could access directly through backend,
+    but they would have to be a host. Would be easier for them to change the item name to include
+    whoever needs to bring it.
+    This way a user must accept the changes before they can set it to "bring".
+    Only way to change "whoBring" status is via bring button which adds "changeBring" to body
     """
     body = request.json
     attendeeURL = body["attendeeURL"]
@@ -109,6 +115,7 @@ def edit_items(itemId):
         return {"errors": "Mealplan does not exist"}, 400
     if "changeBring" in body:
         item.whoBring = attendee.attendeeURL if item.whoBring is None else None
+        item.updatedAt = datetime.now()
         db.session.commit()
         return {"CurrentItem": item.to_dict()}
     form = CreateItemForm()
@@ -117,9 +124,8 @@ def edit_items(itemId):
         item.thing = body["thing"] if body["thing"] != item.thing else item.thing
         item.quantity = body["quantity"] if body["quantity"] != item.quantity else item.quantity
         item.unit = body["unit"] if body["unit"] != item.unit else item.unit
-        item.whoBring = (
-            body["whoBring"] if "whoBring" in body and body["whoBring"] is not None and body["whoBring"] != "" else None
-        )
+        item.whoBring = None
+        # body["whoBring"] if "whoBring" in body and body["whoBring"] is not None and body["whoBring"] != "" else None
         item.updatedAt = datetime.now()
         db.session.commit()
         return {"CurrentItem": item.to_dict()}

@@ -85,7 +85,7 @@ const MealplanContainer = () => {
 				<div className="toast-div" key={i}>
 					<Toast key={`toast-${item.id}`}>
 						<Toast.Header closeButton={false}>
-							<strong className="mr-auto">
+							<strong className="mr-auto" style={{ color: "black" }}>
 								{item.thing}
 								{"   "}
 								{item.quantity}
@@ -112,6 +112,11 @@ const MealplanContainer = () => {
 								</Button>
 							)}
 						</Toast.Body>
+						<p style={{ fontSize: "medium", marginLeft: "20px", color: "gray" }}>
+							{` last updated: ${item.updatedAt.slice(0, 22)}${
+								Number(item.updatedAt.slice(18, 2)) >= 12 ? "PM" : "AM"
+							}`}
+						</p>
 					</Toast>
 				</div>
 			);

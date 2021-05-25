@@ -29,4 +29,5 @@ class Item(db.Model):
             "quantity": self.quantity,
             "unit": self.unit,
             "whoBring": self.check_whoBring(self.whoBring),
+            "updatedAt": self.updatedAt,
         }
