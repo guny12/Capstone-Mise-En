@@ -116,11 +116,11 @@ const MealplanContainer = () => {
 							{` last updated: ${item.updatedAt.slice(0, 17)}
 							${
 								Number(item.updatedAt.slice(17, 19)) > 12
-									? Math.abs(Number(item.updatedAt.slice(17, 19)) - 12)
+									? "0" + Math.abs(Number(item.updatedAt.slice(17, 19)) - 12)
 									: item.updatedAt.slice(17, 19)
 							}
 							${item.updatedAt.slice(19, 22)}
-							${Number(item.updatedAt.slice(18, 2)) >= 12 ? "PM" : "AM"}`}
+							${Number(item.updatedAt.slice(17, 19)) >= 12 ? "PM" : "AM"}`}
 						</p>
 					</Toast>
 				</div>
