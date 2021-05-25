@@ -6,6 +6,7 @@ import * as attendeeActions from "../../store/attendee";
 import "./EditAttendeeForm.css";
 import { Button, Form } from "react-bootstrap";
 
+// THIS IS NOT IN USE AT ALL. REMOVE LATER ON IF YOU DECIDE NOT TO USE AT ALL
 const EditAttendeeForm = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
