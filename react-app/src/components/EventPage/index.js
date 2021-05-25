@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { useHistory } from "react-router-dom";
 import "./EventPage.css";
-// import { Button, Form, Col, Image } from "react-bootstrap";
 import * as eventActions from "../../store/event";
 import * as attendeeActions from "../../store/attendee";
 import * as mealplanActions from "../../store/mealplan";
-import AttendeeFormModal from "../AttendeeFormModal";
 import PageNotFound from "../PageNotFound";
 import AttendeesList from "../AttendeesList";
 import AttendeeDetail from "../AttendeeDetail";
@@ -21,7 +18,6 @@ const EventPage = () => {
 	const currentEventId = useSelector((state) => state.event?.currentEvent?.id);
 	const [eventAndAttendeeLoaded, setEventAndAttendeeLoaded] = useState(false);
 	const [exists, setExists] = useState(false);
-	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
 	const attendee = useSelector((state) => state.attendee.currentAttendee);
 	const attendeeURL = window.location.pathname.split("/")[2];
 
@@ -81,14 +77,9 @@ const EventPage = () => {
 	// let you edit going or not. X
 	// lets you comment
 
-	// if it is 15keyEventPage or user is a host, create attendee button shows
-	const attendeeFormModal =
-		attendeeURL.length === 15 || (attendeeURL.length === 64 && isHost) ? <AttendeeFormModal /> : null;
-
 	return (
 		<div className="Event-Page-Container">
 			<EventDetail />
-			{attendeeFormModal}
 			<MealplanContainer />
 			{attendeeURL.length === 64 && attendee && <AttendeeDetail />}
 			{attendeeURL.length === 64 && <AttendeesList />}

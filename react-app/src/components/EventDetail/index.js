@@ -3,11 +3,16 @@ import { useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
 import "./EventDetail.css";
 import EditEventFormModal from "../EditEventFormModal";
+import AttendeeFormModal from "../AttendeeFormModal";
 
 const EventDetail = () => {
 	const event = useSelector((state) => state.event.currentEvent);
 	const attendee = useSelector((state) => state.attendee.currentAttendee);
 	const attendeeURL = window.location.pathname.split("/")[2];
+	const isHost = useSelector((state) => state.attendee.currentAttendee?.host);
+
+	const attendeeFormModal =
+		attendeeURL.length === 15 || (attendeeURL.length === 64 && isHost) ? <AttendeeFormModal /> : null;
 
 	return (
 		<Card variant="dark" bg="dark" text="white" className="mb-2 event-text-center">
@@ -62,6 +67,7 @@ const EventDetail = () => {
 						}/event/${attendeeURL.slice(0, 15)}`}</a>
 					</p>
 				)}
+				{attendeeFormModal}
 			</Card.Body>
 			<Card.Footer className="text-muted" text="white">
 				<strong>Last updated:</strong> {event.updatedAt}
