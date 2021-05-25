@@ -8,6 +8,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignUpModal from "../SignUpModal";
 import ProfileButton from "../Navigation/ProfileButton";
 import { Button } from "react-bootstrap";
+import logo from "../../images/mise-en-logo.png";
 
 const Landing = () => {
 	const dispatch = useDispatch();
@@ -42,7 +43,12 @@ const Landing = () => {
 		<div>
 			{userName && (
 				<>
-					<h2>{` Welcome ${userName}!`}</h2>
+					<h2>{` Welcome back ${userName}!`}</h2>
+				</>
+			)}
+			{!userName && (
+				<>
+					<h2>{` Welcome to Mise-En`}</h2>
 				</>
 			)}
 			<h1>Create your Event and start inviting people</h1>
