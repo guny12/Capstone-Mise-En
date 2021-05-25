@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./Landing.css";
 import * as sessionActions from "../../store/session";
 import EventFormModal from "../EventFormModal";
@@ -12,7 +12,7 @@ import logo from "../../images/mise-en-logo.png";
 
 const Landing = () => {
 	const dispatch = useDispatch();
-	// const history = useHistory();
+	const history = useHistory();
 	const userName = useSelector((state) => state.session.user?.username);
 
 	useEffect(() => {
@@ -22,36 +22,32 @@ const Landing = () => {
 
 	const sessionUser = useSelector((state) => state.session.user);
 
-	let sessionLinks;
-	if (sessionUser) sessionLinks = <ProfileButton user={sessionUser} />;
-	else {
-		sessionLinks = (
-			<>
-				<LoginFormModal />
-				<SignUpModal />
-				<Button variant="dark" onClick={() => handleSubmit()}>
-					Demo User
-				</Button>
-			</>
-		);
-	}
+	if (sessionUser) history.push("/home");
+
+	const sessionLinks = (
+		<>
+			<LoginFormModal />
+			<SignUpModal />
+			<Button variant="dark" onClick={() => handleSubmit()}>
+				Demo User
+			</Button>
+		</>
+	);
+
 	const handleSubmit = async () => {
 		await dispatch(sessionActions.login({ credential: "demo@user.iocom", password: "password" }));
+		history.push("/home");
 	};
 
 	return (
 		<div>
-			{userName && (
-				<>
-					<h2>{` Welcome back ${userName}!`}</h2>
-				</>
-			)}
 			{!userName && (
 				<>
-					<h2>{` Welcome to Mise-En`}</h2>
+					<h1>{` Welcome to Mise-En`}</h1>
+					<h2>If you login, you can view all the events you are a part of</h2>
 				</>
 			)}
-			<h1>Create your Event and start inviting people</h1>
+			<h2>Create your Event and start inviting people</h2>
 			<EventFormModal />
 			<div>{!sessionUser && sessionLinks}</div>
 		</div>
