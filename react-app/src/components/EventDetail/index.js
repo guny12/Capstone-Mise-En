@@ -25,9 +25,10 @@ const EventDetail = () => {
 				</Card.Text>
 				<Card.Text className="event-card-text">
 					<strong>Starts at : </strong>
-					{`${event.date.slice(0, 16)}, ${event.startTime.slice(0, 5)}${
-						Number(event.startTime.slice(0, 2)) >= 12 ? "PM" : "AM"
-					}`}
+					{`${event.date.slice(0, 16)},
+					${Math.abs(Number(event.startTime.slice(0, 2)) - 12)}
+					${event.startTime.slice(2, 5)}
+					${Number(event.startTime.slice(0, 2)) >= 12 ? "PM" : "AM"}`}
 				</Card.Text>
 				<Card.Text className="event-card-text">
 					<strong>Location Name:</strong> {event.locationName}
