@@ -6,7 +6,7 @@ import * as attendeeActions from "../../store/attendee";
 import "./EditAttendeeForm.css";
 import { Button, Form } from "react-bootstrap";
 
-const EditAttendeeForm = ({ eventData }) => {
+const EditAttendeeForm = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const [errors, setErrors] = useState([]);

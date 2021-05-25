@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import * as attendeeActions from "../../store/attendee";
+import { createAttendee } from "../../store/attendee";
 
 import "./AttendeeForm.css";
 import { Button, Form } from "react-bootstrap";
 
-const AttendeeForm = ({ eventData }) => {
+const AttendeeForm = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const [errors, setErrors] = useState([]);
@@ -22,9 +22,7 @@ const AttendeeForm = ({ eventData }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const data = await dispatch(
-			attendeeActions.createAttendee({ name, contactInfo, attendeeEmail, host, currentEvent })
-		);
+		const data = await dispatch(createAttendee({ name, contactInfo, attendeeEmail, host, currentEvent }));
 		if (data?.errors) {
 			setErrors(data.errors);
 		} else if (attendeeURL.length === 15) {
