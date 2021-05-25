@@ -2,7 +2,7 @@
 	max-height: 98vh;
 	display: grid;
 	grid-template-columns: 50vw 300px 30vw;
-	grid-template-rows: 300px 20vh 45vh;
+	grid-template-rows: 300px 300px 1fr;
 	grid-template-areas:
 		"event-detail attendee-detail attendees-list"
 		"event-detail create-attendee-button attendees-list"
@@ -17,16 +17,16 @@
 }
 
 #AttendeeButton {
-	grid-area: create-attendee-button;
+	/* grid-area: create-attendee-button; */
 	max-width: 300px;
 	max-height: 60px;
-	margin: 10px;
+	margin-bottom: 5px;
 }
 
 .event-text-center {
 	grid-area: event-detail;
 	margin: 10px;
-	/* min-height: 700px; */
+	min-height: 550px;
 }
 
 .attendee-text-center {
