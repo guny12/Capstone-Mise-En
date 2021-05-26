@@ -1,7 +1,8 @@
-from datetime import datetime
+import datetime
 from faker import Faker
+from sqlalchemy import desc
 from flask import Blueprint, request
-from flask_login import current_user
+from flask_login import current_user, login_required
 from app.models import User, Event, Attendee, db
 from app.forms.event_form import CreateEventForm
 from . import validation_errors_to_error_messages
@@ -74,7 +75,7 @@ def update_event(eventId):
         event.thingsNeeded = (
             body["thingsNeeded"] if body["thingsNeeded"] is not None and body["thingsNeeded"] != "" else None
         )
-        event.updatedAt = datetime.now()
+        event.updatedAt = datetime.datetime.now()
         db.session.commit()
         return {"CurrentEvent": event.to_dict()}
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
@@ -98,6 +99,29 @@ def get_event(eventId):
     if event is None:
         return {"errors": "Event does not exist"}, 400
     return {"CurrentEvent": event.to_dict()}
+
+
+# getEvents Route
+@event_routes.route("/", methods=["GET"])
+@login_required
+def get_events():
+    user = User.query.get(current_user.id)
+    if user is None:
+        return {"errors": "User does not exist"}, 400
+    today = datetime.date.today()
+    upcoming_events = (
+        Event.query.filter(Event.creatorUserId == user.id, Event.date > today).order_by(desc(Event.date)).all()
+    )
+    previous_events = (
+        Event.query.filter(Event.creatorUserId == user.id, Event.date < today).order_by(desc(Event.date)).all()
+    )
+    upcomingEvents = {}
+    previousEvents = {}
+    for event in upcoming_events:
+        upcomingEvents[event.id] = event.to_dict()
+    for event in previous_events:
+        previousEvents[event.id] = event.to_dict()
+    return {"upcomingEvents": upcomingEvents, "previousEvents": previousEvents}
 
 
 # deleteEvent Route
