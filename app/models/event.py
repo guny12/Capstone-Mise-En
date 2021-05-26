@@ -49,6 +49,9 @@ class Event(db.Model):
         }
 
     def to_user_dict(self):
+        """
+        Returns object to be used when getting all events a logged in user can access
+        """
         return {
             "id": self.id,
             "eventName": self.eventName,
@@ -58,16 +61,5 @@ class Event(db.Model):
             "type": self.type,
             "attendeeURL": [
                 attendee.attendeeURL for attendee in self.eventAttendees if attendee.userId == current_user.id
-            ]
-            # "attendeeURL": self.eventAttendees.query.filter(
-            #     self.eventAttendees.userId == current_user.id, self.eventAttendees.eventId == self.id
-            # )
-            # .first()
-            # .attendeeURL,
+            ],
         }
-
-    # def test(self):
-    #     # return {"attendeeURL": [attendee.id for attendee in self.eventAttendees]}
-    #     return {
-    #         "attendeeURL": [attendee.attendeeURL for attendee in self.eventAttendees if attendee.userId == current_user]
-    #     }

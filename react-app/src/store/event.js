@@ -64,6 +64,7 @@ export const getEvents = () => async (dispatch) => {
 	if (response.ok) {
 		const events = await response.json();
 		dispatch(setUserEvents(events));
+		return true;
 	} else return response.json();
 };
 
@@ -94,7 +95,7 @@ const eventReducer = (eventState = initialState, action) => {
 			return { ...eventState, currentEvent: CurrentEvent, loaded: true };
 		case SET_USEREVENTS:
 			let { upcomingEvents, previousEvents } = action.payload;
-			return { ...eventState, upcomingEvents, previousEvents };
+			return { ...eventState, upcomingEvents, previousEvents, loaded: true };
 		case SET_EVENTLOADEDFALSE:
 			return { ...eventState, loaded: false };
 		default:
