@@ -12,7 +12,7 @@ const PageNotFound = () => {
 						<h3>Whoops! Can't access the attendee or event. </h3>
 						<p /> <h3>If you used a account with this event before, please log in using your original access link</h3>
 						<p />
-						<p /> <h3>It may have been deleted by the admin. </h3>
+						<p /> <h3>Otherwise it may have been removed by an event host. </h3>
 						<p />
 						<h2>CLICK HERE to go home.</h2>
 					</div>

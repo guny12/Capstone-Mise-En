@@ -2,7 +2,9 @@
 	width: auto;
 	height: auto;
 	position: absolute;
-	bottom: 50vh;
+	top: 25vh;
+	bottom: 25vh;
 	left: 30vw;
+	right: 30vw;
 	margin: auto;
 }
