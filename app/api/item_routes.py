@@ -105,20 +105,22 @@ def edit_items(itemId):
     """
     body = request.json
     attendeeURL = body["attendeeURL"]
-    attendee = authenticate_attendeeHost(attendeeURL)
-    if attendee == "error":
-        return {"errors": "No permission to modify this Event"}, 400
+    attendee = authenticate_attendee(attendeeURL)
     item = verify_item(itemId)
     if item == "error":
         return {"errors": "Item does not exist"}, 400
-    mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == item.mealPlanId).first()
-    if mealplan is None:
-        return {"errors": "Mealplan does not exist"}, 400
     if "changeBring" in body:
         item.whoBring = attendee.attendeeURL if item.whoBring is None else None
         item.updatedAt = datetime.now()
         db.session.commit()
         return {"CurrentItem": item.to_dict()}
+    attendee = authenticate_attendeeHost(attendeeURL)
+    if attendee == "error":
+        return {"errors": "No permission to modify this Event"}, 400
+    mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == item.mealPlanId).first()
+    if mealplan is None:
+        return {"errors": "Mealplan does not exist"}, 400
+
     form = CreateItemForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():

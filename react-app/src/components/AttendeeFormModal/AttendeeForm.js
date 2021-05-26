@@ -33,7 +33,10 @@ const AttendeeForm = () => {
 		} else {
 			setErrors([
 				<p key="access-header">Access Link is:</p>,
-				<p key="access-link">{`${window.location.origin}/event/${data.newAttendee.attendeeURL}`}</p>,
+				<a
+					key="access-link"
+					href={`${window.location.origin}/event/${data.newAttendee.attendeeURL}`}
+				>{`${window.location.origin}/event/${data.newAttendee.attendeeURL}`}</a>,
 				<p key="access message">{`Please send that link to ${data.newAttendee.name}. It will give them unique access to this event.`}</p>,
 			]);
 			setName("");

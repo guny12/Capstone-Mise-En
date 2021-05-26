@@ -53,7 +53,8 @@ const MealplanContainer = () => {
 		e.stopPropagation();
 		const itemId = e.target.id;
 		const item = await dispatch(itemActions.editItem({ itemId, attendeeURL, changeBring: "changeBring" }));
-		if (item.errors) setErrors(item.errors);
+		if (item.errors) console.log(item.errors);
+		// setErrors(item.errors);
 		else return;
 	};
 
