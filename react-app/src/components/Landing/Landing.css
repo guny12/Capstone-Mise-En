@@ -1,0 +1,10 @@
+.landing__container {
+	width: auto;
+	height: auto;
+	position: absolute;
+	top: 25vh;
+	bottom: 25vh;
+	left: 20vw;
+	right: 20vw;
+	margin: auto;
+}

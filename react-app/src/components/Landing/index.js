@@ -7,6 +7,7 @@ import EventFormModal from "../EventFormModal";
 import LoginFormModal from "../LoginFormModal";
 import SignUpModal from "../SignUpModal";
 import { Button } from "react-bootstrap";
+import logo from "../../images/mise-en-logo.png";
 
 const Landing = () => {
 	const dispatch = useDispatch();
@@ -40,9 +41,10 @@ const Landing = () => {
 	};
 
 	return (
-		<div>
+		<div className="landing__container">
 			{!userName && (
 				<>
+					<img style={{ borderRadius: "50%" }} src={logo} alt="logo"></img>
 					<h1>{` Welcome to Mise-En`}</h1>
 					<h2>If you login, you can view all the events you are a part of</h2>
 				</>
