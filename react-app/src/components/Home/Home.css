@@ -1,0 +1,10 @@
+.home-page__container {
+	width: auto;
+	height: auto;
+	position: absolute;
+	top: 20vh;
+	bottom: 25vh;
+	left: 20vw;
+	right: 20vw;
+	margin: auto;
+}
