@@ -9,11 +9,12 @@ const PageNotFound = () => {
 			<h1>
 				<a href="/" style={{ color: "darkblue" }}>
 					<div>
-						Whoops! Can't find the attendee or event.
-						<p /> If you used a account with this event before, please log in.
+						<h3>Whoops! Can't access the attendee or event. </h3>
+						<p /> <h3>If you used a account with this event before, please log in using your original access link</h3>
 						<p />
-						<p /> It may have been deleted by the admin. <p />
-						CLICK HERE to go home.
+						<p /> <h3>It may have been deleted by the admin. </h3>
+						<p />
+						<h2>CLICK HERE to go home.</h2>
 					</div>
 				</a>
 			</h1>
