@@ -61,12 +61,13 @@ const EventDetail = () => {
 				<p />
 				{attendee.host === true && (
 					<p>
-						You can send out this url to people to let them create their own attendee:{" "}
+						You can send this url to let people create their own attendee:{" "}
 						<a href={`${window.location.origin}/event/${attendeeURL.slice(0, 15)}`}>{`${
 							window.location.origin
 						}/event/${attendeeURL.slice(0, 15)}`}</a>
 					</p>
 				)}
+
 				{attendeeFormModal}
 			</Card.Body>
 			<Card.Footer className="text-muted" text="white">
