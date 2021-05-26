@@ -3,8 +3,6 @@ from flask_login import current_user
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
-# from app.models import Attendee
-
 
 class Event(db.Model):
     __tablename__ = "events"

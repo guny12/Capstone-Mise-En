@@ -70,10 +70,13 @@ def get_attendee(attendeeURL):
         return {"errors": "Attendee does not exist"}, 400
 
     # if there's an active user, then this attendee url is now assigned to them.
+    # UNLESS they are logged in and already have an attendee URL in this event
     elif attendee.userId is None and userId:
-        attendee.userId = userId
-        attendee.updatedAt = datetime.now()
-        db.session.commit()
+        haveAlready = Attendee.query.filter(Attendee.userId == userId, Attendee.eventId == attendee.eventId).first()
+        if haveAlready is None:
+            attendee.userId = userId
+            attendee.updatedAt = datetime.now()
+            db.session.commit()
 
     # if there was a useraccount this attendee belongs to, force them to log in to access.
     elif attendee.userId is not None and attendee.userId != userId:
