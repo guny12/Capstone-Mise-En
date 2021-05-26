@@ -116,7 +116,6 @@ def get_events():
     upcomingEvents = {}
     previousEvents = {}
     for event in upcoming_events:
-        # print(event.test(), "\n\n\n\n\n\n\n\n\n\n\n\n\n TEST \n\n\n\n\n\n\n\n\n\n")
         upcomingEvents[event.id] = event.to_user_dict()
     for event in previous_events:
         previousEvents[event.id] = event.to_user_dict()

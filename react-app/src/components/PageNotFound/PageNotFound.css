@@ -1,0 +1,8 @@
+.page-not-found__container {
+	width: auto;
+	height: auto;
+	position: absolute;
+	bottom: 50vh;
+	left: 30vw;
+	margin: auto;
+}

@@ -1,9 +1,10 @@
 import React from "react";
 import { Image } from "react-bootstrap";
+import "./PageNotFound.css";
 
 const PageNotFound = () => {
 	return (
-		<>
+		<div className="page-not-found__container">
 			<Image fluid src={"https://cdn.pixabay.com/photo/2014/04/02/16/29/scream-307414__340.png"}></Image>
 			<h1>
 				<a href="/" style={{ color: "darkblue" }}>
@@ -16,7 +17,7 @@ const PageNotFound = () => {
 					</div>
 				</a>
 			</h1>
-		</>
+		</div>
 	);
 };
 
