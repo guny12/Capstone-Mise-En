@@ -1,5 +1,4 @@
 import datetime
-from faker import Faker
 from sqlalchemy import desc
 from flask import Blueprint, request
 from flask_login import current_user, login_required
@@ -7,7 +6,6 @@ from app.models import User, Event, Attendee, db
 from app.forms.event_form import CreateEventForm
 from . import validation_errors_to_error_messages
 
-faker = Faker()
 event_routes = Blueprint("event", __name__)
 
 
@@ -118,9 +116,10 @@ def get_events():
     upcomingEvents = {}
     previousEvents = {}
     for event in upcoming_events:
-        upcomingEvents[event.id] = event.to_dict()
+        # print(event.test(), "\n\n\n\n\n\n\n\n\n\n\n\n\n TEST \n\n\n\n\n\n\n\n\n\n")
+        upcomingEvents[event.id] = event.to_user_dict()
     for event in previous_events:
-        previousEvents[event.id] = event.to_dict()
+        previousEvents[event.id] = event.to_user_dict()
     return {"upcomingEvents": upcomingEvents, "previousEvents": previousEvents}
 
 

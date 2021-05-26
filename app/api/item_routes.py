@@ -1,6 +1,7 @@
 from datetime import datetime
-from flask import Blueprint, request, jsonify
-from flask_login import login_required, current_user
+from flask import Blueprint, request
+
+# from flask_login import login_required, current_user
 from app.models import db, Mealplan, Event, Item, Attendee
 from app.forms.item_form import CreateItemForm
 from . import validation_errors_to_error_messages

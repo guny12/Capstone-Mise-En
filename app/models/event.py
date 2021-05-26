@@ -1,6 +1,9 @@
 from .db import db
+from flask_login import current_user
 from sqlalchemy.orm import relationship
 from datetime import datetime
+
+# from app.models import Attendee
 
 
 class Event(db.Model):
@@ -21,7 +24,12 @@ class Event(db.Model):
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
-    eventAttendees = relationship("Attendee", backref="attendeeEvent", cascade="all, delete")
+    eventAttendees = relationship(
+        "Attendee",
+        primaryjoin="Event.id==Attendee.eventId",
+        backref="attendeeEvent",
+        cascade="all, delete",
+    )
     eventMealplans = relationship("Mealplan", backref="mealplanEvent", cascade="all, delete")
 
     def to_dict(self):
@@ -41,3 +49,27 @@ class Event(db.Model):
             "createdAt": self.createdAt,
             "updatedAt": self.updatedAt,
         }
+
+    def to_user_dict(self):
+        return {
+            "id": self.id,
+            "eventName": self.eventName,
+            "locationName": self.locationName,
+            "date": self.date,
+            "startTime": str(self.startTime),
+            "type": self.type,
+            "attendeeURL": [
+                attendee.attendeeURL for attendee in self.eventAttendees if attendee.userId == current_user.id
+            ]
+            # "attendeeURL": self.eventAttendees.query.filter(
+            #     self.eventAttendees.userId == current_user.id, self.eventAttendees.eventId == self.id
+            # )
+            # .first()
+            # .attendeeURL,
+        }
+
+    # def test(self):
+    #     # return {"attendeeURL": [attendee.id for attendee in self.eventAttendees]}
+    #     return {
+    #         "attendeeURL": [attendee.attendeeURL for attendee in self.eventAttendees if attendee.userId == current_user]
+    #     }
