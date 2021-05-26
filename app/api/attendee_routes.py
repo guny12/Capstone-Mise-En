@@ -77,6 +77,8 @@ def get_attendee(attendeeURL):
             attendee.userId = userId
             attendee.updatedAt = datetime.now()
             db.session.commit()
+        else:
+            return {"errors": "You've already joined this event. Please use your other access link"}, 401
 
     # if there was a useraccount this attendee belongs to, force them to log in to access.
     elif attendee.userId is not None and attendee.userId != userId:
