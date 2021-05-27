@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./Home.css";
-import { getEvents, eventsUnloaded, setCurrentEvent } from "../../store/event";
+import { getEvents, setCurrentEvent } from "../../store/event";
 import { setAttendee, setListAttendees, attendeesUnloaded } from "../../store/attendee";
 import { setMealplan, setListMealplans, mealplansUnloaded } from "../../store/mealplan";
+import { setListItems, itemsUnloaded } from "../../store/item";
 import EventQuickLook from "../EventQuickLook";
 import Slider from "react-slick";
 
@@ -27,22 +28,27 @@ const Home = () => {
 			dispatch(setMealplan({}));
 			dispatch(setListMealplans({}));
 			dispatch(mealplansUnloaded());
+			dispatch(setListItems({}));
+			dispatch(itemsUnloaded());
 		})();
 	}, [dispatch, eventLoaded]);
 
-	let upcomingEventQuickLooks, previousEventQuickLooks;
+	let upcomingEventQuickLooks, previousEventQuickLooks, upcomEvents, prevEvents;
+
 	if (upcomingEvents) {
-		let events = Object.values(upcomingEvents);
-		upcomingEventQuickLooks = events.map((event, i) => {
+		upcomEvents = Object.values(upcomingEvents);
+		upcomingEventQuickLooks = upcomEvents.map((event, i) => {
 			return <EventQuickLook event={event} key={event.id} />;
 		});
 	}
+
 	if (previousEvents) {
-		let events = Object.values(previousEvents);
-		previousEventQuickLooks = events.map((event, i) => {
+		prevEvents = Object.values(previousEvents);
+		previousEventQuickLooks = prevEvents.map((event, i) => {
 			return <EventQuickLook event={event} key={event.id} />;
 		});
 	}
+
 	const settings = {
 		dots: true,
 		infinite: true,
@@ -55,13 +61,14 @@ const Home = () => {
 	if (!eventsLoaded) return null;
 	return (
 		<div className="home-page__container">
-			<h2>{` Welcome ${userName}!`}</h2>
+			<h2 style={{ margin: "0" }}>{` Welcome ${userName}!`}</h2>
 			<p />
-			{upcomingEvents && <h2>Upcoming events:</h2>}
-			{upcomingEvents && <Slider {...settings}>{upcomingEventQuickLooks}</Slider>}
+			{upcomEvents.length < 1 && <h2>You haven't joined upcoming events yet. Go create or join one!</h2>}
+			{upcomEvents.length > 1 && <h2>Upcoming events:</h2>}
+			{upcomEvents.length > 1 && <Slider {...settings}>{upcomingEventQuickLooks}</Slider>}
 			<p />
-			{previousEvents && <h2>Previous events:</h2>}
-			{previousEvents && <Slider {...settings}>{previousEventQuickLooks}</Slider>}
+			{prevEvents.length > 1 && <h2>Previous events:</h2>}
+			{prevEvents.length > 1 && <Slider {...settings}>{previousEventQuickLooks}</Slider>}
 		</div>
 	);
 };
