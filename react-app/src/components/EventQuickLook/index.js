@@ -1,9 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import "./EventQuickLook.css";
 
 const EventQuickLook = ({ event }) => {
+	const history = useHistory();
+
 	return (
 		<Card variant="dark" bg="dark" text="white" className=" text-center">
 			<Card.Header className="event-card-header">
@@ -25,11 +27,13 @@ const EventQuickLook = ({ event }) => {
 					<strong>Location Name:</strong> {event.locationName}
 				</Card.Text>
 				<p />
-				<Button>Event Page</Button>
+				<Button variant="dark" onClick={() => history.push(`event/${event.attendeeURL[0]}`)}>
+					Event Page
+				</Button>
 			</Card.Body>
-			<Card.Footer className="text-muted" text="white">
-				<strong>Last updated:</strong> {event.updatedAt}
-			</Card.Footer>
+			{/* <Card.Footer className="text-muted" text="white">
+				<strong>Last updated:</strong>{event.updatedAt}
+			</Card.Footer> */}
 		</Card>
 	);
 };

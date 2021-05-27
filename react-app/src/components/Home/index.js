@@ -25,7 +25,7 @@ const Home = () => {
 	if (upcomingEvents) {
 		let events = Object.values(upcomingEvents);
 		upcomingEventQuickLooks = events.map((event, i) => {
-			return <EventQuickLook event={event} />;
+			return <EventQuickLook event={event} key={event.id} />;
 		});
 	}
 
