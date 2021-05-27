@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Card } from "react-bootstrap";
-import "./EventDetail.css";
+import { Card, Button } from "react-bootstrap";
+import "./EventQuickLook.css";
 
 const EventQuickLook = ({ event }) => {
 	return (
@@ -25,6 +25,7 @@ const EventQuickLook = ({ event }) => {
 					<strong>Location Name:</strong> {event.locationName}
 				</Card.Text>
 				<p />
+				<Button>Event Page</Button>
 			</Card.Body>
 			<Card.Footer className="text-muted" text="white">
 				<strong>Last updated:</strong> {event.updatedAt}

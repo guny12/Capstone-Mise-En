@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./Home.css";
-import EventFormModal from "../EventFormModal";
 import { getEvents } from "../../store/event";
+import EventQuickLook from "../EventQuickLook";
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -20,14 +20,19 @@ const Home = () => {
 		})();
 	}, [dispatch, eventLoaded]);
 
+	let upcomingEventQuickLooks;
+	if (upcomingEvents) {
+		let events = Object.values(upcomingEvents);
+		upcomingEventQuickLooks = events.map((event, i) => {
+			return <EventQuickLook event={event} />;
+		});
+	}
+
 	if (!eventsLoaded) return null;
 	return (
 		<div className="home-page__container">
-			{loggedIn && (
-				<>
-					<h2>{` Welcome ${userName}!`}</h2>
-				</>
-			)}
+			<h2>{` Welcome ${userName}!`}</h2>
+			{upcomingEvents && upcomingEventQuickLooks}
 		</div>
 	);
 };
