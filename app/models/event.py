@@ -24,8 +24,8 @@ class Event(db.Model):
 
     eventAttendees = relationship(
         "Attendee",
-        primaryjoin="Event.id==Attendee.eventId",
-        backref="attendeeEvent",
+        # primaryjoin="Event.id==Attendee.eventId",
+        backref="attendeeEvents",
         cascade="all, delete",
     )
     eventMealplans = relationship("Mealplan", backref="mealplanEvent", cascade="all, delete")

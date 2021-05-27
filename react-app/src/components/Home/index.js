@@ -21,14 +21,19 @@ const Home = () => {
 		})();
 	}, [dispatch, eventLoaded]);
 
-	let upcomingEventQuickLooks;
+	let upcomingEventQuickLooks, previousEventQuickLooks;
 	if (upcomingEvents) {
 		let events = Object.values(upcomingEvents);
 		upcomingEventQuickLooks = events.map((event, i) => {
 			return <EventQuickLook event={event} key={event.id} />;
 		});
 	}
-
+	if (previousEvents) {
+		let events = Object.values(previousEvents);
+		previousEventQuickLooks = events.map((event, i) => {
+			return <EventQuickLook event={event} key={event.id} />;
+		});
+	}
 	const settings = {
 		dots: true,
 		infinite: true,
@@ -45,6 +50,9 @@ const Home = () => {
 			<p />
 			{upcomingEvents && <h2>Upcoming events:</h2>}
 			{upcomingEvents && <Slider {...settings}>{upcomingEventQuickLooks}</Slider>}
+			<p />
+			{previousEvents && <h2>Previous events:</h2>}
+			{previousEvents && <Slider {...settings}>{previousEventQuickLooks}</Slider>}
 		</div>
 	);
 };
