@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import desc
+from sqlalchemy import asc
 from flask import Blueprint, request
 from flask_login import current_user, login_required
 from app.models import User, Event, Attendee, db
@@ -108,16 +108,20 @@ def get_events():
         return {"errors": "User does not exist"}, 400
     today = datetime.date.today()
     upcoming_events = (
-        Event.query.filter(Event.creatorUserId == user.id, Event.date > today).order_by(desc(Event.date)).all()
+        Event.query.filter(Event.creatorUserId == user.id, Event.date > today).order_by(asc(Event.date)).all()
     )
     previous_events = (
-        Event.query.filter(Event.creatorUserId == user.id, Event.date < today).order_by(desc(Event.date)).all()
+        Event.query.filter(Event.creatorUserId == user.id, Event.date < today).order_by(asc(Event.date)).all()
     )
     upcomingEvents = {}
     previousEvents = {}
+    i = -1
     for event in upcoming_events:
-        upcomingEvents[event.id] = event.to_user_dict()
+        i += 1
+        upcomingEvents[i] = event.to_user_dict()
+    i = -1
     for event in previous_events:
+        i += 1
         previousEvents[event.id] = event.to_user_dict()
     return {"upcomingEvents": upcomingEvents, "previousEvents": previousEvents}
 

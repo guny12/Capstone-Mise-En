@@ -34,7 +34,7 @@ const Home = () => {
 		infinite: true,
 		speed: 1250,
 		slidesToScroll: 1,
-		slidesToShow: 2,
+		slidesToShow: 3,
 		adaptiveHeight: true,
 	};
 
