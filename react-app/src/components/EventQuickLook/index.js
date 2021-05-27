@@ -8,11 +8,11 @@ const EventQuickLook = ({ event }) => {
 
 	return (
 		<Card variant="dark" bg="dark" text="white" className=" text-center">
-			<Card.Header className="event-card-header">
+			<Card.Header className="event-card-header__quicklook">
 				{event.type && event.type} Event: {event.eventName}
 			</Card.Header>
-			<Card.Body>
-				<Card.Text className="event-card-text">
+			<Card.Body className="event-card-body__quicklook">
+				<Card.Text className="event-card-text__quicklook">
 					<strong>Starts at : </strong>
 					{`${event.date.slice(0, 16)},
 					${
@@ -23,7 +23,7 @@ const EventQuickLook = ({ event }) => {
 					${event.startTime.slice(2, 5)}
 					${Number(event.startTime.slice(0, 2)) >= 12 ? "PM" : "AM"}`}
 				</Card.Text>
-				<Card.Text className="event-card-text">
+				<Card.Text className="event-card-text__quicklook">
 					<strong>Location Name:</strong> {event.locationName}
 				</Card.Text>
 				<p />

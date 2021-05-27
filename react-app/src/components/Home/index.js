@@ -35,7 +35,7 @@ const Home = () => {
 		speed: 1250,
 		slidesToScroll: 1,
 		slidesToShow: 3,
-		adaptiveHeight: true,
+		adaptiveHeight: false,
 	};
 
 	if (!eventsLoaded) return null;
