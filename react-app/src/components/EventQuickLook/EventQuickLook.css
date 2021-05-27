@@ -18,10 +18,16 @@
 }
 
 .event-card-body__quicklook {
-	height: max-content;
+	height: auto;
 }
 
 .event-card-header__quicklook {
 	height: 4rem;
 	font-size: 120%;
+}
+
+.card {
+	margin: 10px;
+	border-radius: 20px;
+	height: auto;
 }
