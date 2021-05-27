@@ -5,7 +5,7 @@ import "./EventQuickLook.css";
 
 const EventQuickLook = ({ event }) => {
 	return (
-		<Card variant="dark" bg="dark" text="white" className="mb-2 event-text-center">
+		<Card variant="dark" bg="dark" text="white" className=" text-center">
 			<Card.Header className="event-card-header">
 				{event.type && event.type} Event: {event.eventName}
 			</Card.Header>

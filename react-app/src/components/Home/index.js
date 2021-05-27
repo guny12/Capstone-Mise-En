@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "./Home.css";
 import { getEvents } from "../../store/event";
 import EventQuickLook from "../EventQuickLook";
+import Slider from "react-slick";
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -28,11 +29,22 @@ const Home = () => {
 		});
 	}
 
+	const settings = {
+		dots: true,
+		infinite: true,
+		speed: 1250,
+		slidesToScroll: 1,
+		slidesToShow: 2,
+		adaptiveHeight: true,
+	};
+
 	if (!eventsLoaded) return null;
 	return (
 		<div className="home-page__container">
 			<h2>{` Welcome ${userName}!`}</h2>
-			{upcomingEvents && upcomingEventQuickLooks}
+			<p />
+			{upcomingEvents && <h2>Upcoming events:</h2>}
+			{upcomingEvents && <Slider {...settings}>{upcomingEventQuickLooks}</Slider>}
 		</div>
 	);
 };
