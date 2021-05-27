@@ -7,6 +7,7 @@ import { Nav, Navbar, Button } from "react-bootstrap";
 import * as sessionActions from "../../store/session";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
+import EventFormModal from "../EventFormModal";
 
 const Navigation = () => {
 	const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Navigation = () => {
 		sessionLinks = (
 			<>
 				<ProfileButton user={sessionUser} />
+				{window.location.pathname === "/home" && <EventFormModal />}
 			</>
 		);
 	else {

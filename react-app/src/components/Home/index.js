@@ -26,8 +26,6 @@ const Home = () => {
 			{loggedIn && (
 				<>
 					<h2>{` Welcome ${userName}!`}</h2>
-					<h1>Create your Event and start inviting people</h1>
-					<EventFormModal />
 				</>
 			)}
 		</div>

@@ -154,7 +154,7 @@ const MealplanContainer = () => {
 					<Col sm={6}>
 						<Tab.Content>
 							<Tab.Pane eventKey={targetKey}>
-								<ItemFormModal />
+								{isHost && <ItemFormModal />}
 								<div>{itemsTab && itemsTab}</div>
 							</Tab.Pane>
 						</Tab.Content>
