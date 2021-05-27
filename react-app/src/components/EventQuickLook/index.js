@@ -27,7 +27,12 @@ const EventQuickLook = ({ event }) => {
 					<strong>Location Name:</strong> {event.locationName}
 				</Card.Text>
 				<p />
-				<Button variant="dark" onClick={() => history.push(`event/${event.attendeeURL[0]}`)}>
+				<Button
+					variant="dark"
+					onClick={() => {
+						history.push(`event/${event.attendeeURL[0]}`);
+					}}
+				>
 					Event Page
 				</Button>
 			</Card.Body>

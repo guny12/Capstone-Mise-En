@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./Home.css";
-import { getEvents } from "../../store/event";
+import { getEvents, eventsUnloaded, setCurrentEvent } from "../../store/event";
+import { setAttendee, setListAttendees, attendeesUnloaded } from "../../store/attendee";
+import { setMealplan, setListMealplans, mealplansUnloaded } from "../../store/mealplan";
 import EventQuickLook from "../EventQuickLook";
 import Slider from "react-slick";
 
@@ -18,6 +20,13 @@ const Home = () => {
 		(async () => {
 			let events = await dispatch(getEvents());
 			if (events) setEventsLoaded(true);
+			dispatch(setCurrentEvent({}));
+			dispatch(setAttendee({}));
+			dispatch(setListAttendees({}));
+			dispatch(attendeesUnloaded());
+			dispatch(setMealplan({}));
+			dispatch(setListMealplans({}));
+			dispatch(mealplansUnloaded());
 		})();
 	}, [dispatch, eventLoaded]);
 

@@ -37,24 +37,26 @@ const EventPage = () => {
 	// updates the list of attendees if there is a change in creation or deletion.
 	useEffect(() => {
 		(async () => {
-			if (!attendeesLoaded && attendeeURL.length === 64) await dispatch(attendeeActions.getAttendees(attendeeURL));
+			if (!attendeesLoaded && attendeeURL.length === 64 && exists)
+				await dispatch(attendeeActions.getAttendees(attendeeURL));
 		})();
-	}, [dispatch, attendeesLoaded, attendeeURL]);
+	}, [dispatch, attendeesLoaded, attendeeURL, exists]);
 
 	// updates the event if there is a change
 	useEffect(() => {
 		(async () => {
-			if (!eventLoaded && currentEventId) await dispatch(eventActions.getEvent(currentEventId));
+			if (!eventLoaded && currentEventId && exists) await dispatch(eventActions.getEvent(currentEventId));
 		})();
-	}, [dispatch, eventLoaded, currentEventId]);
+	}, [dispatch, eventLoaded, currentEventId, exists]);
 
 	// updates the list of mealplans if there is a change in creation or deletion.
 	// won't auto refresh if someone else changes it on a different page though.
 	useEffect(() => {
 		(async () => {
-			if (!mealplansLoaded && attendeeURL.length === 64) await dispatch(mealplanActions.getMealplans(attendeeURL));
+			if (!mealplansLoaded && attendeeURL.length === 64 && exists)
+				await dispatch(mealplanActions.getMealplans(attendeeURL));
 		})();
-	}, [dispatch, mealplansLoaded, attendeeURL]);
+	}, [dispatch, mealplansLoaded, attendeeURL, exists]);
 
 	// used to close the logo transition modal if it's there.
 	useEffect(() => {

@@ -5,12 +5,12 @@ export const SET_EVENTLOADEDFALSE = "events/SET_EVENTLOADEDFALSE";
 
 // action creators
 
-const setCurrentEvent = (event) => ({
+export const setCurrentEvent = (event) => ({
 	type: SET_CURRENTEVENT,
 	payload: event,
 });
 
-const eventsUnloaded = () => ({
+export const eventsUnloaded = () => ({
 	type: SET_EVENTLOADEDFALSE,
 });
 

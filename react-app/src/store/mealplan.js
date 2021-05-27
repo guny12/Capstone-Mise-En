@@ -3,17 +3,17 @@ export const SET_LISTMEALPLANS = "mealplan/SET_LISTMEALPLANS";
 export const SET_MEALPLANSLOADEDFALSE = "mealplan/SET_MEALPLANSLOADEDFALSE";
 
 // actions
-const setMealplan = (mealplan) => ({
+export const setMealplan = (mealplan) => ({
 	type: SET_MEALPLAN,
 	payload: mealplan,
 });
 
-const setListMealplans = (mealplans) => ({
+export const setListMealplans = (mealplans) => ({
 	type: SET_LISTMEALPLANS,
 	payload: mealplans,
 });
 
-const mealplansUnloaded = () => ({
+export const mealplansUnloaded = () => ({
 	type: SET_MEALPLANSLOADEDFALSE,
 });
 

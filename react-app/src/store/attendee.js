@@ -5,17 +5,17 @@ export const SET_ATTENDEESLOADEDFALSE = "attendee/SET_ATTENDEESLOADEDFALSE";
 
 // const SET_AttendeeDataOk = "events/SET_AttendeeDataOk";
 
-const setAttendee = (attendee) => ({
+export const setAttendee = (attendee) => ({
 	type: SET_ATTENDEE,
 	payload: attendee,
 });
 
-const setListAttendees = (attendees) => ({
+export const setListAttendees = (attendees) => ({
 	type: SET_LISTATTENDEES,
 	payload: attendees,
 });
 
-const attendeesUnloaded = () => ({
+export const attendeesUnloaded = () => ({
 	type: SET_ATTENDEESLOADEDFALSE,
 });
 // thunk action creators
