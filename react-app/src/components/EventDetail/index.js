@@ -71,7 +71,15 @@ const EventDetail = () => {
 				{attendeeFormModal}
 			</Card.Body>
 			<Card.Footer className="text-muted" text="white">
-				<strong>Last updated:</strong> {event.updatedAt}
+				<strong>Last updated:</strong>
+				{`${event.updatedAt.slice(0, 17)}
+							${
+								Number(event.updatedAt.slice(17, 19)) > 12
+									? "0" + Math.abs(Number(event.updatedAt.slice(17, 19)) - 12)
+									: event.updatedAt.slice(17, 19)
+							}
+							${event.updatedAt.slice(19, 22)}
+							${Number(event.updatedAt.slice(17, 19)) >= 12 ? "PM" : "AM"}`}
 			</Card.Footer>
 		</Card>
 	);
