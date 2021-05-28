@@ -13,10 +13,10 @@ mealplan_routes = Blueprint("mealplan", __name__)
 def get_mealplans(attendeeURL):
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
     if attendee is None:
-        return {"errors": "Attendee does not exist"}
+        return {"errors": "Attendee does not exist, a host may have deleted it. Please refresh page"}, 400
     Mealplans = Mealplan.query.filter(Mealplan.eventId == attendee.eventId).all()
     if Mealplans is None:
-        return {"errors": "Event does not exist"}, 400
+        return {"errors": "Event does not exist, a host may have deleted it. Please refresh page"}, 400
     mealplans = {}
     for mealplan in Mealplans:
         mealplans[mealplan.id] = mealplan.to_dict()
@@ -29,10 +29,10 @@ def get_mealplans(attendeeURL):
 def get_mealplan(mealplanId, attendeeURL):
     attendee = Attendee.query.filter(Attendee.attendeeURL == attendeeURL).first()
     if attendee is None:
-        return {"errors": "Attendee does not exist"}
+        return {"errors": "Attendee does not exist, a host may have deleted it. Please refresh page"}, 400
     mealplan = Mealplan.query.filter(Mealplan.id == mealplanId).first()
     if mealplan is None:
-        return {"errors": "Mealplan does not exist"}, 400
+        return {"errors": "Mealplan does not exist, a host may have deleted it. Please refresh page"}, 400
     return {"CurrentMealplan": mealplan.to_dict()}
 
 
@@ -72,7 +72,7 @@ def delete_mealplan(eventId):
     mealplanId = request.json["mealplanId"]
     mealplan = Mealplan.query.filter(Mealplan.id == mealplanId, Mealplan.eventId == eventId).first()
     if mealplan is None:
-        return {"errors": "Mealplan does not exist"}, 400
+        return {"errors": "Mealplan does not exist, a host may have deleted it. Please refresh page"}, 400
     db.session.delete(mealplan)
     db.session.commit()
     return {"message": "success"}
@@ -90,7 +90,7 @@ def edit_mealplan(eventId):
     mealplanId = request.json["mealplanId"]
     mealplan = Mealplan.query.filter(Mealplan.id == mealplanId, Mealplan.eventId == eventId).first()
     if mealplan is None:
-        return {"errors": "Mealplan does not exist"}, 400
+        return {"errors": "Mealplan does not exist, a host may have deleted it. Please refresh page"}, 400
     name = request.json["name"]
     if len(name) >= 1 and len(name) <= 100:
         mealplan.name = name

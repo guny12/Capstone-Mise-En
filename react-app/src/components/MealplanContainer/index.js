@@ -19,7 +19,6 @@ const MealplanContainer = () => {
 	const listItems = useSelector((state) => state.item.listItems);
 	const attendeeURL = window.location.pathname.split("/")[2];
 	const eventId = useSelector((state) => state.event.currentEvent?.id);
-	const [errors, setErrors] = useState([]);
 
 	useEffect(() => {
 		(async () => {
@@ -37,7 +36,7 @@ const MealplanContainer = () => {
 		e.stopPropagation();
 		const mealplanId = e.target.id;
 		const message = await dispatch(mealplanActions.deleteMealplan({ eventId, attendeeURL, mealplanId }));
-		if (message.errors) setErrors(message.errors);
+		if (message.errors) window.alert(message.errors);
 		else await dispatch(itemActions.itemsUnloaded());
 	};
 
@@ -45,13 +44,12 @@ const MealplanContainer = () => {
 		e.stopPropagation();
 		const itemId = e.target.id;
 		const mealplanId = await dispatch(itemActions.deleteItem({ attendeeURL, itemId }));
-		if (mealplanId.errors) setErrors(mealplanId.errors);
+		if (mealplanId.errors) window.alert(mealplanId.errors);
 		else await dispatch(itemActions.getItems({ mealplanId, attendeeURL }));
 	};
 
 	const setBring = async (e) => {
 		e.stopPropagation();
-		setErrors([]);
 		const itemId = e.target.id;
 		const item = await dispatch(itemActions.editItem({ itemId, attendeeURL, changeBring: "changeBring" }));
 		if (item.errors) window.alert(item.errors);
@@ -146,7 +144,6 @@ const MealplanContainer = () => {
 					<Col sm={4}>
 						<Nav variant="pills" className="flex-column">
 							{isHost && <MealplanFormModal />}
-
 							{mealplanNavItemList ? mealplanNavItemList : null}
 						</Nav>
 					</Col>
