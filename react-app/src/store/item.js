@@ -58,6 +58,7 @@ export const editItem = (itemIdAndCurrentAttendeeURLandItemData) => async (dispa
 // delete item
 export const deleteItem = (itemIdAndCurrentAttendeeURL) => async (dispatch) => {
 	const { itemId, attendeeURL } = itemIdAndCurrentAttendeeURL;
+	console.log(itemId, "ITEM ID");
 	const response = await fetch(`/api/item/${itemId}`, {
 		method: "DELETE",
 		headers: { "Content-Type": "application/json" },

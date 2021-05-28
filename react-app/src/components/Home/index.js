@@ -10,7 +10,7 @@ import Slider from "react-slick";
 
 const Home = () => {
 	const dispatch = useDispatch();
-	const loggedIn = useSelector((state) => state.session.user?.id);
+	// const loggedIn = useSelector((state) => state.session.user?.id);
 	const userName = useSelector((state) => state.session.user?.username);
 	const upcomingEvents = useSelector((state) => state.event.upcomingEvents);
 	const previousEvents = useSelector((state) => state.event.previousEvents);

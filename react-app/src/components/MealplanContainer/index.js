@@ -69,7 +69,7 @@ const MealplanContainer = () => {
 						{isHost && <EditMealplanFormModal eventId={eventId} mealplanName={mealplan.name} />}
 						{isHost && (
 							<Button variant="danger" id={mealplan.id} onClick={(e) => deleteMealplan(e)}>
-								<i className="far fa-trash-alt"></i>
+								<i id={mealplan.id} className="far fa-trash-alt"></i>
 							</Button>
 						)}
 					</Nav.Link>
@@ -107,7 +107,7 @@ const MealplanContainer = () => {
 							{isHost && (
 								<Button variant="danger" id={item.id} onClick={(e) => deleteItem(e)}>
 									{" "}
-									<i className="far fa-trash-alt"></i>
+									<i id={item.id} className="far fa-trash-alt"></i>
 								</Button>
 							)}
 						</Toast.Body>
@@ -136,7 +136,7 @@ const MealplanContainer = () => {
 				id="mealplan-container"
 				activeKey={targetKey}
 				onSelect={(mealplanId, e) => {
-					if (e.type === "keydown" && e.keyCode != 32) return;
+					if (e.type === "keydown" && e.keyCode !== 32) return;
 					selectedMealplan(mealplanId);
 				}}
 			>
