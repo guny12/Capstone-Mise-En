@@ -68,7 +68,10 @@ const EventDetail = () => {
 					</p>
 				)}
 
-				{attendeeFormModal}
+				{(event.availableSpots === null || event.availableSpots >= 1) && attendeeFormModal}
+				{!(event.availableSpots === null || event.availableSpots >= 1) && (
+					<p>Contact host to see if they can increase number of spots</p>
+				)}
 			</Card.Body>
 			<Card.Footer className="text-muted" text="white">
 				<strong>Last updated:</strong>

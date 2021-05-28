@@ -25,7 +25,7 @@ const EventPage = () => {
 		(async () => {
 			try {
 				const eventId = await dispatch(attendeeActions.getAttendee(attendeeURL));
-				const event = await dispatch(eventActions.getEvent(eventId));
+				var event = await dispatch(eventActions.getEvent(eventId));
 				if (eventId && event) setExists(true);
 				setEventAndAttendeeLoaded(true);
 			} catch {
