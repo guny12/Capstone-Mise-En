@@ -14,6 +14,7 @@ const MealplanForm = () => {
 	const currentEvent = useSelector((state) => state.event?.currentEvent);
 
 	const handleSubmit = async (e) => {
+		e.stopPropagation();
 		e.preventDefault();
 		const eventId = currentEvent.id;
 		const data = await dispatch(mealplanActions.createMealplan({ name, attendeeURL, eventId }));
@@ -22,7 +23,7 @@ const MealplanForm = () => {
 	};
 
 	return (
-		<Form onSubmit={handleSubmit} className="mealplan__Form">
+		<Form onSubmit={(e) => handleSubmit(e)} className="mealplan__Form">
 			{errors.length > 0 && <h5>{errors} </h5>}
 			<Form.Group controlId="formBasicName">
 				<Form.Label>Mealplan Name </Form.Label>
@@ -31,6 +32,7 @@ const MealplanForm = () => {
 					autoComplete="name"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
+					onKeyDown={(e) => console.log(e)}
 					required
 					maxLength="100"
 					placeholder="Enter Mealplan Name"

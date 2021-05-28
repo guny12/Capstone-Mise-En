@@ -15,8 +15,9 @@ const EditMealplanForm = ({ eventId, mealplanName }) => {
 	const mealplanId = useSelector((state) => state.mealplan?.currentMealplan?.id);
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
 		e.stopPropagation();
+		e.preventDefault();
+
 		const message = await dispatch(mealplanActions.editMealplan({ name, eventId, attendeeURL, mealplanId }));
 		if (message.errors) setErrors(message.errors);
 		else {
@@ -29,7 +30,7 @@ const EditMealplanForm = ({ eventId, mealplanName }) => {
 		<Form className="mealplan__Form">
 			{errors.length > 0 && <h5>{errors} </h5>}
 			<Form.Group controlId="formBasicName">
-				<Form.Label>Mealplan Name </Form.Label>
+				<Form.Label>Edit Mealplan Name </Form.Label>
 				<Form.Control
 					type="text"
 					autoComplete="name"
@@ -46,7 +47,7 @@ const EditMealplanForm = ({ eventId, mealplanName }) => {
 				/>
 			</Form.Group>
 			{show && (
-				<Button variant="primary" onClick={handleSubmit}>
+				<Button variant="primary" type="submit" onClick={handleSubmit}>
 					Update Name
 				</Button>
 			)}
