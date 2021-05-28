@@ -7,24 +7,25 @@ const EventQuickLook = ({ event }) => {
 	const history = useHistory();
 
 	return (
-		<Card variant="dark" bg="dark" text="white" className=" text-center">
+		<Card variant="dark" bg="dark" text="white" className=" text-center home-card">
 			<Card.Header className="event-card-header__quicklook">
 				{event.type && event.type} Event: {event.eventName}
 			</Card.Header>
 			<Card.Body className="event-card-body__quicklook">
 				<Card.Text className="event-card-text__quicklook">
 					<strong>Starts at : </strong>
-					{`${event.date.slice(0, 16)},
+					<p>{`${event.date.slice(0, 16)},
 					${
 						Number(event.startTime.slice(0, 2)) > 12
 							? "0" + Math.abs(Number(event.startTime.slice(0, 2)) - 12)
 							: event.startTime.slice(0, 2)
 					}
 					${event.startTime.slice(2, 5)}
-					${Number(event.startTime.slice(0, 2)) >= 12 ? "PM" : "AM"}`}
+					${Number(event.startTime.slice(0, 2)) >= 12 ? "PM" : "AM"}`}</p>
 				</Card.Text>
 				<Card.Text className="event-card-text__quicklook">
-					<strong>Location Name:</strong> {event.locationName}
+					<strong>Location Name:</strong>
+					<p>{event.locationName}</p>
 				</Card.Text>
 				<p />
 				<Button
@@ -33,7 +34,7 @@ const EventQuickLook = ({ event }) => {
 						history.push(`event/${event.attendeeURL[0]}`);
 					}}
 				>
-					Event Page
+					<i class="fas fa-external-link-alt"></i>
 				</Button>
 			</Card.Body>
 			{/* <Card.Footer className="text-muted" text="white">
