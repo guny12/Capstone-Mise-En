@@ -50,7 +50,7 @@ export const editItem = (itemIdAndCurrentAttendeeURLandItemData) => async (dispa
 	});
 	if (response.ok) {
 		const item = await response.json();
-		dispatch(itemsUnloaded());
+		if (!item.reload) await dispatch(itemsUnloaded());
 		return item;
 	} else return response.json();
 };

@@ -49,7 +49,6 @@ const EditMealplanForm = ({ eventId, mealplanName }) => {
 							setName(
 								e.target.value.slice(0, e.target.selectionStart) + " " + e.target.value.slice(e.target.selectionStart)
 							);
-							console.log(e.target);
 							setShow(true);
 						}
 					}}

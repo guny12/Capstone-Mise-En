@@ -53,7 +53,7 @@ const MealplanContainer = () => {
 		const itemId = e.target.id;
 		const item = await dispatch(itemActions.editItem({ itemId, attendeeURL, changeBring: "changeBring" }));
 		if (item.errors) window.alert(item.errors);
-		else return;
+		else await dispatch(itemActions.getItems({ mealplanId, attendeeURL }));
 	};
 
 	let mealplanNavItemList, mealplans, itemsTab;
