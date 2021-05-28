@@ -51,7 +51,8 @@ const Landing = () => {
 				</>
 			)}
 			<p />
-			<h2>Or just create your Event and start inviting people!</h2>
+			<h3>Or just create your Event and start inviting people!</h3>
+			<h3>Just save and use your unique URL once the event is created to access it.</h3>
 			<div style={{ margin: "40px", marginLeft: "10vw" }}>
 				{" "}
 				<EventFormModal />
