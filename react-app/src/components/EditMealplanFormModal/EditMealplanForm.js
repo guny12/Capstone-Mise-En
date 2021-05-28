@@ -27,7 +27,13 @@ const EditMealplanForm = ({ eventId, mealplanName }) => {
 	};
 
 	return (
-		<Form className="mealplan__Form">
+		<Form
+			className="mealplan__Form"
+			onSubmit={(e) => {
+				e.preventDefault();
+				if (!document.getElementById("editMealplanButton")) return;
+			}}
+		>
 			{errors.length > 0 && <h5>{errors} </h5>}
 			<Form.Group controlId="formBasicName">
 				<Form.Label>Edit Mealplan Name </Form.Label>
@@ -47,7 +53,7 @@ const EditMealplanForm = ({ eventId, mealplanName }) => {
 				/>
 			</Form.Group>
 			{show && (
-				<Button variant="primary" type="submit" onClick={handleSubmit}>
+				<Button id="editMealplanButton" variant="primary" type="submit" onClick={handleSubmit}>
 					Update Name
 				</Button>
 			)}
