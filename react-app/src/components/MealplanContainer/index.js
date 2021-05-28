@@ -71,7 +71,7 @@ const MealplanContainer = () => {
 						{isHost && <EditMealplanFormModal eventId={eventId} mealplanName={mealplan.name} />}
 						{isHost && (
 							<Button variant="danger" id={mealplan.id} onClick={(e) => deleteMealplan(e)}>
-								Delete
+								<i class="far fa-trash-alt"></i>
 							</Button>
 						)}
 					</Nav.Link>
@@ -109,7 +109,7 @@ const MealplanContainer = () => {
 							{isHost && (
 								<Button variant="danger" id={item.id} onClick={(e) => deleteItem(e)}>
 									{" "}
-									Delete
+									<i class="far fa-trash-alt"></i>
 								</Button>
 							)}
 						</Toast.Body>

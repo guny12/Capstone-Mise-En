@@ -9,7 +9,7 @@ function EditItemFormModal({ itemId }) {
 	return (
 		<>
 			<Button id="EditItemButton" variant="secondary" onClick={() => setShowModal(true)}>
-				Edit Item
+				<i class="far fa-edit"></i>
 			</Button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>

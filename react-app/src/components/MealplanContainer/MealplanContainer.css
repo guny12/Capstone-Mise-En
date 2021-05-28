@@ -51,6 +51,7 @@ small {
 	width: 520px;
 	border-radius: 20px;
 	display: flex;
+	box-shadow: -1px -1px 9px 0px #0a245a;
 }
 
 .toast-div {

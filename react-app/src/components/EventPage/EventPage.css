@@ -43,3 +43,7 @@
 	grid-area: menu-plan-and-items;
 	margin: 10px;
 }
+
+.accordion .card {
+	margin: 0px;
+}
