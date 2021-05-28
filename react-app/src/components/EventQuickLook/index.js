@@ -27,7 +27,7 @@ const EventQuickLook = ({ event }) => {
 					<strong>Location Name:</strong>
 					<p>{event.locationName}</p>
 				</Card.Text>
-				<p />
+				<p className="quicklook-separator" />
 				<Button
 					variant="dark"
 					onClick={() => {

@@ -6,7 +6,6 @@ body {
 
 .btn-dark {
 	color: white;
-	/* background-color: rgba(0, 64, 150, 255); */
 	border: 5px rgba(236, 241, 249, 255) solid;
 	background-image: url("./images/swoosh1-cropped.png");
 	height: 70px;
@@ -23,6 +22,11 @@ body {
 	font-size: large;
 	/* animation: fade-in 2s linear; */
 	box-sizing: border-box;
+}
+
+:is(.Event-Page-Container) button {
+	margin: 5px;
+	box-shadow: -1px -1px 5px 0px #0a245a;
 }
 
 strong {

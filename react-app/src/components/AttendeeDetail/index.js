@@ -33,7 +33,7 @@ const AttendeeDetail = () => {
 			{<ul>{errors && errors}</ul>}
 			<Card.Header className="attendee-card-header">
 				{attendee.host === true && <Badge variant="light">Host</Badge>}
-				<p>Name: {attendee?.name} </p>
+				<p>Hello {attendee?.name}!</p>
 			</Card.Header>
 			<Card.Body className="attendee-card-body">
 				{isGoing ? (
