@@ -115,7 +115,7 @@ def edit_items(itemId):
         item.whoBring = attendee.attendeeURL if item.whoBring is None else None
         item.updatedAt = datetime.now()
         db.session.commit()
-        return {"CurrentItem": item.to_dict(), "reload": True}
+        return {"CurrentItem": item.to_dict()}
     if attendee.host is False:
         return {"errors": "No permission to modify this Event"}, 400
     mealplan = Mealplan.query.filter(Mealplan.eventId == attendee.eventId, Mealplan.id == item.mealPlanId).first()

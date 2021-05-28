@@ -50,7 +50,7 @@ export const editItem = (itemIdAndCurrentAttendeeURLandItemData) => async (dispa
 	});
 	if (response.ok) {
 		const item = await response.json();
-		if (!item.reload) await dispatch(itemsUnloaded());
+		await dispatch(itemsUnloaded());
 		return item;
 	} else return response.json();
 };
@@ -58,7 +58,6 @@ export const editItem = (itemIdAndCurrentAttendeeURLandItemData) => async (dispa
 // delete item
 export const deleteItem = (itemIdAndCurrentAttendeeURL) => async (dispatch) => {
 	const { itemId, attendeeURL } = itemIdAndCurrentAttendeeURL;
-	console.log(itemId, "ITEM ID");
 	const response = await fetch(`/api/item/${itemId}`, {
 		method: "DELETE",
 		headers: { "Content-Type": "application/json" },
@@ -82,7 +81,7 @@ const itemReducer = (itemState = initialState, action) => {
 			const { Items } = action.payload;
 			return { ...itemState, listItems: Items, loaded: true };
 		case SET_ITEMSLOADEDFALSE:
-			return { ...itemState, listItems: null, loaded: false };
+			return { ...itemState, loaded: false };
 		default:
 			return itemState;
 	}
