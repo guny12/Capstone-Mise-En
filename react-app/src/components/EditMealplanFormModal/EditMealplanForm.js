@@ -35,16 +35,22 @@ const EditMealplanForm = ({ eventId, mealplanName }) => {
 			}}
 		>
 			{errors.length > 0 && <h5>{errors} </h5>}
-			<Form.Group controlId="formBasicName">
+			<Form.Group controlId="formBasicMealplanName">
 				<Form.Label>Edit Mealplan Name </Form.Label>
 				<Form.Control
 					type="text"
-					autoComplete="name"
 					value={name}
 					onChange={(e) => {
-						e.stopPropagation();
 						setName(e.target.value);
 						setShow(true);
+					}}
+					onKeyDown={(e) => {
+						if (e.key === " ") {
+							setName(
+								e.target.value.slice(0, e.target.selectionStart) + " " + e.target.value.slice(e.target.selectionStart)
+							);
+							setShow(true);
+						}
 					}}
 					required
 					minLength="1"

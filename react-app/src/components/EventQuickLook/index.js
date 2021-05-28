@@ -34,7 +34,7 @@ const EventQuickLook = ({ event }) => {
 						history.push(`event/${event.attendeeURL[0]}`);
 					}}
 				>
-					<i class="fas fa-external-link-alt"></i>
+					<i className="fas fa-external-link-alt"></i>
 				</Button>
 			</Card.Body>
 			{/* <Card.Footer className="text-muted" text="white">

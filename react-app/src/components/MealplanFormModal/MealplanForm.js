@@ -32,7 +32,6 @@ const MealplanForm = () => {
 					autoComplete="name"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
-					onKeyDown={(e) => console.log(e)}
 					required
 					maxLength="100"
 					placeholder="Enter Mealplan Name"
