@@ -72,3 +72,21 @@ small {
 .toast-header {
 	background-color: transparent;
 }
+
+.nav-item .nav-link {
+	display: grid;
+	grid-template-columns: 60% 20% 20%;
+	grid-template-areas: "mealtext edit delete";
+}
+
+.nav-item .nav-link .btn-secondary {
+	grid-area: edit;
+}
+
+.nav-item .nav-link text {
+	grid-area: mealtext;
+}
+
+.nav-item .nav-link .btn-danger {
+	grid-area: delete;
+}
