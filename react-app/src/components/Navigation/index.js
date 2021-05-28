@@ -8,6 +8,7 @@ import * as sessionActions from "../../store/session";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import EventFormModal from "../EventFormModal";
+import logo from "../../images/mise-en-logo.png";
 
 const Navigation = () => {
 	const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const Navigation = () => {
 		<Navbar className="navBar" variant="dark" sticky="top">
 			<Nav className="mr-auto">
 				<NavLink to={"/"} className="nav-link">
-					Home
+					<img id="home__Logo" src={logo} alt="mise-en-logo__Home"></img>
 				</NavLink>
 				{sessionLinks}
 			</Nav>
