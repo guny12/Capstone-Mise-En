@@ -51,10 +51,10 @@ const MealplanContainer = () => {
 
 	const setBring = async (e) => {
 		e.stopPropagation();
+		setErrors([]);
 		const itemId = e.target.id;
 		const item = await dispatch(itemActions.editItem({ itemId, attendeeURL, changeBring: "changeBring" }));
-		if (item.errors) console.log(item.errors);
-		// setErrors(item.errors);
+		if (item.errors) window.alert(item.errors);
 		else return;
 	};
 
@@ -133,7 +133,6 @@ const MealplanContainer = () => {
 
 	return (
 		<>
-			{errors && <ul>{errors && errors.map((error, idx) => <li key={idx}>{error}</li>)}</ul>}
 			<Tab.Container
 				transition={false}
 				id="mealplan-container"

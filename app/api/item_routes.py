@@ -110,6 +110,8 @@ def edit_items(itemId):
     if item == "error":
         return {"errors": "Item does not exist"}, 400
     if "changeBring" in body:
+        if item.whoBring is not None and item.whoBring != attendee.attendeeURL:
+            return {"errors": "Someone else just said they're going to bring it"}, 400
         item.whoBring = attendee.attendeeURL if item.whoBring is None else None
         item.updatedAt = datetime.now()
         db.session.commit()
