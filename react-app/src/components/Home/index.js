@@ -63,12 +63,12 @@ const Home = () => {
 		<div className="home-page__container">
 			<h2 style={{ margin: "0" }}>{` Welcome ${userName}!`}</h2>
 			<p />
-			{upcomEvents.length < 1 && <h2>You haven't joined upcoming events yet. Go create or join one!</h2>}
-			{upcomEvents.length > 1 && <h2>Upcoming events:</h2>}
-			{upcomEvents.length > 1 && <Slider {...settings}>{upcomingEventQuickLooks}</Slider>}
+			{upcomEvents.length <= 1 && <h2>You haven't joined upcoming events yet. Go create or join one!</h2>}
+			{upcomEvents.length >= 1 && <h2>Upcoming events:</h2>}
+			{upcomEvents.length >= 1 && <Slider {...settings}>{upcomingEventQuickLooks}</Slider>}
 			<p />
-			{prevEvents.length > 1 && <h2>Previous events:</h2>}
-			{prevEvents.length > 1 && <Slider {...settings}>{previousEventQuickLooks}</Slider>}
+			{prevEvents.length >= 1 && <h2>Previous events:</h2>}
+			{prevEvents.length >= 1 && <Slider {...settings}>{previousEventQuickLooks}</Slider>}
 		</div>
 	);
 };
