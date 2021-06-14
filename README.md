@@ -11,3 +11,7 @@ Anyone on the site can create an event, which provides a unique URL generated us
 There is an option to register an account, though the application is usable without it. Logged in users have access to carousels which displays their upcoming or previous events. Registered users also have an additional layer of authentication when they access their event instance, prohibiting anyone but the user from accessing it.
 
 Accessing an event using the unique URL allows the user to view event details, other attendees, change going or not status, and view that event's planned menu and required items.
+
+## Next steps
+
+It was really fun developing Mise-En, the majority of which was built in 2 weeks. This was the first non-clone solo project I've worked on, and I've grown a lot with each iteration and architecture/design changes. My next steps are in the [To Do section](https://github.com/guny12/Capstone-Mise-En/projects/1) of my repo. I'm sure it will keep growing on as more feature ideas and technologies get added.
