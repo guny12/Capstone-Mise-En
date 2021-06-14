@@ -52,17 +52,3 @@ def seed_items():
 
         db.session.add(item)
     db.session.commit()
-
-
-list = [
-    {name: "Square Circle New York", address: "80 Nassau St"},
-    {name: "The Wat", address: "291 Broadway, New York, NY 10007"},
-]
-
-
-def seed_gyms():
-    for i in range(2):
-        gym = Gym(name=list[i].name, address=list[i].address)
-
-        db.session.add(gym)
-    db.session.commit()
